@@ -9,9 +9,9 @@ extension ContextX on BuildContext {
   TextTheme get textStyles => Theme.of(this).textTheme;
 
   double get screenWidth => MediaQuery.sizeOf(this).width;
-  bool get isCompact => screenWidth < Breakpoints.compact;
-  bool get isMedium =>
-      screenWidth >= Breakpoints.compact && screenWidth < Breakpoints.medium;
+  double get screenHeight => MediaQuery.sizeOf(this).height;
   bool get isWide => screenWidth >= Breakpoints.medium;
+  bool get isExpanded => screenWidth >= Breakpoints.expanded;
+  bool get useRail => isWide && screenHeight >= Breakpoints.minRailHeight;
   bool get reduceMotion => MediaQuery.disableAnimationsOf(this);
 }

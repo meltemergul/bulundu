@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:bulundu/app/theme/app_shadows.dart';
 import 'package:bulundu/app/theme/app_spacing.dart';
+import 'package:bulundu/features/listings/models/listing.dart';
 import 'package:bulundu/features/listings/models/listing_category.dart';
 import 'package:bulundu/shared/extensions/context_x.dart';
 
@@ -19,107 +21,218 @@ extension ListingCategoryL10n on ListingCategory {
       ListingCategory.other => l10n.categoryOther,
     };
   }
+
+  IconData get iconData => switch (this) {
+    ListingCategory.wallet => Icons.account_balance_wallet_outlined,
+    ListingCategory.phone => Icons.phone_android_outlined,
+    ListingCategory.keys => Icons.key_outlined,
+    ListingCategory.bag => Icons.backpack_outlined,
+    ListingCategory.documents => Icons.description_outlined,
+    ListingCategory.electronics => Icons.devices_outlined,
+    ListingCategory.accessories => Icons.watch_outlined,
+    ListingCategory.clothing => Icons.checkroom_outlined,
+    ListingCategory.pet => Icons.pets_outlined,
+    ListingCategory.other => Icons.category_outlined,
+  };
 }
 
 class CategoryChipBar extends StatelessWidget {
   const CategoryChipBar({
     super.key,
+    required this.selectedType,
     required this.selectedCategory,
-    required this.onSelected,
+    required this.onTypeSelected,
+    required this.onCategorySelected,
   });
 
+  final ListingType? selectedType;
   final ListingCategory? selectedCategory;
-  final ValueChanged<ListingCategory?> onSelected;
+  final ValueChanged<ListingType?> onTypeSelected;
+  final ValueChanged<ListingCategory?> onCategorySelected;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.colors;
+    final brightness = Theme.of(context).brightness;
+
+    final isAll = selectedType == null && selectedCategory == null;
+
+    final quickChips = [
+      _ChipItem(
+        label: l10n.filterAll,
+        icon: Icons.apps,
+        isSelected: isAll,
+        iconColor: colors.primary,
+        onTap: () {
+          onTypeSelected(null);
+          onCategorySelected(null);
+        },
+      ),
+      _ChipItem(
+        label: l10n.listingTypeLost,
+        icon: Icons.crisis_alert,
+        isSelected: selectedType == ListingType.lost,
+        iconColor: colors.secondary,
+        onTap: () {
+          onCategorySelected(null);
+          onTypeSelected(
+            selectedType == ListingType.lost ? null : ListingType.lost,
+          );
+        },
+      ),
+      _ChipItem(
+        label: l10n.listingTypeFound,
+        icon: Icons.inventory_2_outlined,
+        isSelected: selectedType == ListingType.found,
+        iconColor: colors.primary,
+        onTap: () {
+          onCategorySelected(null);
+          onTypeSelected(
+            selectedType == ListingType.found ? null : ListingType.found,
+          );
+        },
+      ),
+      _ChipItem(
+        label: l10n.categoryPet,
+        icon: Icons.pets_outlined,
+        isSelected: selectedCategory == ListingCategory.pet,
+        iconColor: colors.primary,
+        onTap: () {
+          onTypeSelected(null);
+          onCategorySelected(
+            selectedCategory == ListingCategory.pet
+                ? null
+                : ListingCategory.pet,
+          );
+        },
+      ),
+      _ChipItem(
+        label: l10n.categoryElectronics,
+        icon: Icons.devices_outlined,
+        isSelected: selectedCategory == ListingCategory.electronics,
+        iconColor: colors.primary,
+        onTap: () {
+          onTypeSelected(null);
+          onCategorySelected(
+            selectedCategory == ListingCategory.electronics
+                ? null
+                : ListingCategory.electronics,
+          );
+        },
+      ),
+      _ChipItem(
+        label: l10n.categoryWallet,
+        icon: Icons.account_balance_wallet_outlined,
+        isSelected: selectedCategory == ListingCategory.wallet,
+        iconColor: colors.primary,
+        onTap: () {
+          onTypeSelected(null);
+          onCategorySelected(
+            selectedCategory == ListingCategory.wallet
+                ? null
+                : ListingCategory.wallet,
+          );
+        },
+      ),
+      _ChipItem(
+        label: l10n.categoryKeys,
+        icon: Icons.key_outlined,
+        isSelected: selectedCategory == ListingCategory.keys,
+        iconColor: colors.primary,
+        onTap: () {
+          onTypeSelected(null);
+          onCategorySelected(
+            selectedCategory == ListingCategory.keys
+                ? null
+                : ListingCategory.keys,
+          );
+        },
+      ),
+    ];
 
     return SizedBox(
-      height: AppSpacing.minTouchTarget,
-      child: ListView(
+      height: 48,
+      child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: AppSpacing.sm),
-            child: _CategoryPill(
-              selected: selectedCategory == null,
-              label: l10n.filterAll,
-              onTap: () => onSelected(null),
-              colors: colors,
-            ),
-          ),
-          ...ListingCategory.values.map((cat) {
-            final isSelected = selectedCategory == cat;
-            return Padding(
-              padding: const EdgeInsets.only(right: AppSpacing.sm),
-              child: _CategoryPill(
-                selected: isSelected,
-                icon: cat.icon,
-                label: cat.localizedLabel(context),
-                onTap: () => onSelected(isSelected ? null : cat),
-                colors: colors,
+        itemCount: quickChips.length,
+        separatorBuilder: (_, _) => const SizedBox(width: AppSpacing.sm),
+        itemBuilder: (_, i) {
+          final item = quickChips[i];
+          return Center(
+            child: Semantics(
+              selected: item.isSelected,
+              button: true,
+              label: item.label,
+              child: InkWell(
+                onTap: item.onTap,
+                borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 150),
+                  constraints: const BoxConstraints(minHeight: 36),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.md,
+                    vertical: AppSpacing.xs,
+                  ),
+                  decoration: BoxDecoration(
+                    color: item.isSelected
+                        ? colors.primary
+                        : colors.surfaceContainerLowest,
+                    borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
+                    boxShadow: item.isSelected
+                        ? null
+                        : AppShadows.soft(brightness),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        item.icon,
+                        size: 16,
+                        color: item.isSelected
+                            ? colors.onPrimary
+                            : item.iconColor,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        item.label,
+                        style:
+                            (context.textStyles.labelMedium ??
+                                    const TextStyle(fontSize: 12))
+                                .copyWith(
+                                  color: item.isSelected
+                                      ? colors.onPrimary
+                                      : colors.onSurfaceVariant,
+                                  fontWeight: item.isSelected
+                                      ? FontWeight.w700
+                                      : FontWeight.w600,
+                                ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            );
-          }),
-        ],
+            ),
+          );
+        },
       ),
     );
   }
 }
 
-class _CategoryPill extends StatelessWidget {
-  const _CategoryPill({
-    required this.selected,
+class _ChipItem {
+  const _ChipItem({
     required this.label,
+    required this.icon,
+    required this.isSelected,
+    required this.iconColor,
     required this.onTap,
-    required this.colors,
-    this.icon,
   });
 
-  final bool selected;
   final String label;
+  final IconData icon;
+  final bool isSelected;
+  final Color iconColor;
   final VoidCallback onTap;
-  final ColorScheme colors;
-  final IconData? icon;
-
-  @override
-  Widget build(BuildContext context) {
-    final bg = selected ? colors.primary : colors.surface;
-    final fg = selected ? colors.onPrimary : colors.onSurface;
-    final borderColor = selected ? colors.primary : colors.outlineVariant;
-
-    return Material(
-      color: bg,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
-        side: BorderSide(color: borderColor),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.md,
-            vertical: AppSpacing.sm,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (icon != null) ...[
-                Icon(icon, size: AppSpacing.md, color: fg),
-                const SizedBox(width: AppSpacing.xs),
-              ],
-              Text(
-                label,
-                style: context.textStyles.labelLarge?.copyWith(color: fg),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

@@ -1,6 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:bulundu/app/theme/app_colors.dart';
+import 'package:bulundu/app/theme/app_shadows.dart';
 import 'package:bulundu/app/theme/app_spacing.dart';
 import 'package:bulundu/features/listings/models/listing.dart';
 import 'package:bulundu/features/listings/presentation/widgets/category_chip_bar.dart';
@@ -9,6 +11,7 @@ import 'package:bulundu/features/moderation/models/report_reason.dart';
 import 'package:bulundu/features/moderation/presentation/widgets/report_menu_button.dart';
 import 'package:bulundu/shared/extensions/context_x.dart';
 import 'package:bulundu/shared/utils/date_format.dart';
+import 'package:bulundu/shared/widgets/app_image.dart';
 
 class ListingCard extends StatefulWidget {
   const ListingCard({
@@ -16,11 +19,13 @@ class ListingCard extends StatefulWidget {
     required this.listing,
     required this.onTap,
     this.userLocation,
+    this.onActionTap,
   });
 
   final Listing listing;
   final VoidCallback onTap;
   final LatLng? userLocation;
+  final VoidCallback? onActionTap;
 
   @override
   State<ListingCard> createState() => _ListingCardState();
@@ -28,22 +33,26 @@ class ListingCard extends StatefulWidget {
 
 class _ListingCardState extends State<ListingCard> {
   bool _isHovered = false;
-  bool _isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.colors;
+    final textStyles = context.textStyles;
+    final brightness = Theme.of(context).brightness;
     final listing = widget.listing;
+    final currentUid = FirebaseAuth.instance.currentUser?.uid;
+    final isOwner = currentUid != null && currentUid == listing.ownerId;
+
     final locale = Localizations.localeOf(context).toString();
     final dateStr = AppDateFormat.formatShortDate(listing.eventDate, locale);
     final typeLabel = listing.isLost
         ? l10n.listingTypeLost
         : l10n.listingTypeFound;
 
-    final distanceStr = widget.userLocation != null
-        ? ' · ${l10n.distanceAwayKm(listing.roundedDistanceKmFrom(widget.userLocation!).toStringAsFixed(1))}'
-        : '';
+    final double? distanceKm = widget.userLocation != null
+        ? listing.roundedDistanceKmFrom(widget.userLocation!)
+        : null;
 
     final semanticLabel = l10n.listingCardSemantics(
       typeLabel,
@@ -51,10 +60,6 @@ class _ListingCardState extends State<ListingCard> {
       listing.locationName,
       dateStr,
     );
-
-    final ctaLabel = listing.isLost
-        ? l10n.cardActionMessage
-        : l10n.cardActionMine;
 
     return Semantics(
       button: true,
@@ -65,263 +70,291 @@ class _ListingCardState extends State<ListingCard> {
         onExit: (_) => setState(() => _isHovered = false),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
-            boxShadow: [
-              BoxShadow(
-                color: colors.shadow,
-                blurRadius: _isHovered ? AppSpacing.md : AppSpacing.sm,
-                offset: const Offset(0, AppSpacing.xs),
-              ),
-            ],
+            color: colors.surfaceContainerLowest,
+            borderRadius: BorderRadius.circular(AppSpacing.radiusXl),
+            boxShadow: _isHovered
+                ? AppShadows.floating(brightness)
+                : AppShadows.card(brightness),
           ),
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
-              side: BorderSide(
-                color: _isHovered ? colors.primary : colors.outlineVariant,
-                width: _isHovered ? 2 : 1,
-              ),
-            ),
-            clipBehavior: Clip.antiAlias,
-            child: InkWell(
-              onTap: widget.onTap,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        listing.imageUrls.isNotEmpty
-                            ? CachedNetworkImage(
-                                imageUrl: listing.imageUrls.first,
-                                fit: BoxFit.cover,
-                                fadeInDuration: context.reduceMotion
-                                    ? Duration.zero
-                                    : const Duration(milliseconds: 180),
-                                placeholder: (context, _) => Container(
-                                  color: colors.surfaceContainerLow,
-                                ),
-                                errorWidget: (context, _, _) =>
-                                    _PlaceholderCover(
-                                      icon: listing.category.icon,
-                                      isLost: listing.isLost,
-                                    ),
-                              )
-                            : _PlaceholderCover(
-                                icon: listing.category.icon,
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: widget.onTap,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // 16:10 Photo Cover
+                AspectRatio(
+                  aspectRatio: 16 / 10,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      listing.imageUrls.isNotEmpty
+                          ? AppImage(
+                              imageUrl: listing.imageUrls.first,
+                              fit: BoxFit.cover,
+                              placeholder: (_, _) =>
+                                  Container(color: colors.surfaceContainerLow),
+                              errorWidget: (_, _, _) => _PlaceholderCover(
+                                icon: listing.category.iconData,
                                 isLost: listing.isLost,
                               ),
-                        Positioned(
-                          top: AppSpacing.sm,
-                          left: AppSpacing.sm,
-                          child: ListingTypeBadge(
-                            type: listing.type,
-                            status: listing.status,
-                          ),
+                            )
+                          : _PlaceholderCover(
+                              icon: listing.category.iconData,
+                              isLost: listing.isLost,
+                            ),
+
+                      // Top-left type badge
+                      Positioned(
+                        top: AppSpacing.sm,
+                        left: AppSpacing.sm,
+                        child: ListingTypeBadge(
+                          type: listing.type,
+                          status: listing.status,
                         ),
+                      ),
+
+                      // Top-right report menu
+                      if (!isOwner)
                         Positioned(
                           top: AppSpacing.xs,
                           right: AppSpacing.xs,
-                          child: IconButton(
-                            tooltip: l10n.favoriteTooltip,
-                            style: IconButton.styleFrom(
-                              backgroundColor: colors.surface.withValues(
-                                alpha: 0.9,
-                              ),
-                            ),
-                            onPressed: () {
-                              setState(() => _isFavorite = !_isFavorite);
-                            },
-                            icon: Icon(
-                              _isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              size: AppSpacing.md,
-                              color: _isFavorite
-                                  ? colors.error
-                                  : colors.onSurface,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: AppSpacing.sm,
-                          left: AppSpacing.sm,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: AppSpacing.sm,
-                              vertical: AppSpacing.xs,
-                            ),
-                            decoration: BoxDecoration(
-                              color: colors.inverseSurface.withValues(
-                                alpha: 0.8,
-                              ),
-                              borderRadius: BorderRadius.circular(
-                                AppSpacing.radiusFull,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.schedule,
-                                  size: AppSpacing.sm + AppSpacing.xs,
-                                  color: colors.onInverseSurface,
-                                ),
-                                const SizedBox(width: AppSpacing.xs),
-                                Text(
-                                  dateStr,
-                                  style: context.textStyles.labelSmall
-                                      ?.copyWith(
-                                        color: colors.onInverseSurface,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(AppSpacing.md),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                listing.title,
-                                style: context.textStyles.titleMedium,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const SizedBox(width: AppSpacing.sm),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: AppSpacing.sm,
-                                vertical: AppSpacing.xs,
-                              ),
-                              decoration: BoxDecoration(
-                                color: colors.surfaceContainerHighest,
-                                borderRadius: BorderRadius.circular(
-                                  AppSpacing.radiusFull,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    Icons.auto_awesome,
-                                    size: AppSpacing.sm + AppSpacing.xs,
-                                    color: colors.primary,
-                                  ),
-                                  const SizedBox(width: AppSpacing.xs),
-                                  Text(
-                                    l10n.verifiedBadgeLabel,
-                                    style: context.textStyles.labelSmall
-                                        ?.copyWith(color: colors.primary),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: AppSpacing.xs),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.place_outlined,
-                              size: AppSpacing.md,
-                              color: colors.primary,
-                            ),
-                            const SizedBox(width: AppSpacing.xs),
-                            Expanded(
-                              child: Text(
-                                '${listing.locationName}$distanceStr',
-                                style: context.textStyles.bodyMedium?.copyWith(
-                                  color: colors.onSurfaceVariant,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                        if (listing.description.isNotEmpty) ...[
-                          const SizedBox(height: AppSpacing.xs),
-                          Text(
-                            listing.description,
-                            style: context.textStyles.bodyMedium?.copyWith(
-                              color: colors.onSurfaceVariant,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                        const SizedBox(height: AppSpacing.sm),
-                        const Divider(),
-                        const SizedBox(height: AppSpacing.xs),
-                        Row(
-                          children: [
-                            Icon(
-                              listing.category.icon,
-                              size: AppSpacing.md,
-                              color: colors.onSurfaceVariant,
-                            ),
-                            const SizedBox(width: AppSpacing.xs),
-                            Expanded(
-                              child: Text(
-                                listing.category.localizedLabel(context),
-                                style: context.textStyles.labelSmall?.copyWith(
-                                  color: colors.onSurfaceVariant,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            ReportMenuButton(
+                          child: Material(
+                            color: colors.surface.withValues(alpha: 0.85),
+                            shape: const CircleBorder(),
+                            child: ReportMenuButton(
                               targetType: ReportTargetType.listing,
                               targetId: listing.id,
                               targetOwnerId: listing.ownerId,
                             ),
-                            const SizedBox(width: AppSpacing.xs),
-                            FilledButton.tonal(
+                          ),
+                        ),
+
+                      // Bottom-left time overlay pill (AppColors.mediaOverlay)
+                      Positioned(
+                        bottom: AppSpacing.sm,
+                        left: AppSpacing.sm,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppSpacing.sm,
+                            vertical: 3,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.mediaOverlay,
+                            borderRadius: BorderRadius.circular(
+                              AppSpacing.radiusFull,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.schedule,
+                                size: 13,
+                                color: AppColors.mediaOverlayText,
+                              ),
+                              const SizedBox(width: AppSpacing.xs),
+                              Text(
+                                dateStr,
+                                style:
+                                    (textStyles.labelSmall ??
+                                            const TextStyle(fontSize: 12))
+                                        .copyWith(
+                                          color: AppColors.mediaOverlayText,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Content body
+                Padding(
+                  padding: const EdgeInsets.all(AppSpacing.md),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Title (titleMedium, max 2 lines)
+                      Text(
+                        listing.title,
+                        style:
+                            (textStyles.titleMedium ??
+                                    const TextStyle(fontSize: 16))
+                                .copyWith(
+                                  color: colors.onSurface,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: AppSpacing.xs),
+
+                      // Location & distance
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_on_outlined,
+                            size: 16,
+                            color: colors.primary,
+                          ),
+                          const SizedBox(width: AppSpacing.xs),
+                          Expanded(
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: listing.locationName,
+                                    style: textStyles.bodySmall?.copyWith(
+                                      color: colors.onSurfaceVariant,
+                                    ),
+                                  ),
+                                  if (distanceKm != null) ...[
+                                    TextSpan(
+                                      text: ' · ',
+                                      style: textStyles.bodySmall?.copyWith(
+                                        color: colors.onSurfaceVariant,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: l10n.distanceAwayKm(
+                                        distanceKm.toStringAsFixed(1),
+                                      ),
+                                      style: textStyles.labelMedium?.copyWith(
+                                        color: colors.primary,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ],
+                                ],
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      // Description (bodyMedium onSurfaceVariant, 2 lines)
+                      if (listing.description.isNotEmpty) ...[
+                        const SizedBox(height: AppSpacing.xs),
+                        Text(
+                          listing.description,
+                          style: textStyles.bodyMedium?.copyWith(
+                            color: colors.onSurfaceVariant,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                      const SizedBox(height: AppSpacing.md),
+
+                      // 2 Action Buttons (Equal width, >= 48 dp height)
+                      Row(
+                        children: [
+                          // Button 1: Detayı Gör (Tonal)
+                          Expanded(
+                            child: FilledButton.tonal(
                               onPressed: widget.onTap,
                               style: FilledButton.styleFrom(
-                                minimumSize: const Size(
-                                  AppSpacing.minTouchTarget,
-                                  AppSpacing.xl + AppSpacing.xs,
-                                ),
-                                backgroundColor: listing.isLost
-                                    ? colors.primaryContainer
-                                    : colors.tertiaryContainer,
-                                foregroundColor: listing.isLost
-                                    ? colors.onPrimaryContainer
-                                    : colors.onTertiaryContainer,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: AppSpacing.md,
-                                  vertical: AppSpacing.xs,
-                                ),
+                                minimumSize: const Size(0, 48),
+                                backgroundColor: colors.surfaceContainerLow,
+                                foregroundColor: colors.primary,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(
-                                    AppSpacing.radiusFull,
+                                    AppSpacing.radiusMd,
                                   ),
                                 ),
                               ),
-                              child: Text(ctaLabel),
+                              child: Text(
+                                l10n.viewDetailsButton,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                          const SizedBox(width: AppSpacing.sm),
+
+                          // Button 2: Mesaj At / Bu Benim! / Düzenle
+                          Expanded(
+                            child: isOwner
+                                ? OutlinedButton(
+                                    onPressed:
+                                        widget.onActionTap ?? widget.onTap,
+                                    style: OutlinedButton.styleFrom(
+                                      minimumSize: const Size(0, 48),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          AppSpacing.radiusMd,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text(l10n.editListingButton),
+                                  )
+                                : listing.isLost
+                                ? FilledButton(
+                                    onPressed:
+                                        widget.onActionTap ?? widget.onTap,
+                                    style: FilledButton.styleFrom(
+                                      minimumSize: const Size(0, 48),
+                                      backgroundColor: colors.primaryContainer,
+                                      foregroundColor: colors.onPrimary,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          AppSpacing.radiusMd,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          Icons.chat_bubble_outline,
+                                          size: 16,
+                                        ),
+                                        const SizedBox(width: AppSpacing.xs),
+                                        Text(l10n.cardActionMessage),
+                                      ],
+                                    ),
+                                  )
+                                : FilledButton(
+                                    onPressed:
+                                        widget.onActionTap ?? widget.onTap,
+                                    style: FilledButton.styleFrom(
+                                      minimumSize: const Size(0, 48),
+                                      backgroundColor: colors.tertiaryContainer,
+                                      foregroundColor: colors.onTertiary,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          AppSpacing.radiusMd,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          Icons.handshake_outlined,
+                                          size: 16,
+                                        ),
+                                        const SizedBox(width: AppSpacing.xs),
+                                        Text(l10n.cardActionMine),
+                                      ],
+                                    ),
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -339,25 +372,14 @@ class _PlaceholderCover extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final bgColor = isLost
-        ? colors.secondaryContainer.withValues(alpha: 0.55)
-        : colors.tertiaryContainer.withValues(alpha: 0.55);
-    final iconColor = isLost
-        ? colors.onSecondaryContainer
-        : colors.onTertiaryContainer;
+    final bgColor = isLost ? colors.secondaryFixed : colors.surfaceContainer;
+    final iconColor = isLost ? colors.onSecondaryFixed : colors.primary;
 
     return ExcludeSemantics(
       child: Container(
         color: bgColor,
         alignment: Alignment.center,
-        child: Container(
-          padding: const EdgeInsets.all(AppSpacing.md),
-          decoration: BoxDecoration(
-            color: colors.surface.withValues(alpha: 0.85),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(icon, size: AppSpacing.xl, color: iconColor),
-        ),
+        child: Icon(icon, size: 40, color: iconColor),
       ),
     );
   }

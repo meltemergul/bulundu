@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bulundu/app/theme/app_shadows.dart';
 import 'package:bulundu/app/theme/app_spacing.dart';
 import 'package:bulundu/features/profile/models/user_profile.dart';
 import 'package:bulundu/shared/extensions/context_x.dart';
@@ -13,6 +14,9 @@ class ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.colors;
+    final textStyles = context.textStyles;
+    final brightness = Theme.of(context).brightness;
+
     final displayName = (profile?.displayName.isNotEmpty ?? false)
         ? profile!.displayName
         : (email ?? l10n.profileTitle);
@@ -20,96 +24,91 @@ class ProfileHeader extends StatelessWidget {
         ? displayName.characters.first.toUpperCase()
         : '?';
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.md),
-        child: Row(
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  width: AppSpacing.xxl,
-                  height: AppSpacing.xxl,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: colors.primaryContainer,
-                    borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
-                  ),
-                  child: Text(
-                    initial,
-                    style: context.textStyles.titleLarge?.copyWith(
-                      color: colors.onPrimaryContainer,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: -AppSpacing.xs,
-                  bottom: -AppSpacing.xs,
-                  child: Container(
-                    padding: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: colors.tertiary,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: colors.surface, width: 1.5),
-                    ),
-                    child: Icon(
-                      Icons.verified,
-                      size: AppSpacing.sm + AppSpacing.xs,
-                      color: colors.onTertiary,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(width: AppSpacing.md),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(displayName, style: context.textStyles.titleLarge),
-                  if (email != null && email!.isNotEmpty) ...[
-                    const SizedBox(height: AppSpacing.xs),
-                    Text(
-                      email!,
-                      style: context.textStyles.bodyMedium?.copyWith(
-                        color: colors.onSurfaceVariant,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ],
+    return Container(
+      decoration: BoxDecoration(
+        color: colors.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(AppSpacing.radiusXl),
+        boxShadow: AppShadows.card(brightness),
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.md,
+        vertical: AppSpacing.lg,
+      ),
+      child: Column(
+        children: [
+          // 96 dp Avatar with gradient ring (primary -> secondaryContainer)
+          Container(
+            width: 96,
+            height: 96,
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [colors.primary, colors.secondaryContainer],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.sm,
-                vertical: AppSpacing.xs,
-              ),
+            child: Container(
               decoration: BoxDecoration(
-                color: colors.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
+                shape: BoxShape.circle,
+                color: colors.primaryFixed,
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.auto_awesome,
-                    size: AppSpacing.sm + AppSpacing.xs,
-                    color: colors.primary,
-                  ),
-                  const SizedBox(width: AppSpacing.xs),
-                  Text(
-                    l10n.verifiedBadgeLabel,
-                    style: context.textStyles.labelSmall?.copyWith(
-                      color: colors.primary,
-                    ),
-                  ),
-                ],
+              child: ClipOval(
+                child:
+                    profile?.photoUrl != null && profile!.photoUrl!.isNotEmpty
+                    ? Image.network(
+                        profile!.photoUrl!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, _, _) => Center(
+                          child: Text(
+                            initial,
+                            style:
+                                (textStyles.headlineMedium ??
+                                        const TextStyle(fontSize: 24))
+                                    .copyWith(
+                                      color: colors.onPrimaryFixed,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                          ),
+                        ),
+                      )
+                    : Center(
+                        child: Text(
+                          initial,
+                          style:
+                              (textStyles.headlineMedium ??
+                                      const TextStyle(fontSize: 24))
+                                  .copyWith(
+                                    color: colors.onPrimaryFixed,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                      ),
               ),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+
+          // Display Name
+          Text(
+            displayName,
+            style: (textStyles.headlineSmall ?? const TextStyle(fontSize: 20))
+                .copyWith(color: colors.onSurface, fontWeight: FontWeight.w700),
+            textAlign: TextAlign.center,
+          ),
+
+          // Email
+          if (email != null && email!.isNotEmpty) ...[
+            const SizedBox(height: 2),
+            Text(
+              email!,
+              style: (textStyles.bodySmall ?? const TextStyle(fontSize: 12))
+                  .copyWith(color: colors.onSurfaceVariant),
+              textAlign: TextAlign.center,
             ),
           ],
-        ),
+        ],
       ),
     );
   }

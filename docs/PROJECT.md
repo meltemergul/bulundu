@@ -2,6 +2,7 @@
 
 > **Ad:** Bulundu · **Dart paketi:** `bulundu` · **Uygulama kimliği (Android/iOS/macOS):** `com.bulundu.app`
 > **Hedef platformlar:** Android · iOS · macOS · Web (Chrome ve diğer modern tarayıcılar)
+> **Giriş:** yalnız e-posta ve şifre (kayıt ol + giriş yap). Google/Apple ile giriş **yok**.
 > **Amaç:** Flutter + Firebase öğrenmek, ama **mağazaya gönderilebilir kalitede**. Plan haftalık değildir: belgeler bir AI asistana verilip proje **hemen** kurulur (bkz. §9 Yapım sırası).
 
 ## 0. Belgeler ve öncelik sırası
@@ -11,6 +12,8 @@
 | `PROJECT.md` (bu dosya) | Ne yapıyoruz? Platformlar, veri, rota, kapsam, mağaza hazırlığı | Kapsam, veri modeli, platform ve mağaza kuralları için bu geçerli |
 | `DESIGN.md` | Nasıl görünmeli? Renk, bileşen, duyarlı düzen, erişilebilirlik | Görünüm için bu geçerli |
 | `SKILL.md` | Kod nasıl yazılmalı? (AI asistan kuralları) | Kod stili için bu geçerli |
+| `PROMPTS.md` | Antigravity'ye verilecek 5 prompt | Yalnızca kullanım rehberi; kural koymaz |
+| `AGENTS.md` | Ajanın her görevde okuyacağı kısa kurallar | Yukarıdakilere atıf yapar |
 
 Belirsiz bir durumda tahmin etme: **kullanıcıya sor** (bkz. SKILL.md §9).
 
@@ -20,28 +23,30 @@ Belirsiz bir durumda tahmin etme: **kullanıcıya sor** (bkz. SKILL.md §9).
 
 | Konu | Karar |
 |---|---|
-| Platformlar | **Android, iOS, macOS, Web** (Windows/Linux yok) |
+| Ad | **Bulundu** (kesin) |
+| Platformlar | **Android, iOS, macOS, Web** (Windows/Linux yok). Uygulama iPad'de de çalışır |
 | Uygulama kimliği | `com.bulundu.app` (Android `applicationId`, iOS ve macOS `PRODUCT_BUNDLE_IDENTIFIER`). **Firebase'e kaydetmeden önce** ayarlanır, sonradan değişmez |
 | Flutter / Dart | Flutter stable **3.27+**, Dart 3.x, Material 3 |
 | State yönetimi | **Riverpod** (kod üretimi yok: `Provider`, `StreamProvider`, `AsyncNotifier`) |
 | Yönlendirme | `go_router` (`StatefulShellRoute`), web'de **path URL stratejisi** |
 | Backend | Firebase: **Auth + Firestore + Storage** (+ Hosting, web için) |
-| Giriş yöntemleri | **E-posta/şifre + Google + Apple** (App Store kuralı: Google sunuluyorsa Apple da sunulur) |
+| Giriş yöntemi | **Yalnız e-posta/şifre**, 4 platformda aynı kod. Google ve Apple ile giriş yok (kullanıcı kararı); sosyal giriş olmadığı için App Store Guideline 4.8 de gerekmez |
+| Şifre kuralı | En az **8 karakter** (istemci doğrulaması); şifre sıfırlama e-postası giriş ekranından |
 | Fotoğraf | Firebase Storage. Boyutlandırma `image_picker` parametreleriyle, yükleme **bayt (`putData`)** ile (web/macOS uyumu) |
-| Harita | `flutter_map` + OpenStreetMap (anahtar yok) |
+| Harita | `flutter_map` + OpenStreetMap (API anahtarı yok) |
 | Dil | **TR + EN** (ARB dosyaları) |
 | Tema | **Açık + koyu** (kullanıcı seçer, sistem varsayılan) |
-| Tasarım dili | Mavi ana renk, turuncu vurgu (bkz. DESIGN.md) |
+| Tasarım dili | "Civic Beacon": mavi ana renk, amber (Kayıp) vurgu, yeşil (Teslim Edildi); Plus Jakarta Sans. Mockup'tan kapsama uyarlanmış hali DESIGN.md §0'da |
+| Duyarlılık | **Zorunlu:** 320 dp telefondan 1920 dp tarayıcıya, dikey/yatay (ayrıntı DESIGN.md §10) |
 | Yapı | **Feature-first**: `auth`, `listings`, `map`, `chat`, `moderation`, `profile`, `legal` |
 | Billing | **Blaze (kullandıkça öde)** varsayılır; hemen bütçe uyarısı konur (bkz. §2) |
-| iPad | Uygulama iPad'de de çalışır (duyarlı düzen); mağaza için iPad ekran görüntüsü de gerekir |
 
 ## 2. Kapsam
 
 ### Yapılacaklar
-- Kayıt / giriş / çıkış: e-posta, Google, Apple
-- Kayıtta ve ilk sosyal girişte **Kullanım Şartları + Gizlilik** onayı
-- İlan ekleme, düzenleme, silme, "çözüldü" işaretleme (`Kayıp` ve `Buldum`)
+- Kayıt / giriş / çıkış: **yalnız e-posta ve şifre**; **şifre sıfırlama** (e-posta ile, giriş ekranından)
+- Kayıtta **Kullanım Şartları + Gizlilik** onayı
+- İlan ekleme, düzenleme, silme, "teslim edildi" (çözüldü) işaretleme (`Kayıp` ve `Buldum`)
 - İlan listesi (Keşfet) + kategori / tip / mesafe filtresi
 - Harita görünümü + haritadan konum seçme
 - İlan detayı + "Bu benim" / "Bunu buldum" ile sohbet başlatma
@@ -50,11 +55,11 @@ Belirsiz bir durumda tahmin etme: **kullanıcıya sor** (bkz. SKILL.md §9).
 - **Hesabı sil** (uygulama içinde; kullanıcının ilanları, fotoğrafları, mesajları ve profili silinir)
 - Gizlilik Politikası ve Kullanım Şartları ekranları + herkese açık web sayfaları
 - Profil, "ilanlarım", dil ve tema ayarı
-- Duyarlı düzen: telefon, tablet, macOS penceresi, geniş tarayıcı
+- **Duyarlı düzen (zorunlu):** 320 dp telefondan 1920 dp tarayıcıya, dikey/yatay, %200 yazı ölçeğinde taşmasız; ekran başına düzen ve test matrisi DESIGN.md §10
 - "Benzer ilanlar" (istemci tarafında, bonus)
 
 ### Yapılmayacaklar (bilinçli)
-Push bildirim, Cloud Functions, ML/görsel eşleştirme, QR etiket, ödeme/ödül, yönetici paneli, Windows/Linux desteği.
+Google/Apple/diğer sosyal girişler, e-posta doğrulama akışı, push bildirim, Cloud Functions, ML/görsel eşleştirme, QR etiket, ödeme/ödül, yönetici paneli, Windows/Linux desteği.
 
 ### Blaze notu
 Yeni Firebase projelerinde Storage için Blaze plan istenir ve mağaza sürümü için zaten gerekli kabul edilir.
@@ -69,7 +74,6 @@ Yeni Firebase projelerinde Storage için Blaze plan istenir ve mağaza sürümü
 | Amaç | Paket |
 |---|---|
 | Firebase | `firebase_core`, `firebase_auth`, `cloud_firestore`, `firebase_storage` |
-| Giriş | `google_sign_in`, `sign_in_with_apple`, `crypto` (Apple nonce) |
 | State | `flutter_riverpod` |
 | Yönlendirme | `go_router` |
 | Harita / konum | `flutter_map`, `latlong2`, `geolocator` |
@@ -80,7 +84,7 @@ Yeni Firebase projelerinde Storage için Blaze plan istenir ve mağaza sürümü
 | Mağaza varlıkları (dev) | `flutter_launcher_icons`, `flutter_native_splash` |
 | Test | `flutter_test`, `mocktail`, `fake_cloud_firestore`, `firebase_auth_mocks` |
 
-Kullanılmayanlar: `flutter_image_compress` (web/macOS uyumu için `image_picker` boyutlandırması yeterli), `google_fonts`, `dart:io` tabanlı çözümler.
+**Eklenmez:** `google_sign_in`, `sign_in_with_apple`, `crypto` (sosyal giriş yok), `flutter_image_compress` (web/macOS uyumu için `image_picker` boyutlandırması yeterli), `google_fonts` (yazı tipi pakete gömülür), `dart:io` tabanlı çözümler.
 Başka paket eklemeden önce kullanıcıya sor.
 
 ---
@@ -93,8 +97,8 @@ bulundu/
 ├─ firebase.json · firestore.rules · firestore.indexes.json · storage.rules · cors.json
 ├─ l10n.yaml · flutter_launcher_icons.yaml
 ├─ assets/
-│  ├─ fonts/              (Inter: Regular, Medium, SemiBold)
-│  ├─ branding/           (icon_1024.png, icon_foreground.png, splash.png)
+│  ├─ fonts/              (Plus Jakarta Sans: Regular, SemiBold, Bold, ExtraBold + OFL.txt)
+│  ├─ branding/           (app_icon.png, app_icon_foreground.png; başlıkta, girişte, açılışta ve mağaza simgesinde aynı dosya)
 │  └─ legal/              (terms_tr.txt, terms_en.txt, privacy_tr.txt, privacy_en.txt)
 ├─ web/
 │  ├─ index.html · manifest.json · icons/
@@ -108,20 +112,20 @@ bulundu/
    │  ├─ app.dart         (MaterialApp.router, tema, l10n)
    │  ├─ router/          (app_router.dart, routes.dart)
    │  ├─ shell/           (adaptive_shell.dart: alt çubuk / navigation rail)
-   │  └─ theme/           (app_colors, app_typography, app_spacing, app_theme)
+   │  └─ theme/           (app_colors, app_typography, app_spacing, app_shadows, app_theme)
    ├─ l10n/               (app_tr.arb [şablon], app_en.arb, gen/)
    ├─ shared/
-   │  ├─ widgets/         (app_button, app_text_field, empty_state, error_view, loading_view, max_width_body)
+   │  ├─ widgets/         (app_button, app_text_field, app_segmented_tabs, app_header, app_logo, empty_state, error_view, loading_view, max_width_body)
    │  ├─ providers/       (firebase_providers.dart)
    │  ├─ extensions/      (context_x.dart → context.l10n, context.colors, context.isWide)
    │  └─ utils/           (validators, date_format, app_exception, platform_info, breakpoints)
    └─ features/
       ├─ auth/
-      │  ├─ data/         (auth_repository.dart: platform farklarını burada soyutlar)
+      │  ├─ data/         (auth_repository.dart: e-posta kayıt, giriş, çıkış, şifre sıfırlama)
       │  ├─ providers/    (auth_providers.dart)
       │  └─ presentation/
       │     ├─ screens/   (login_screen, register_screen, accept_terms_screen)
-      │     └─ widgets/   (social_sign_in_buttons.dart, terms_checkbox.dart)
+      │     └─ widgets/   (terms_checkbox.dart)
       ├─ listings/
       │  ├─ models/       (listing, listing_draft, listing_category, listing_filter, listing_matcher)
       │  ├─ data/         (listing_repository.dart, listing_image_storage.dart)
@@ -141,7 +145,7 @@ bulundu/
       │  ├─ providers/    (chat_providers.dart)
       │  └─ presentation/
       │     ├─ screens/   (chat_list_screen, chat_screen)
-      │     └─ widgets/   (chat_tile, message_bubble, message_input)
+      │     └─ widgets/   (chat_tile, message_bubble, message_input, safety_tip_banner)
       ├─ moderation/
       │  ├─ models/       (report.dart, report_reason.dart)
       │  ├─ data/         (moderation_repository.dart)
@@ -180,7 +184,7 @@ Widget Firebase'e doğrudan dokunmaz; sadece provider izler.
 |---|---|---|
 | `/login` | LoginScreen | Oturum yoksa her yol buraya yönlenir (hedef yol `from` ile saklanır) |
 | `/register` | RegisterScreen | Şart onay kutusu zorunlu |
-| `/accept-terms` | AcceptTermsScreen | Oturum var ama profil/şart onayı yoksa (ilk sosyal giriş, şart sürümü değişimi) |
+| `/accept-terms` | AcceptTermsScreen | Oturum var ama `users` belgesi yoksa ya da şart sürümü değiştiyse |
 | `/explore` | ExploreScreen | Sekme 1 (varsayılan) |
 | `/map` | MapScreen | Sekme 2 |
 | `/chats` | ChatListScreen | Sekme 3 |
@@ -188,17 +192,17 @@ Widget Firebase'e doğrudan dokunmaz; sadece provider izler.
 | `/profile/settings` | SettingsScreen | Dil, tema, yasal bağlantılar, sürüm, çıkış |
 | `/profile/my-listings` | MyListingsScreen | |
 | `/profile/blocked` | BlockedUsersScreen | Engeli kaldırma |
-| `/profile/delete-account` | DeleteAccountScreen | Yeniden doğrulama + onay |
+| `/profile/delete-account` | DeleteAccountScreen | Şifreyle yeniden doğrulama + onay |
 | `/listings/new` | ListingFormScreen | Sekmelerin dışında |
 | `/listings/:id` | ListingDetailScreen | **Web'de paylaşılabilir bağlantı** |
 | `/listings/:id/edit` | ListingFormScreen | Sadece sahibi |
 | `/listings/pick-location` | LocationPickerScreen | Sonucu `pop` ile döner |
-| `/chats/:chatId` | ChatScreen | |
+| `/chats/:chatId` | ChatScreen | ≥ 1024 dp'de `/chats` listesiyle yan yana gösterilir; rota ve derin bağlantı aynı kalır (DESIGN.md §10) |
 | `/legal/terms` | TermsScreen | Oturum gerekmez |
 | `/legal/privacy` | PrivacyScreen | Oturum gerekmez |
 
-- Gezinme: dar ekranda `NavigationBar` (alt), geniş ekranda `NavigationRail` (bkz. DESIGN.md §10). `StatefulShellRoute.indexedStack`.
-- Keşfet ve Harita'da turuncu **"İlan ver"** `FloatingActionButton.extended`.
+- Gezinme: dar ekranda `NavigationBar` (alt), orta ve geniş ekranda `NavigationRail` (bkz. DESIGN.md §10). `StatefulShellRoute.indexedStack`; pencere boyutu değişince seçili sekme ve sayfa durumu korunur.
+- Alt çubuğun ortasındaki **+** düğmesi (sekme değil, eylem) `/listings/new` açar; Keşfet'te ayrıca **"Hemen İlan Ver"** `FloatingActionButton.extended` (mavi) bulunur. Ayrıntı: DESIGN.md §5.
 - Auth/şart durumu değişince `GoRouter.refreshListenable` ile yönlendirme yenilenir.
 - Web'de `usePathUrlStrategy()`; Hosting `**` → `/index.html` yeniden yazması gerekir (bkz. §10).
 
@@ -215,7 +219,7 @@ Widget Firebase'e doğrudan dokunmaz; sadece provider izler.
 | `termsVersion` | number | Kabul edilen şart sürümü (`AppConfig.termsVersion`) |
 | `createdAt` | timestamp | `serverTimestamp` |
 
-E-posta, telefon, konum geçmişi `users` belgesinde **tutulmaz**.
+E-posta, telefon, konum geçmişi `users` belgesinde **tutulmaz**. Belge, kayıt sırasında şart onayıyla birlikte yazılır; yazma başarısız olursa kullanıcı `/accept-terms` ekranına yönlenir.
 
 ### `users/{uid}/blocks/{blockedUid}`
 | Alan | Tip |
@@ -260,6 +264,8 @@ Yalnızca sahibi okur/yazar. Engellenen kişinin ilanları engelleyene gösteril
 |---|---|---|
 | `listingId` | string | |
 | `listingTitle` | string | Kopya alan |
+| `listingType` | string | `lost` \| `found` — kopya alan (sohbet satırındaki tip hapı için) |
+| `listingImageUrl` | string? | İlanın ilk fotoğrafı — kopya alan (sohbet satırı küçük resmi için) |
 | `participants` | list<string> | `[ownerId, requesterUid]` |
 | `lastMessage` | string | |
 | `updatedAt` | timestamp | |
@@ -279,11 +285,12 @@ Mesaj + `chats.lastMessage/updatedAt` **tek `WriteBatch`** ile yazılır.
 `listings/{uid}/{listingId}/{index}.jpg` · `image_picker(maxWidth: 1280, maxHeight: 1280, imageQuality: 80)`, hedef **< 1 MB**, `putData` + `contentType: image/jpeg`.
 
 ### Hesap silme akışı (istemci tarafı, Cloud Functions yok)
-1. Yeniden doğrulama (şifre / Google / Apple)
+1. Şifreyle yeniden doğrulama (`reauthenticateWithCredential`)
 2. Kullanıcının ilanlarının fotoğrafları (Storage) ve ilanlar silinir
 3. Kullanıcının gönderdiği mesajlar silinir; sohbet belgeleri kalır (karşı tarafın geçmişi, "Silinmiş kullanıcı" etiketiyle)
 4. `users/{uid}/blocks/*` ve `users/{uid}` silinir
 5. En son `FirebaseAuth.currentUser.delete()` (yetki gerektiren adımlar auth varken yapılsın diye)
+
 Gönderilmiş **şikayet kayıtları** meşru çıkar gereği saklanır; Gizlilik Politikası'nda yazılır.
 
 ### Sorgu stratejisi
@@ -444,14 +451,14 @@ Her aşama sonunda uygulama **dört platformda da** (Android, iOS veya simülat�
 
 | Aşama | İş | Bitti sayılır |
 |---|---|---|
-| **A. İskelet** | `flutter create --platforms=android,ios,macos,web --org com.bulundu --project-name bulundu .`; kimlikleri `com.bulundu.app` yap; Firebase projesi + `flutterfire configure` (tüm platformlar, aynı kimlik); tema (DESIGN.md), l10n, router, uyarlanabilir kabuk (alt çubuk / rail), platform izinleri (§10) | Boş sekmelerle uygulama 4 platformda açılır; TR/EN ve açık/koyu geçişi çalışır |
-| **B. Kimlik** | E-posta, Google, Apple girişi (`auth_repository` içinde platform farkları soyut); kayıt + şart onayı; `/accept-terms`; `users` belgesi; auth'a bağlı yönlendirme; Rules + indexes ilk sürüm deploy | 4 platformda üç yöntemle giriş/çıkış çalışır; şart onayı olmadan içeri girilmez |
-| **C. İlanlar** | `Listing` modeli, repository, ilan formu (**konum seçici dahil**, fotoğrafsız), Keşfet listesi canlı, detay, düzenleme, silme, çözüldü | İlan eklenir, canlı görünür; başkasının ilanı düzenlenemez (rules testi) |
+| **A. İskelet** | `flutter create --platforms=android,ios,macos,web --org com.bulundu --project-name bulundu .`; kimlikleri `com.bulundu.app` yap; Firebase projesi + `flutterfire configure` (tüm platformlar, aynı kimlik); tema (DESIGN.md), l10n, router, uyarlanabilir kabuk (alt çubuk / rail), platform izinleri (§10) | Boş sekmelerle uygulama 4 platformda açılır; TR/EN ve açık/koyu geçişi çalışır; 320 dp ile 1920 dp arasında kabuk taşmaz |
+| **B. Kimlik** | E-posta/şifre ile kayıt ve giriş (`auth_repository`); şifre sıfırlama; kayıt + şart onayı; `/accept-terms`; `users` belgesi; auth'a bağlı yönlendirme; Rules + indexes ilk sürüm deploy | E-posta ile 4 platformda kayıt/giriş/çıkış/şifre sıfırlama çalışır; şart onayı olmadan içeri girilmez |
+| **C. İlanlar** | `Listing` modeli, repository, ilan formu (**konum seçici dahil**, fotoğrafsız), Keşfet listesi canlı, detay, düzenleme, silme, teslim edildi | İlan eklenir, canlı görünür; başkasının ilanı düzenlenemez (rules testi) |
 | **D. Fotoğraf** | `image_picker` (kamera yoksa gizle), boyutlandırma, `putData` yükleme, galeri, silmede fotoları temizleme, `cors.json` | Foto 4 platformda yüklenir ve **web'de de görünür** |
 | **E. Harita** | Harita ekranı, mesafe filtresi, konum izni akışı (reddedilirse el ile seçim), OSM atfı (konum seçici C aşamasında yapıldı) | Pin/daireler görünür; izin reddedilince uygulama çalışır |
-| **F. Sohbet** | Sohbet listesi/ekranı, gerçek zamanlı mesajlar, `WriteBatch`, kendi ilanına sohbet engeli | İki hesapla karşılıklı mesajlaşılır; başkasının sohbeti rules ile engellenir |
+| **F. Sohbet** | Sohbet listesi/ekranı, gerçek zamanlı mesajlar, `WriteBatch`, kendi ilanına sohbet engeli; geniş ekranda liste + sohbet yan yana | İki hesapla karşılıklı mesajlaşılır; başkasının sohbeti rules ile engellenir |
 | **G. Güvenlik ve yasal** | Şikayet et (ilan/kullanıcı/mesaj), engelle + liste, engelleneni gizleme, hesap silme akışı, Gizlilik/Şartlar ekranları + `web/legal/*.html`, rules güncel (bkz. §7) | Her UGC ekranında şikayet/engelle var; hesap silince veriler gerçekten gider (emulator/konsolda doğrula) |
-| **H. Yayına hazırlık** | Duyarlı düzen cilası, erişilebilirlik geçişi, testler, ikon/açılış ekranı, sürüm numaraları, imzalama, derlemeler, mağaza formları (§11), README | §12 "Yayın öncesi" listesi tamam |
+| **H. Yayına hazırlık** | Duyarlılık test matrisi ve cila, erişilebilirlik geçişi, testler, ikon/açılış ekranı, sürüm numaraları, imzalama, derlemeler, mağaza formları (§11), README | §12 "Yayın öncesi" listesi tamam |
 
 ### Bonus (aşama H'den sonra)
 1. **Benzer ilanlar:** aynı kategori + zıt tip + 2 km + ±7 gün (`listing_matcher.dart`, saf Dart, birim testli)
@@ -466,16 +473,27 @@ Her aşama sonunda uygulama **dört platformda da** (Android, iOS veya simülat�
 ### Özellik desteği
 | Özellik | Android | iOS | macOS | Web |
 |---|---|---|---|---|
-| E-posta girişi | ✓ | ✓ | ✓ | ✓ |
-| Google girişi | ✓ | ✓ | ✓ | ✓ (popup/yönlendirme) |
-| Apple girişi | ✓ | ✓ | ✓ | ✓ |
+| E-posta/şifre kayıt ve giriş | ✓ | ✓ | ✓ | ✓ |
+| Google / Apple girişi | **Yok** | **Yok** | **Yok** | **Yok** |
 | Konum | ✓ | ✓ | ✓ | ✓ (yalnızca HTTPS) |
 | Kamera ile foto | ✓ | ✓ | ✗ (dosya seçici) | ✗ (dosya seçici) |
 | Galeriden / dosyadan foto | ✓ | ✓ | ✓ | ✓ |
 | Harita (OSM) | ✓ | ✓ | ✓ | ✓ |
 
-Giriş akışları platforma göre **farklıdır** (yerel SDK, `signInWithProvider`, web popup). Bu fark yalnızca `features/auth/data/auth_repository.dart` içinde, `kIsWeb` ve `defaultTargetPlatform` ile soyutlanır. Güncel FlutterFire belgesine bak; belge ile bu tablo çelişirse **kullanıcıya sor**.
+E-posta/şifre girişi tüm platformlarda **aynı koddur** (`firebase_auth`); platforma özgü giriş soyutlaması gerekmez. Platform farkı yalnızca fotoğraf seçimi ve konumda vardır ve `shared/utils/platform_info.dart` ile `listing_image_storage.dart` içinde soyutlanır.
 Kamera seçeneği `ImagePicker().supportsImageSource(ImageSource.camera)` ile gösterilir/gizlenir.
+
+### Duyarlı düzen (özet; ayrıntı DESIGN.md §10)
+- Kırılma noktaları **768** ve **1024** dp; içerik en çok **1280** dp.
+- Dar: alt çubuk, tek sütun · Orta: `NavigationRail`, 2 sütun · Geniş: rail, 3 sütun, mesajlarda liste + sohbet yan yana, haritada sağ panel.
+- Sabit genişlik yok; %200 yazı ölçeği ve 320 dp'de taşma yok; pencere yeniden boyutlanınca durum korunur.
+- Test boyutları: 320×568, 390×844, 844×390, 768×1024, 1024×768, 1440×900, 1920×1080.
+
+### Harita nasıl çalışır (API anahtarı gerekmez)
+- `flutter_map` paketi, haritayı **kendisi çizen** bir Flutter widget'ıdır; Google Maps gibi hesap, faturalama veya API anahtarı **istemez**. Harita görüntüsü (karolar) OpenStreetMap sunucusundan gelir: `TileLayer(urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', userAgentPackageName: 'com.bulundu.app')`.
+- Gerçek bir API entegrasyonu yoktur: pinler Firestore'daki ilanların `lat/lng` değerlerinden çizilir, konum `geolocator` ile cihazdan alınır.
+- **Kurallar:** haritada "© OpenStreetMap" atfı görünür olmalı; `userAgentPackageName` doldurulmalı; karolar toplu indirilmemeli. Genel OSM karo sunucusu **düşük trafik** içindir. Gerçek kullanıcı sayısı artarsa kendi anahtarlı bir karo sağlayıcıya (örn. MapTiler, Stadia Maps; ücretsiz katmanları var) geçilir: yalnızca `urlTemplate` ve atıf metni değişir, uygulama kodu aynı kalır.
+- Zorluk: orta-düşük. Asıl iş, 4 platformda **konum izni** akışıdır (aşağıdaki izin listeleri). Harita bu yüzden **E aşamasında, ilan/sohbet çalıştıktan sonra** yapılır; sorun çıkarsa ilan formu konum alanı elle girişle çalışmaya devam eder.
 
 ### Minimum sürümler
 Firebase paketlerinin güncel belgesindeki en düşük sürümü kullan (Android `minSdk`, iOS ve macOS dağıtım hedefi). Uygulama bunun altını desteklemez.
@@ -483,20 +501,21 @@ Firebase paketlerinin güncel belgesindeki en düşük sürümü kullan (Android
 ### Android
 - `applicationId` ve `namespace`: `com.bulundu.app`
 - İzinler (`AndroidManifest.xml`): `ACCESS_COARSE_LOCATION`, `ACCESS_FINE_LOCATION` (internet izni release'te de manifestte olmalı)
-- Google girişi: SHA-1 ve SHA-256 parmak izleri Firebase'e eklenir (debug **ve** release/Play imza anahtarı)
 - Release imza: keystore + `key.properties` (**commit edilmez**); Play App Signing kullan
+- SHA parmak izi, OAuth istemcisi tanımlanmaz (sosyal giriş yok)
 
 ### iOS
-- Bundle id `com.bulundu.app`; Xcode'da **Sign in with Apple** capability
+- Bundle id `com.bulundu.app`; **Sign in with Apple capability eklenmez**
 - `Info.plist`: `NSLocationWhenInUseUsageDescription`, `NSCameraUsageDescription`, `NSPhotoLibraryUsageDescription` (TR + EN, `InfoPlist.strings` ile yerelleştirilir; metinler **neden** istendiğini söyler)
-- Google girişi için `REVERSED_CLIENT_ID` URL şeması; `ITSAppUsesNonExemptEncryption = false`
+- `ITSAppUsesNonExemptEncryption = false`; `REVERSED_CLIENT_ID` URL şeması gerekmez
+- iPad desteklenir (tüm yönler)
 
 ### macOS
 - Bundle id `com.bulundu.app`; **App Sandbox** açık
 - Entitlement'lar (`DebugProfile.entitlements` ve `Release.entitlements`):
-  `com.apple.security.network.client`, `com.apple.security.files.user-selected.read-only`, `com.apple.security.personal-information.location`, `keychain-access-groups` (firebase_auth için), `com.apple.developer.applesignin` (Apple girişi)
+  `com.apple.security.network.client`, `com.apple.security.files.user-selected.read-only`, `com.apple.security.personal-information.location`, `keychain-access-groups` (firebase_auth için); `com.apple.developer.applesignin` **eklenmez**
 - `Info.plist`: konum kullanım açıklaması
-- Pencere asgari boyutu belirlenir (örn. 480×640)
+- Pencere asgari boyutu belirlenir (örn. 480×640); pencere serbestçe yeniden boyutlandırılabilir
 
 ### Web
 - `usePathUrlStrategy()`; `web/index.html` başlık, açıklama, tema rengi, `manifest.json` (ad, simgeler, `theme_color`)
@@ -515,24 +534,24 @@ Odak halkası görünür, Tab sırası mantıklı, Enter ile form gönderme, Esc
 
 ### Ortak
 - [ ] **Gizlilik Politikası** ve **Kullanım Şartları** (TR + EN) yazıldı; uygulamada **ve** herkese açık URL'de (`/legal/privacy-*.html`) var
-- [ ] Politika şunları açıkça söyler: toplanan veriler (ad, e-posta, fotoğraf, yaklaşık/kesin konum, mesajlar), amaç, saklama, silme yolu, şikayet kayıtlarının saklanması, iletişim e-postası, KVKK haklar
+- [ ] Politika şunları açıkça söyler: toplanan veriler (ad, e-posta, fotoğraf, yaklaşık/kesin konum, mesajlar), amaç, saklama, silme yolu, şikayet kayıtlarının saklanması, iletişim e-postası, KVKK hakları
 - [ ] **Destek e-postası** belirlendi (belgelerde `[DESTEK_E_POSTASI]` yer tutucusu **gerçek adresle** değiştirilir)
 - [ ] Şartlar: uygunsuz içerik yasak, ihlalde içerik/hesap kaldırılır
-- [ ] **Hesabı uygulama içinden silme** çalışıyor (Apple ve Google zorunlu kılar) + web'de silme talebi sayfası (`web/legal/delete-account.html`; Google Play için URL)
+- [ ] **Hesabı uygulama içinden silme** çalışıyor (Apple App Store ve Google Play zorunlu kılar) + web'de silme talebi sayfası (`web/legal/delete-account.html`; Google Play için URL)
 - [ ] **Kullanıcı içeriği (UGC) güvenceleri:** şart onayı, şikayet, engelleme, şikayetleri **24 saat içinde** inceleme taahhüdü (konsoldan elle; bunu gerçekten yapabilmen gerekir)
-- [ ] Demo/inceleme hesabı (Apple App Review notuna yazılır)
+- [ ] Demo/inceleme hesabı (e-posta + şifre; Apple App Review notuna ve Play Console erişim talimatlarına yazılır)
 - [ ] Rules ve indexes **production** projesinde; test modu yok; bütçe uyarısı var
-- [ ] Google Cloud'da **API anahtarı kısıtları**: web anahtarı HTTP referrer ile, Android SHA/paket ile, iOS bundle id ile
+- [ ] Google Cloud'da **API anahtarı kısıtları**: web anahtarı HTTP referrer ile, Android paket adı ve SHA ile, iOS bundle id ile
 - [ ] Hata ayıklama kodu/log yok (`kDebugMode` dışında), debug banner kapalı, kodda gizli anahtar yok
 
 ### Apple (iOS + macOS)
-- [ ] Apple Developer Program üyeliği; App ID `com.bulundu.app` (Sign in with Apple etkin)
+- [ ] Apple Developer Program üyeliği; App ID `com.bulundu.app`
 - [ ] App Store Connect: ad, alt başlık, açıklama (TR + EN), anahtar kelimeler, destek URL'i, gizlilik politikası URL'i
 - [ ] **App Privacy** (veri türleri: kullanıcı kimliği, e-posta, fotoğraflar, konum, kullanıcı içeriği/mesajlar)
 - [ ] Yaş derecelendirmesi (UGC var → "kullanıcı tarafından üretilen içerik" soruları dürüst yanıtlanır)
 - [ ] Ekran görüntüleri: iPhone (güncel zorunlu boyutlar) + iPad + macOS
 - [ ] Arşiv: `flutter build ipa`, macOS için Xcode Archive; TestFlight ile test
-- [ ] Guideline 4.8 (Apple girişi), 5.1.1(v) (hesap silme), 1.2 (UGC) maddeleri karşılandı
+- [ ] Guideline 5.1.1(v) (hesap silme), 1.2 (UGC) maddeleri karşılandı
 
 ### Google Play
 - [ ] Play Console hesabı; uygulama `com.bulundu.app`; **AAB** (`flutter build appbundle`), Play App Signing
@@ -543,7 +562,7 @@ Odak halkası görünür, Tab sırası mantıklı, Enter ile form gönderme, Esc
 
 ### Web
 - [ ] `flutter build web --release` → `firebase deploy --only hosting`
-- [ ] Hosting alan adında giriş (Google/Apple) çalışıyor, görseller görünüyor (CORS), `/listings/:id` doğrudan açılıyor
+- [ ] Hosting alan adında kayıt/giriş (e-posta) çalışıyor, görseller görünüyor (CORS), `/listings/:id` doğrudan açılıyor
 
 ### Marka varlıkları
 `flutter_launcher_icons` (Android adaptive + iOS + macOS + web) ve `flutter_native_splash` ile üretilir; kaynak: `assets/branding/`. Marka renkleri DESIGN.md'den.
@@ -555,12 +574,11 @@ Odak halkası görünür, Tab sırası mantıklı, Enter ile form gönderme, Esc
 ### Kurulum
 1. `flutter create --platforms=android,ios,macos,web --org com.bulundu --project-name bulundu .`
 2. Kimlikleri `com.bulundu.app` yap (Android `build.gradle`: `applicationId`/`namespace`; Xcode: iOS ve macOS `PRODUCT_BUNDLE_IDENTIFIER`)
-3. Firebase projesi aç; **Auth** (E-posta, Google, Apple), **Firestore**, **Storage**, **Hosting**; Blaze + bütçe uyarısı
+3. Firebase projesi aç; **Auth** (yalnız E-posta/Parola sağlayıcısı), **Firestore**, **Storage**, **Hosting**; Blaze + bütçe uyarısı
 4. `dart pub global activate flutterfire_cli`
    `flutterfire configure --platforms=android,ios,macos,web --android-package-name=com.bulundu.app --ios-bundle-id=com.bulundu.app --macos-bundle-id=com.bulundu.app`
-5. Android SHA-1/SHA-256, Apple Services ID/anahtarı ve Google OAuth istemcilerini Firebase'e tanımla
-6. `firebase deploy --only firestore:rules,firestore:indexes,storage`; `gsutil cors set cors.json gs://<BUCKET>`
-7. `l10n.yaml` ekle, `flutter gen-l10n`
+5. `firebase deploy --only firestore:rules,firestore:indexes,storage`; `gsutil cors set cors.json gs://<BUCKET>`
+6. `l10n.yaml` ekle, `flutter gen-l10n`
 
 `l10n.yaml`:
 ```yaml
@@ -577,7 +595,7 @@ nullable-getter: false
 - [ ] 4 platformda derleme: `flutter build apk`/`appbundle`, `flutter build ipa`, `flutter build macos`, `flutter build web --release`
 - [ ] 4 platformda duman testi: kayıt → ilan ver (foto + konum) → ikinci hesapla mesajlaş → şikayet/engelle → hesabı sil
 - [ ] Tüm metinler ARB'de (TR + EN), kodda sabit metin yok
-- [ ] DESIGN.md §9 erişilebilirlik listesi ve §13 tasarım ölçütü (duyarlı düzen dahil) geçti
+- [ ] DESIGN.md §9 erişilebilirlik listesi ve §13 tasarım ölçütü geçti; **§10 duyarlılık test matrisi** (320 → 1920 dp, dikey/yatay, yazı ölçeği 1.0/2.0) 4 platformda tamam
 - [ ] §11 mağaza hazırlığı maddeleri tamam
 - [ ] Rules testleri (emulator veya elle) başarılı: yabancı ilan düzenleme, yabancı sohbet okuma, engelleyene mesaj yasak
 - [ ] README: kurulum, platform notları, demo sınırlamaları, sürüm/versiyon yönetimi
@@ -585,6 +603,8 @@ nullable-getter: false
 ---
 
 ## 13. Bilinen sınırlamalar (README ve Gizlilik Politikası'na yazılır)
+- **Yalnız e-posta/şifre ile giriş (kullanıcı kararı):** Google ve Apple yok. Sonradan Google eklenirse App Store Guideline 4.8 gereği Apple ile giriş de eklenmelidir; bu bir kapsam değişikliğidir, önce sorulur
+- E-posta doğrulaması yoktur; parolasını unutan kullanıcı yalnız şifre sıfırlama e-postasına güvenir (demo kapsamı)
 - Koordinatlar kesin saklanır; gizlilik yalnızca arayüzde (daire) sağlanır
 - Mesafe, kategori ve engelleme filtresi istemci tarafındadır (büyük ölçek için uygun değil)
 - Bildirim yok: yeni mesaj için uygulamanın açık olması gerekir

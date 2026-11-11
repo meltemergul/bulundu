@@ -10,11 +10,19 @@ class ListingFormController extends AsyncNotifier<void> {
 
   Future<String?> createListing(ListingDraft draft) async {
     final user = ref.read(authRepositoryProvider).currentUser;
-    if (user == null) return null;
+    if (user == null) {
+      state = AsyncError(
+        Exception('İlan vermek için lütfen önce giriş yapın.'),
+        StackTrace.current,
+      );
+      return null;
+    }
     final profile = ref.read(currentUserProfileProvider).value;
     final ownerName = profile?.displayName.isNotEmpty == true
         ? profile!.displayName
-        : (user.displayName ?? '');
+        : (user.displayName?.isNotEmpty == true
+              ? user.displayName!
+              : (user.email?.split('@').first ?? 'Kullanıcı'));
 
     String? createdId;
     state = const AsyncLoading();

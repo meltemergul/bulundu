@@ -20,7 +20,20 @@ class MyListingsScreen extends ConsumerWidget {
     final listingsAsync = ref.watch(myListingsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.myListingsTitle)),
+      appBar: AppBar(
+        title: Text(l10n.myListingsTitle),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go(AppRoutes.profile);
+            }
+          },
+        ),
+      ),
       body: listingsAsync.when(
         loading: () => const LoadingView(),
         error: (_, _) => ErrorView(

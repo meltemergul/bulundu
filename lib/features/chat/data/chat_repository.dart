@@ -18,6 +18,8 @@ class ChatRepository {
     required String listingTitle,
     required String ownerId,
     required String requesterUid,
+    String listingType = 'lost',
+    String? listingImageUrl,
   }) async {
     if (ownerId == requesterUid) {
       throw const AppException('chat_own_listing');
@@ -37,6 +39,8 @@ class ChatRepository {
         participants: [ownerId, requesterUid],
         lastMessage: '',
         updatedAt: DateTime.now(),
+        listingType: listingType,
+        listingImageUrl: listingImageUrl,
       );
       await docRef.set(chat.toCreateMap());
     }

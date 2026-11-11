@@ -10,10 +10,24 @@ class AppLocalizationsTr extends AppLocalizations {
   AppLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
-  String get appTitle => 'Bulduk';
+  String get appName => 'Bulundu';
 
   @override
-  String get appTagline => 'Kaybolanı topluluk gücüyle bulalım.';
+  String get appTitle => 'Bulundu';
+
+  @override
+  String get appTagline =>
+      'Kayıplar bulunur, komşuluk güçlenir. Şehrindeki kayıp ve bulunan eşyaları anında keşfet.';
+
+  @override
+  String get slogan =>
+      'Kayıplar bulunur, komşuluk güçlenir. Şehrindeki kayıp ve bulunan eşyaları anında keşfet.';
+
+  @override
+  String get sloganShort => 'Kayıplar bulunur, komşuluk güçlenir.';
+
+  @override
+  String get communitySearchBadge => '✓ Topluluk destekli arama';
 
   @override
   String get navExplore => 'Keşfet';
@@ -28,17 +42,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get navProfile => 'Profil';
 
   @override
-  String get fabPostListing => 'İlan ver';
+  String get fabPostListing => 'Hemen İlan Ver';
 
   @override
   String get exploreTitle => 'Keşfet';
 
   @override
-  String get exploreEmptyTitle => 'Yakınınızda henüz kayıp ilanı yok';
+  String get exploreEmptyTitle => 'Henüz ilan yok';
 
   @override
-  String get exploreEmptyMessage =>
-      'Çevre yarıçapını genişletebilir veya ilk ilanı sen verebilirsin.';
+  String get exploreEmptyMessage => 'İlk ilanı sen ver.';
 
   @override
   String get mapTitle => 'Harita';
@@ -162,32 +175,35 @@ class AppLocalizationsTr extends AppLocalizations {
   String get listingTypeFoundVerb => 'Buldum';
 
   @override
-  String get listingStatusResolved => 'Çözüldü';
+  String get listingStatusResolved => 'Teslim Edildi';
 
   @override
   String get deletedUser => 'Silinmiş kullanıcı';
 
   @override
-  String get loginTitle => 'Giriş yap';
+  String get loginTitle => 'Giriş Yap';
 
   @override
-  String get registerTitle => 'Hesap oluştur';
+  String get registerTitle => 'Kayıt Ol';
 
   @override
   String get acceptTermsTitle => 'Şartlar ve Gizlilik';
 
   @override
   String get acceptTermsDescription =>
-      'Bulduk\'u kullanmaya devam etmek için görünen adını kontrol et ve Kullanım Şartları ile Gizlilik Politikası\'nı onayla.';
+      'Bulundu\'yu kullanmaya devam etmek için görünen adını kontrol et ve Kullanım Şartları ile Gizlilik Politikası\'nı onayla.';
 
   @override
-  String get emailLabel => 'E-posta adresi';
+  String get emailLabel => 'E-posta';
 
   @override
   String get passwordLabel => 'Şifre';
 
   @override
-  String get displayNameLabel => 'Görünen ad';
+  String get passwordHelper => 'En az 8 karakter';
+
+  @override
+  String get displayNameLabel => 'Ad Soyad';
 
   @override
   String get displayNameHelper =>
@@ -200,73 +216,83 @@ class AppLocalizationsTr extends AppLocalizations {
   String get hidePasswordTooltip => 'Şifreyi gizle';
 
   @override
-  String get loginButton => 'Giriş yap';
+  String get loginButton => 'Giriş Yap →';
 
   @override
-  String get registerButton => 'Kayıt ol';
+  String get registerButton => 'Hesap Oluştur';
 
   @override
-  String get orDivider => 'veya';
+  String get forgotPassword => 'Şifremi unuttum?';
 
   @override
-  String get continueWithGoogle => 'Google ile devam et';
+  String get forgotPasswordTitle => 'Şifremi Sıfırla';
 
   @override
-  String get continueWithApple => 'Apple ile devam et';
+  String get forgotPasswordDescription =>
+      'E-posta adresini gir, şifre sıfırlama bağlantısını e-postana gönderelim.';
 
   @override
-  String get noAccountPrompt => 'Hesabın yok mu? Kayıt ol';
+  String get sendResetLink => 'Bağlantı gönder';
 
   @override
-  String get haveAccountPrompt => 'Zaten hesabın var mı? Giriş yap';
+  String get passwordResetSent =>
+      'Şifre sıfırlama bağlantısını e-postana gönderdik.';
+
+  @override
+  String get noAccountPrompt => 'Henüz hesabın yok mu? Kayıt Ol';
+
+  @override
+  String get haveAccountPrompt => 'Zaten hesabın var mı? Giriş Yap';
+
+  @override
+  String get termsNotice =>
+      'Devam ederek Kullanım Şartları ve Gizlilik Politikası\'nı kabul etmiş olursun.';
 
   @override
   String get validationEmailInvalid => 'Geçerli bir e-posta adresi gir.';
 
   @override
-  String get validationPasswordShort => 'Şifre en az 6 karakter olmalı.';
+  String get validationPasswordShort => 'Şifre en az 8 karakter olmalı.';
 
   @override
   String get validationDisplayNameInvalid =>
-      'Görünen ad 1 ile 40 karakter arasında olmalı.';
+      'Ad Soyad 1 ile 40 karakter arasında olmalı.';
 
   @override
   String get validationTermsRequired =>
       'Devam etmek için şartları ve gizlilik politikasını onaylamalısın.';
 
   @override
-  String get authErrorInvalidCredentials =>
-      'E-posta veya şifre hatalı. Kontrol edip tekrar dener misin?';
+  String get authErrorInvalidCredentials => 'E-posta veya şifre hatalı.';
 
   @override
   String get authErrorEmailInUse =>
-      'Bu e-posta adresiyle zaten bir hesap var. Giriş yapmayı dene.';
+      'Bu e-posta ile zaten bir hesap var. Giriş yapmayı dene.';
 
   @override
-  String get authErrorWeakPassword =>
-      'Daha güçlü bir şifre seçmelisin (en az 6 karakter).';
+  String get authErrorWeakPassword => 'Şifre en az 8 karakter olmalı.';
 
   @override
   String get authErrorNetwork =>
       'İnternet bağlantını kontrol edip tekrar dener misin?';
 
   @override
-  String get authErrorCancelled => 'Giriş işlemi iptal edildi.';
+  String get authErrorCancelled => 'İşlem iptal edildi.';
 
   @override
-  String get categoryWallet => 'Cüzdan';
+  String get categoryWallet => 'Cüzdan & Kimlik';
 
   @override
   String get categoryPhone => 'Telefon';
 
   @override
-  String get categoryKeys => 'Anahtar';
+  String get categoryKeys => 'Anahtarlık';
 
   @override
   String get categoryBag => 'Çanta';
 
   @override
-  String get categoryDocuments => 'Kimlik / Belge';
+  String get categoryDocuments => 'Kimlik & Belge';
 
   @override
   String get categoryElectronics => 'Elektronik';
@@ -287,7 +313,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get filterTitle => 'Filtrele';
 
   @override
-  String get filterClearButton => 'Filtreyi temizle';
+  String get filterClearButton => 'Temizle';
 
   @override
   String get filterApplyButton => 'Uygula';
@@ -309,10 +335,10 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get listingFormNewTitle => 'İlan ver';
+  String get listingFormNewTitle => 'Hemen İlan Ver';
 
   @override
-  String get listingFormEditTitle => 'İlanı düzenle';
+  String get listingFormEditTitle => 'İlanı Düzenle';
 
   @override
   String get listingTypeLabel => 'İlan türü';
@@ -352,7 +378,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get listingLocationNameLabel => 'Konum açıklaması / semt';
 
   @override
-  String get listingLocationNameHelper => 'Örn: Kadıköy İskele';
+  String get listingLocationNameHelper => 'Örn: Kadıköy Moda Parkı';
 
   @override
   String get pickLocationButton => 'Haritadan konum seç';
@@ -396,7 +422,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get editListingButton => 'Düzenle';
 
   @override
-  String get markResolvedButton => 'Çözüldü olarak işaretle';
+  String get markResolvedButton => 'Teslim edildi olarak işaretle';
 
   @override
   String get deleteListingButton => 'İlanı sil';
@@ -409,7 +435,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get similarListingsTitle => 'Benzer ilanlar';
 
   @override
-  String get viewDetailsButton => 'Detay';
+  String get viewDetailsButton => 'Detayı Gör';
 
   @override
   String postedByLabel(String name) {
@@ -437,7 +463,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get osmAttribution => '© OpenStreetMap katkıda bulunanlar';
+  String get osmAttribution => '© OpenStreetMap';
 
   @override
   String get messageInputLabel => 'Mesajın';
@@ -525,52 +551,57 @@ class AppLocalizationsTr extends AppLocalizations {
   String get deleteAccountSuccess => 'Hesabın ve verilerin silindi.';
 
   @override
-  String get locationAllAreas => 'Tüm Bölgeler';
-
-  @override
-  String get expandRadiusButton => 'Çevre yarıçapını genişlet';
-
-  @override
   String get cardActionMessage => 'Mesaj At';
 
   @override
   String get cardActionMine => 'Bu Benim!';
 
   @override
-  String get favoriteTooltip => 'Favorilere ekle';
+  String get safetyTipBanner =>
+      'Önemli: Eşya tesliminde kalabalık, kamusal alanları tercih edin.';
 
   @override
-  String get verifiedBadgeLabel => 'Doğrulanmış';
+  String get chatSecurityNotice =>
+      'Kişisel ve finansal bilgilerini sohbette paylaşma.';
 
   @override
-  String get trustScoreTitle => 'Güven ve Dayanışma Profili';
+  String get activeListingsCount => 'Aktif İlan';
 
   @override
-  String get trustScoreBadge => '98/100 ★ Süper Güven';
+  String get deliveredListingsCount => 'Teslim Edilen';
 
   @override
-  String get trustScoreSubtitle =>
-      'Doğrulanmış topluluk üyesi · Güvenli teslimat';
+  String get badgeResolved => '✓ TESLİM EDİLDİ';
 
   @override
-  String get badgeFastHelper => 'Hızlı Yardımsever';
+  String get locationPermissionSetting => 'Konum izni';
 
   @override
-  String get badgeItemDetective => 'Eşya Dedektifi';
+  String get supportEmail => 'Destek';
 
   @override
-  String get badgeVerifiedVolunteer => 'Doğrulanmış Mahalle Gönüllüsü';
+  String get feedTitleNearby => 'Yakınındaki İlanlar';
 
   @override
-  String get safetyBannerTitle => 'Güvenli Teslimat Hatırlatması';
+  String get feedTitleRecent => 'Son İlanlar';
 
   @override
-  String get safetyBannerMessage =>
-      'Teslimatları her zaman halka açık noktalarda gerçekleştirin ve eşyanın ayırt edici detaylarını doğrulayın.';
+  String get sortNewest => 'En Yeniler';
 
   @override
-  String get mapSearchHint => 'Haritada ilan veya semt ara...';
+  String get sortNearest => 'En Yakınlar';
 
   @override
-  String get nearbyListingsTitle => 'Yakındaki İlanlar';
+  String radiusInKm(String radius) {
+    return '$radius km içi';
+  }
+
+  @override
+  String get searchHint => 'Eşya adı, anahtar kelime, marka ara...';
+
+  @override
+  String get searchMessagesHint => 'Mesajlarda ve ilanlarda ara...';
+
+  @override
+  String get filtersActiveTooltip => 'Filtreler etkin';
 }

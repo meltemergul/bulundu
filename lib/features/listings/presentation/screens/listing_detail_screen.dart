@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +17,7 @@ import 'package:bulundu/features/moderation/presentation/widgets/report_menu_but
 import 'package:bulundu/shared/extensions/context_x.dart';
 import 'package:bulundu/shared/utils/date_format.dart';
 import 'package:bulundu/shared/widgets/app_button.dart';
+import 'package:bulundu/shared/widgets/app_image.dart';
 import 'package:bulundu/shared/widgets/error_view.dart';
 import 'package:bulundu/shared/widgets/loading_view.dart';
 import 'package:bulundu/shared/widgets/max_width_body.dart';
@@ -98,13 +98,33 @@ class ListingDetailScreen extends ConsumerWidget {
     final formState = ref.watch(listingFormControllerProvider);
     final chatState = ref.watch(chatControllerProvider);
 
+    Widget buildBackButton() {
+      return IconButton(
+        icon: const Icon(Icons.arrow_back),
+        tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+        onPressed: () {
+          if (context.canPop()) {
+            context.pop();
+          } else {
+            context.go(AppRoutes.explore);
+          }
+        },
+      );
+    }
+
     return listingAsync.when(
       loading: () => Scaffold(
-        appBar: AppBar(title: Text(l10n.listingDetailTitle)),
+        appBar: AppBar(
+          title: Text(l10n.listingDetailTitle),
+          leading: buildBackButton(),
+        ),
         body: const LoadingView(),
       ),
       error: (_, _) => Scaffold(
-        appBar: AppBar(title: Text(l10n.listingDetailTitle)),
+        appBar: AppBar(
+          title: Text(l10n.listingDetailTitle),
+          leading: buildBackButton(),
+        ),
         body: ErrorView(
           message: l10n.errorGeneric,
           onRetry: () => ref.invalidate(listingDetailProvider(listingId)),
@@ -113,7 +133,10 @@ class ListingDetailScreen extends ConsumerWidget {
       data: (listing) {
         if (listing == null) {
           return Scaffold(
-            appBar: AppBar(title: Text(l10n.listingDetailTitle)),
+            appBar: AppBar(
+              title: Text(l10n.listingDetailTitle),
+              leading: buildBackButton(),
+            ),
             body: ErrorView(message: l10n.errorGeneric),
           );
         }
@@ -132,6 +155,7 @@ class ListingDetailScreen extends ConsumerWidget {
           child: Scaffold(
             appBar: AppBar(
               title: Text(l10n.listingDetailTitle),
+              leading: buildBackButton(),
               actions: [
                 if (!isOwner)
                   ReportMenuButton(
@@ -164,7 +188,7 @@ class ListingDetailScreen extends ConsumerWidget {
                                 borderRadius: BorderRadius.circular(
                                   AppSpacing.radiusLg,
                                 ),
-                                child: CachedNetworkImage(
+                                child: AppImage(
                                   imageUrl: listing.imageUrls[index],
                                   fit: BoxFit.cover,
                                   placeholder: (context, _) => Container(
@@ -284,12 +308,12 @@ class ListingDetailScreen extends ConsumerWidget {
                     Container(
                       padding: const EdgeInsets.all(AppSpacing.md),
                       decoration: BoxDecoration(
-                        color: colors.secondaryContainer.withValues(alpha: 0.6),
+                        color: colors.primaryFixed.withValues(alpha: 0.4),
                         borderRadius: BorderRadius.circular(
                           AppSpacing.radiusXl,
                         ),
                         border: Border.all(
-                          color: colors.secondary.withValues(alpha: 0.3),
+                          color: colors.primary.withValues(alpha: 0.2),
                         ),
                       ),
                       child: Row(
@@ -297,7 +321,7 @@ class ListingDetailScreen extends ConsumerWidget {
                         children: [
                           Icon(
                             Icons.shield_outlined,
-                            color: colors.onSecondaryContainer,
+                            color: colors.onPrimaryFixed,
                             size: AppSpacing.lg,
                           ),
                           const SizedBox(width: AppSpacing.sm),
@@ -306,18 +330,11 @@ class ListingDetailScreen extends ConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  l10n.safetyBannerTitle,
+                                  l10n.safetyTipBanner,
                                   style: context.textStyles.labelLarge
                                       ?.copyWith(
-                                        color: colors.onSecondaryContainer,
-                                      ),
-                                ),
-                                const SizedBox(height: AppSpacing.xs),
-                                Text(
-                                  l10n.safetyBannerMessage,
-                                  style: context.textStyles.labelSmall
-                                      ?.copyWith(
-                                        color: colors.onSecondaryContainer,
+                                        color: colors.onPrimaryFixed,
+                                        fontWeight: FontWeight.w700,
                                       ),
                                 ),
                               ],
@@ -351,11 +368,11 @@ class ListingDetailScreen extends ConsumerWidget {
                                         radius:
                                             Listing.foundPrivacyRadiusMeters,
                                         useRadiusInMeter: true,
-                                        color: colors.tertiary.withValues(
-                                          alpha: 0.2,
+                                        color: colors.primary.withValues(
+                                          alpha: 0.15,
                                         ),
-                                        borderColor: colors.tertiary,
-                                        borderStrokeWidth: 2,
+                                        borderColor: colors.primary,
+                                        borderStrokeWidth: 1.5,
                                       ),
                                     ],
                                   )
@@ -441,14 +458,31 @@ class ListingDetailScreen extends ConsumerWidget {
                         ],
                       ),
                     ] else if (!listing.isResolved) ...[
-                      AppButton(
-                        label: listing.isLost
-                            ? l10n.foundThisButton
-                            : l10n.thisIsMineButton,
-                        icon: Icons.chat_bubble_outline,
-                        isLoading: chatState.isLoading,
-                        onPressed: () => _startChat(context, ref, listing),
-                      ),
+                      listing.isLost
+                          ? FilledButton.icon(
+                              style: FilledButton.styleFrom(
+                                minimumSize: const Size.fromHeight(48),
+                                backgroundColor: colors.primaryContainer,
+                                foregroundColor: colors.onPrimary,
+                              ),
+                              icon: const Icon(Icons.chat_bubble_outline),
+                              label: Text(l10n.foundThisButton),
+                              onPressed: chatState.isLoading
+                                  ? null
+                                  : () => _startChat(context, ref, listing),
+                            )
+                          : FilledButton.icon(
+                              style: FilledButton.styleFrom(
+                                minimumSize: const Size.fromHeight(48),
+                                backgroundColor: colors.tertiaryContainer,
+                                foregroundColor: colors.onTertiary,
+                              ),
+                              icon: const Icon(Icons.handshake_outlined),
+                              label: Text(l10n.thisIsMineButton),
+                              onPressed: chatState.isLoading
+                                  ? null
+                                  : () => _startChat(context, ref, listing),
+                            ),
                     ],
                     if (similar.isNotEmpty) ...[
                       const SizedBox(height: AppSpacing.xl),

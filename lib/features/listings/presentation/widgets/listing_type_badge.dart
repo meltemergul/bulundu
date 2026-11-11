@@ -15,41 +15,45 @@ class ListingTypeBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
     final colors = context.colors;
+    final textStyles = context.textStyles;
 
     final (
       Color bg,
       Color fg,
       Color dotColor,
       String label,
+      bool isResolved,
     ) = status == ListingStatus.resolved
         ? (
-            colors.surfaceContainerLow,
-            colors.onSurfaceVariant,
-            colors.onSurfaceVariant,
-            l10n.listingStatusResolved,
+            colors.tertiaryContainer,
+            colors.onTertiaryContainer,
+            colors.tertiary,
+            'TESLİM EDİLDİ',
+            true,
           )
         : switch (type) {
             ListingType.lost => (
               colors.secondaryContainer,
               colors.onSecondaryContainer,
               colors.secondary,
-              l10n.listingTypeLost,
+              'KAYIP',
+              false,
             ),
             ListingType.found => (
-              colors.tertiaryContainer,
-              colors.onTertiaryContainer,
-              colors.tertiary,
-              l10n.listingTypeFound,
+              colors.primaryContainer,
+              colors.onPrimaryContainer,
+              colors.primary,
+              'BULUNDU',
+              false,
             ),
           };
 
     return Container(
-      constraints: const BoxConstraints(minHeight: AppSpacing.lg),
+      constraints: const BoxConstraints(minHeight: 24),
       padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.sm,
-        vertical: AppSpacing.xs,
+        vertical: 3,
       ),
       decoration: BoxDecoration(
         color: bg,
@@ -58,12 +62,12 @@ class ListingTypeBadge extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (status == ListingStatus.resolved)
-            Icon(Icons.check_circle, size: AppSpacing.sm, color: fg)
+          if (isResolved)
+            Icon(Icons.check_circle, size: 14, color: fg)
           else
             Container(
-              width: AppSpacing.sm,
-              height: AppSpacing.sm,
+              width: 6,
+              height: 6,
               decoration: BoxDecoration(
                 color: dotColor,
                 shape: BoxShape.circle,
@@ -72,7 +76,12 @@ class ListingTypeBadge extends StatelessWidget {
           const SizedBox(width: AppSpacing.xs),
           Text(
             label,
-            style: context.textStyles.labelSmall?.copyWith(color: fg),
+            style: (textStyles.labelSmall ?? const TextStyle(fontSize: 12))
+                .copyWith(
+                  color: fg,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.24,
+                ),
           ),
         ],
       ),

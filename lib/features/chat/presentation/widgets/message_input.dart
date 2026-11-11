@@ -40,6 +40,12 @@ class _MessageInputState extends State<MessageInput> {
             Expanded(
               child: TextField(
                 controller: _controller,
+                style: TextStyle(
+                  color: context.colors.onSurface,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                ),
+                cursorColor: context.colors.primary,
                 textInputAction: TextInputAction.send,
                 maxLength: 1000,
                 onSubmitted: (_) => _submit(),

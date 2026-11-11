@@ -66,13 +66,20 @@ class ListingRepository {
       i++
     ) {
       final index = uploadedUrls.length;
-      final url = await imageStorage.upload(
-        uid: ownerId,
-        listingId: listingId,
-        index: index,
-        file: draft.newImages[i],
-      );
-      uploadedUrls.add(url);
+      final imageBytes =
+          i < draft.newImageBytes.length ? draft.newImageBytes[i] : null;
+      try {
+        final url = await imageStorage.upload(
+          uid: ownerId,
+          listingId: listingId,
+          index: index,
+          file: draft.newImages[i],
+          bytes: imageBytes,
+        );
+        uploadedUrls.add(url);
+      } catch (e) {
+        throw Exception('Görsel işlenemedi: $e');
+      }
     }
 
     final listing = Listing(
@@ -109,13 +116,20 @@ class ListingRepository {
       i++
     ) {
       final index = uploadedUrls.length;
-      final url = await imageStorage.upload(
-        uid: ownerId,
-        listingId: listingId,
-        index: index,
-        file: draft.newImages[i],
-      );
-      uploadedUrls.add(url);
+      final imageBytes =
+          i < draft.newImageBytes.length ? draft.newImageBytes[i] : null;
+      try {
+        final url = await imageStorage.upload(
+          uid: ownerId,
+          listingId: listingId,
+          index: index,
+          file: draft.newImages[i],
+          bytes: imageBytes,
+        );
+        uploadedUrls.add(url);
+      } catch (e) {
+        throw Exception('Görsel işlenemedi: $e');
+      }
     }
 
     await _db.collection('listings').doc(listingId).update({

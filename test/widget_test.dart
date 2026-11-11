@@ -32,9 +32,10 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Giriş yap'), findsWidgets);
-      expect(find.text('Apple ile devam et'), findsOneWidget);
-      expect(find.text('Google ile devam et'), findsOneWidget);
+      expect(find.text('Giriş Yap'), findsWidgets);
+      // Strictly email/password: no social login buttons (PROJECT.md §1, DESIGN.md §0.3)
+      expect(find.text('Apple ile devam et'), findsNothing);
+      expect(find.text('Google ile devam et'), findsNothing);
     });
 
     testWidgets(
@@ -128,6 +129,8 @@ void main() {
       expect(prefs.getString('settings.themeMode'), 'dark');
 
       // Switch language to English
+      await tester.ensureVisible(find.text('English'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('English'));
       await tester.pumpAndSettle();
       expect(prefs.getString('settings.locale'), 'en');

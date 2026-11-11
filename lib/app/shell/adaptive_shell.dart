@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bulundu/app/router/routes.dart';
+import 'package:bulundu/app/theme/app_shadows.dart';
 import 'package:bulundu/app/theme/app_spacing.dart';
 import 'package:bulundu/shared/extensions/context_x.dart';
 
@@ -20,10 +23,11 @@ class AdaptiveShell extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.colors;
-    final isWide = context.isWide;
+    final brightness = Theme.of(context).brightness;
     final currentIndex = navigationShell.currentIndex;
+    final useRail = context.useRail;
 
-    if (isWide) {
+    if (useRail) {
       return Scaffold(
         body: SafeArea(
           child: Row(
@@ -34,14 +38,16 @@ class AdaptiveShell extends StatelessWidget {
                 labelType: NavigationRailLabelType.all,
                 leading: Padding(
                   padding: const EdgeInsets.only(
-                    top: AppSpacing.xs,
-                    bottom: AppSpacing.md,
+                    top: AppSpacing.sm,
+                    bottom: AppSpacing.lg,
                   ),
                   child: FloatingActionButton.extended(
+                    heroTag: null,
                     onPressed: () => context.push(AppRoutes.listingNew),
-                    backgroundColor: colors.primary,
+                    backgroundColor: colors.primaryContainer,
                     foregroundColor: colors.onPrimary,
-                    icon: const Icon(Icons.add),
+                    elevation: 0,
+                    icon: const Icon(Icons.add_circle_outline),
                     label: Text(l10n.fabPostListing),
                   ),
                 ),
@@ -76,77 +82,156 @@ class AdaptiveShell extends StatelessWidget {
       );
     }
 
-    final navBarIndex = currentIndex >= 2 ? currentIndex + 1 : currentIndex;
-
+    // Compact bottom bar with floating elevated center [+]
     return Scaffold(
       body: navigationShell,
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: colors.surface,
-          border: Border(top: BorderSide(color: colors.outlineVariant)),
-          boxShadow: [
-            BoxShadow(
-              color: colors.shadow,
-              blurRadius: AppSpacing.md,
-              offset: const Offset(0, -AppSpacing.xs),
-            ),
-          ],
-        ),
-        child: NavigationBar(
-          selectedIndex: navBarIndex,
-          onDestinationSelected: (idx) {
-            if (idx == 2) {
-              context.push(AppRoutes.listingNew);
-              return;
-            }
-            final branchIdx = idx > 2 ? idx - 1 : idx;
-            _onBranchSelected(branchIdx);
-          },
-          destinations: [
-            NavigationDestination(
-              icon: const Icon(Icons.explore_outlined),
-              selectedIcon: Icon(Icons.explore, color: colors.primary),
-              label: l10n.navExplore,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.map_outlined),
-              selectedIcon: Icon(Icons.map, color: colors.primary),
-              label: l10n.navMap,
-            ),
-            NavigationDestination(
-              icon: Container(
-                width: AppSpacing.xl + AppSpacing.sm,
-                height: AppSpacing.xl + AppSpacing.sm,
+      bottomNavigationBar: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.bottomCenter,
+        children: [
+          // Glass backdrop bar
+          ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+              child: Container(
+                height: 64 + MediaQuery.paddingOf(context).bottom,
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.paddingOf(context).bottom,
+                ),
                 decoration: BoxDecoration(
-                  color: colors.primary,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: colors.primary.withValues(alpha: 0.35),
-                      blurRadius: AppSpacing.sm,
-                      offset: const Offset(0, AppSpacing.xs),
+                  color: colors.surface.withValues(alpha: 0.85),
+                  boxShadow: AppShadows.floating(brightness),
+                ),
+                child: Row(
+                  children: [
+                    _NavItem(
+                      icon: Icons.explore_outlined,
+                      selectedIcon: Icons.explore,
+                      label: l10n.navExplore,
+                      isSelected: currentIndex == 0,
+                      onTap: () => _onBranchSelected(0),
+                    ),
+                    _NavItem(
+                      icon: Icons.map_outlined,
+                      selectedIcon: Icons.map,
+                      label: l10n.navMap,
+                      isSelected: currentIndex == 1,
+                      onTap: () => _onBranchSelected(1),
+                    ),
+                    // Placeholder space for center + button
+                    const Expanded(child: SizedBox(height: 48)),
+                    _NavItem(
+                      icon: Icons.chat_bubble_outline,
+                      selectedIcon: Icons.chat_bubble,
+                      label: l10n.navChats,
+                      isSelected: currentIndex == 2,
+                      onTap: () => _onBranchSelected(2),
+                    ),
+                    _NavItem(
+                      icon: Icons.person_outline,
+                      selectedIcon: Icons.person,
+                      label: l10n.navProfile,
+                      isSelected: currentIndex == 3,
+                      onTap: () => _onBranchSelected(3),
                     ),
                   ],
                 ),
-                child: Icon(
-                  Icons.add,
-                  color: colors.onPrimary,
-                  size: AppSpacing.lg,
+              ),
+            ),
+          ),
+
+          // Center floating [+] action button
+          Positioned(
+            top: -20,
+            child: Semantics(
+              button: true,
+              label: l10n.fabPostListing,
+              child: Tooltip(
+                message: l10n.fabPostListing,
+                child: Container(
+                  width: 56,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    color: colors.primaryContainer,
+                    shape: BoxShape.circle,
+                    boxShadow: AppShadows.floating(brightness),
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    shape: const CircleBorder(),
+                    child: InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: () => context.push(AppRoutes.listingNew),
+                      child: Icon(Icons.add, size: 28, color: colors.onPrimary),
+                    ),
+                  ),
                 ),
               ),
-              label: l10n.fabPostListing,
             ),
-            NavigationDestination(
-              icon: const Icon(Icons.chat_bubble_outline),
-              selectedIcon: Icon(Icons.chat_bubble, color: colors.primary),
-              label: l10n.navChats,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NavItem extends StatelessWidget {
+  const _NavItem({
+    required this.icon,
+    required this.selectedIcon,
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final IconData selectedIcon;
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final textStyles = context.textStyles;
+
+    return Expanded(
+      child: Semantics(
+        selected: isSelected,
+        button: true,
+        label: label,
+        child: InkResponse(
+          onTap: onTap,
+          radius: 28,
+          child: SizedBox(
+            height: 64,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  isSelected ? selectedIcon : icon,
+                  size: 24,
+                  color: isSelected ? colors.primary : colors.onSurfaceVariant,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style:
+                      (textStyles.labelSmall ?? const TextStyle(fontSize: 12))
+                          .copyWith(
+                            color: isSelected
+                                ? colors.primary
+                                : colors.onSurfaceVariant,
+                            fontWeight: isSelected
+                                ? FontWeight.w700
+                                : FontWeight.w500,
+                          ),
+                ),
+              ],
             ),
-            NavigationDestination(
-              icon: const Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person, color: colors.primary),
-              label: l10n.navProfile,
-            ),
-          ],
+          ),
         ),
       ),
     );

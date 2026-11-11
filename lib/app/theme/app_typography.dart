@@ -1,56 +1,90 @@
 import 'package:flutter/material.dart';
 
 abstract final class AppTypography {
-  static const String fontFamily = 'Inter';
+  static const _family = 'PlusJakartaSans';
 
-  static const TextTheme textTheme = TextTheme(
+  static const textTheme = TextTheme(
+    headlineLarge: TextStyle(
+      fontFamily: _family,
+      fontSize: 28,
+      height: 36 / 28,
+      fontWeight: FontWeight.w800,
+    ),
     headlineMedium: TextStyle(
-      fontFamily: fontFamily,
-      fontSize: 24,
-      height: 32 / 24,
+      fontFamily: _family,
+      fontSize: 22,
+      height: 30 / 22,
       fontWeight: FontWeight.w700,
     ),
     headlineSmall: TextStyle(
-      fontFamily: fontFamily,
+      fontFamily: _family,
       fontSize: 20,
       height: 28 / 20,
       fontWeight: FontWeight.w700,
     ),
     titleLarge: TextStyle(
-      fontFamily: fontFamily,
+      fontFamily: _family,
       fontSize: 20,
       height: 28 / 20,
       fontWeight: FontWeight.w700,
     ),
     titleMedium: TextStyle(
-      fontFamily: fontFamily,
+      fontFamily: _family,
       fontSize: 16,
       height: 24 / 16,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
     ),
     bodyLarge: TextStyle(
-      fontFamily: fontFamily,
-      fontSize: 14,
-      height: 20 / 14,
+      fontFamily: _family,
+      fontSize: 16,
+      height: 24 / 16,
       fontWeight: FontWeight.w400,
     ),
     bodyMedium: TextStyle(
-      fontFamily: fontFamily,
+      fontFamily: _family,
       fontSize: 14,
       height: 20 / 14,
       fontWeight: FontWeight.w400,
     ),
-    labelLarge: TextStyle(
-      fontFamily: fontFamily,
-      fontSize: 13,
-      height: 18 / 13,
-      fontWeight: FontWeight.w600,
-    ),
-    labelSmall: TextStyle(
-      fontFamily: fontFamily,
+    bodySmall: TextStyle(
+      fontFamily: _family,
       fontSize: 12,
       height: 16 / 12,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
     ),
+    labelLarge: TextStyle(
+      fontFamily: _family,
+      fontSize: 14,
+      height: 20 / 14,
+      fontWeight: FontWeight.w600,
+    ),
+    labelMedium: TextStyle(
+      fontFamily: _family,
+      fontSize: 12,
+      height: 16 / 12,
+      fontWeight: FontWeight.w600,
+      letterSpacing: 0.24,
+    ),
+    labelSmall: TextStyle(
+      fontFamily: _family,
+      fontSize: 12,
+      height: 16 / 12,
+      fontWeight: FontWeight.w700,
+      letterSpacing: 0.24,
+    ),
+  );
+
+  /// Geniş ekranda (≥ 1024 dp) yalnız ekran başlıkları için.
+  static const wideHeadlineLarge = TextStyle(
+    fontFamily: _family,
+    fontSize: 36,
+    height: 44 / 36,
+    fontWeight: FontWeight.w800,
+  );
+  static const wideHeadlineMedium = TextStyle(
+    fontFamily: _family,
+    fontSize: 28,
+    height: 36 / 28,
+    fontWeight: FontWeight.w700,
   );
 }

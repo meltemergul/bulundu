@@ -8,13 +8,9 @@ class DeleteAccountController extends AsyncNotifier<void> {
   @override
   Future<void> build() async {}
 
-  bool get requiresPasswordReauth {
-    final user = ref.read(authRepositoryProvider).currentUser;
-    if (user == null) return false;
-    return user.providerData.any((p) => p.providerId == 'password');
-  }
+  bool get requiresPasswordReauth => true;
 
-  Future<bool> deleteAccount({String? password}) async {
+  Future<bool> deleteAccount({required String password}) async {
     final authRepo = ref.read(authRepositoryProvider);
     final user = authRepo.currentUser;
     if (user == null) return false;
@@ -22,12 +18,8 @@ class DeleteAccountController extends AsyncNotifier<void> {
 
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      // 1. Re-authenticate first while credentials are active
-      if (password != null && password.isNotEmpty) {
-        await authRepo.reauthenticateWithPassword(password);
-      } else if (!requiresPasswordReauth) {
-        await authRepo.reauthenticateWithSocial();
-      }
+      // 1. Re-authenticate with password first
+      await authRepo.reauthenticateWithPassword(password);
 
       // 2. Delete user's listing photos (Storage) and listings (Firestore)
       await ref

@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crypto/crypto.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:bulundu/features/listings/models/listing_category.dart';
 
@@ -61,9 +59,13 @@ class Listing {
     if (type == ListingType.lost) {
       return exactPoint;
     }
-    final bytes = sha256.convert(utf8.encode(id)).bytes;
-    final normDist = ((bytes[0] << 8) | bytes[1]) / 65535.0;
-    final normBearing = ((bytes[2] << 8) | bytes[3]) / 65535.0;
+    // Deterministic hash without external crypto dependency
+    var h = 0x811c9dc5;
+    for (final cu in id.codeUnits) {
+      h = ((h ^ cu) * 0x01000193) & 0xFFFFFFFF;
+    }
+    final normDist = (h & 0xFFFF) / 65535.0;
+    final normBearing = ((h >> 16) & 0xFFFF) / 65535.0;
     // Distance between 30 m and 120 m
     final distanceMeters = 30.0 + (normDist * (foundMaxOffsetMeters - 30.0));
     final bearingRad = normBearing * 2 * pi;

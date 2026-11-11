@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:bulundu/app/router/routes.dart';
 import 'package:bulundu/app/theme/app_spacing.dart';
 import 'package:bulundu/features/auth/providers/auth_providers.dart';
 import 'package:bulundu/features/chat/presentation/widgets/message_bubble.dart';
@@ -40,6 +41,17 @@ class ChatScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go(AppRoutes.chats);
+            }
+          },
+        ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -99,7 +111,7 @@ class ChatScreen extends ConsumerWidget {
                   const SizedBox(width: AppSpacing.sm),
                   Expanded(
                     child: Text(
-                      l10n.safetyBannerMessage,
+                      l10n.chatSecurityNotice,
                       style: context.textStyles.labelSmall?.copyWith(
                         color: colors.onSecondaryContainer,
                       ),

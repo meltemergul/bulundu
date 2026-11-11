@@ -10,10 +10,24 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'Bulduk';
+  String get appName => 'Bulundu';
 
   @override
-  String get appTagline => 'Reuniting lost items through community power.';
+  String get appTitle => 'Bulundu';
+
+  @override
+  String get appTagline =>
+      'Lost things get found, neighbors grow closer. Discover lost and found items in your city instantly.';
+
+  @override
+  String get slogan =>
+      'Lost things get found, neighbors grow closer. Discover lost and found items in your city instantly.';
+
+  @override
+  String get sloganShort => 'Lost things get found, neighbors grow closer.';
+
+  @override
+  String get communitySearchBadge => '✓ Community-powered search';
 
   @override
   String get navExplore => 'Explore';
@@ -28,17 +42,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navProfile => 'Profile';
 
   @override
-  String get fabPostListing => 'Post listing';
+  String get fabPostListing => 'Post Listing';
 
   @override
   String get exploreTitle => 'Explore';
 
   @override
-  String get exploreEmptyTitle => 'No lost listings nearby yet';
+  String get exploreEmptyTitle => 'No listings yet';
 
   @override
-  String get exploreEmptyMessage =>
-      'Try expanding the search radius or be the first to post.';
+  String get exploreEmptyMessage => 'Be the first to post.';
 
   @override
   String get mapTitle => 'Map';
@@ -51,7 +64,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatsEmptyMessage =>
-      'When you start a conversation about a listing, it will appear here.';
+      'When you start a chat about an item, it will appear here.';
 
   @override
   String get profileTitle => 'Profile';
@@ -60,13 +73,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTitle => 'Settings';
 
   @override
-  String get myListingsTitle => 'My listings';
+  String get myListingsTitle => 'My Listings';
 
   @override
-  String get blockedUsersTitle => 'Blocked users';
+  String get blockedUsersTitle => 'Blocked Users';
 
   @override
-  String get deleteAccountTitle => 'Delete account';
+  String get deleteAccountTitle => 'Delete Account';
 
   @override
   String get languageLabel => 'Language';
@@ -160,7 +173,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get listingTypeFound => 'Found';
 
   @override
-  String get listingTypeFoundVerb => 'I found';
+  String get listingTypeFoundVerb => 'Found';
 
   @override
   String get listingStatusResolved => 'Resolved';
@@ -169,30 +182,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deletedUser => 'Deleted user';
 
   @override
-  String get loginTitle => 'Sign in';
+  String get loginTitle => 'Sign In';
 
   @override
-  String get registerTitle => 'Create account';
+  String get registerTitle => 'Sign Up';
 
   @override
   String get acceptTermsTitle => 'Terms & Privacy';
 
   @override
   String get acceptTermsDescription =>
-      'Check your display name and accept the Terms of Use and Privacy Policy to continue using Bulduk.';
+      'To continue using Bulundu, please confirm your display name and accept the Terms of Use and Privacy Policy.';
 
   @override
-  String get emailLabel => 'Email address';
+  String get emailLabel => 'Email';
 
   @override
   String get passwordLabel => 'Password';
 
   @override
-  String get displayNameLabel => 'Display name';
+  String get passwordHelper => 'At least 8 characters';
+
+  @override
+  String get displayNameLabel => 'Full Name';
 
   @override
   String get displayNameHelper =>
-      'Name shown on your listings and messages (1–40 characters).';
+      'Name that appears on your listings and messages (1–40 characters).';
 
   @override
   String get showPasswordTooltip => 'Show password';
@@ -201,62 +217,71 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hidePasswordTooltip => 'Hide password';
 
   @override
-  String get loginButton => 'Sign in';
+  String get loginButton => 'Sign In →';
 
   @override
-  String get registerButton => 'Create account';
+  String get registerButton => 'Create Account';
 
   @override
-  String get orDivider => 'or';
+  String get forgotPassword => 'Forgot password?';
 
   @override
-  String get continueWithGoogle => 'Continue with Google';
+  String get forgotPasswordTitle => 'Reset Password';
 
   @override
-  String get continueWithApple => 'Continue with Apple';
+  String get forgotPasswordDescription =>
+      'Enter your email address to receive a password reset link.';
 
   @override
-  String get noAccountPrompt => 'Don\'t have an account? Create one';
+  String get sendResetLink => 'Send link';
 
   @override
-  String get haveAccountPrompt => 'Already have an account? Sign in';
+  String get passwordResetSent => 'We\'ve emailed you a password reset link.';
 
   @override
-  String get validationEmailInvalid => 'Please enter a valid email address.';
+  String get noAccountPrompt => 'Don\'t have an account? Sign Up';
+
+  @override
+  String get haveAccountPrompt => 'Already have an account? Sign In';
+
+  @override
+  String get termsNotice =>
+      'By continuing, you agree to our Terms of Use and Privacy Policy.';
+
+  @override
+  String get validationEmailInvalid => 'Enter a valid email address.';
 
   @override
   String get validationPasswordShort =>
-      'Password must be at least 6 characters.';
+      'Password must be at least 8 characters.';
 
   @override
   String get validationDisplayNameInvalid =>
-      'Display name must be between 1 and 40 characters.';
+      'Name must be between 1 and 40 characters.';
 
   @override
   String get validationTermsRequired =>
       'You must accept the terms and privacy policy to continue.';
 
   @override
-  String get authErrorInvalidCredentials =>
-      'Incorrect email or password. Please check and try again.';
+  String get authErrorInvalidCredentials => 'Incorrect email or password.';
 
   @override
   String get authErrorEmailInUse =>
-      'An account already exists with this email. Try signing in.';
+      'An account with this email already exists. Try signing in.';
 
   @override
-  String get authErrorWeakPassword =>
-      'Please choose a stronger password (at least 6 characters).';
+  String get authErrorWeakPassword => 'Password must be at least 8 characters.';
 
   @override
   String get authErrorNetwork =>
       'Please check your internet connection and try again.';
 
   @override
-  String get authErrorCancelled => 'Sign-in was cancelled.';
+  String get authErrorCancelled => 'Operation was canceled.';
 
   @override
-  String get categoryWallet => 'Wallet';
+  String get categoryWallet => 'Wallet & ID';
 
   @override
   String get categoryPhone => 'Phone';
@@ -268,7 +293,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categoryBag => 'Bag';
 
   @override
-  String get categoryDocuments => 'ID / Documents';
+  String get categoryDocuments => 'Documents';
 
   @override
   String get categoryElectronics => 'Electronics';
@@ -280,7 +305,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categoryClothing => 'Clothing';
 
   @override
-  String get categoryPet => 'Pet';
+  String get categoryPet => 'Pets';
 
   @override
   String get categoryOther => 'Other';
@@ -289,7 +314,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filterTitle => 'Filter';
 
   @override
-  String get filterClearButton => 'Clear filters';
+  String get filterClearButton => 'Clear';
 
   @override
   String get filterApplyButton => 'Apply';
@@ -311,10 +336,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get listingFormNewTitle => 'Post listing';
+  String get listingFormNewTitle => 'Post Listing';
 
   @override
-  String get listingFormEditTitle => 'Edit listing';
+  String get listingFormEditTitle => 'Edit Listing';
 
   @override
   String get listingTypeLabel => 'Listing type';
@@ -324,7 +349,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get listingTitleHelper =>
-      'e.g. Black leather wallet (1–80 characters)';
+      'E.g. Black leather wallet (1–80 characters)';
 
   @override
   String get listingCategoryLabel => 'Category';
@@ -334,7 +359,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get listingDescriptionHelper =>
-      'Distinguishing details or notes (up to 500 characters)';
+      'Distinctive features or extra info (up to 500 characters)';
 
   @override
   String get listingPhotosLabel => 'Photos (up to 3)';
@@ -343,7 +368,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addPhotoGallery => 'Choose from gallery';
 
   @override
-  String get addPhotoCamera => 'Take photo';
+  String get addPhotoCamera => 'Take with camera';
 
   @override
   String get removePhotoTooltip => 'Remove photo';
@@ -352,22 +377,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get listingLocationLabel => 'Location';
 
   @override
-  String get listingLocationNameLabel => 'Location name / area';
+  String get listingLocationNameLabel => 'Location description / area';
 
   @override
-  String get listingLocationNameHelper => 'e.g. Kadikoy Pier';
+  String get listingLocationNameHelper => 'E.g. Kadıköy Park';
 
   @override
   String get pickLocationButton => 'Pick location on map';
 
   @override
-  String get pickLocationTitle => 'Pick location';
+  String get pickLocationTitle => 'Pick Location';
 
   @override
-  String get pickLocationHint => 'Tap on the map to set the spot and confirm.';
+  String get pickLocationHint =>
+      'Tap on the map to place the pin, then confirm.';
 
   @override
-  String get confirmLocationButton => 'Select this spot';
+  String get confirmLocationButton => 'Select this location';
 
   @override
   String get myLocationTooltip => 'Go to my location';
@@ -384,10 +410,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validationLocationRequired =>
-      'Please pick a spot on the map and enter a location name.';
+      'Please pick a location on the map and enter the area name.';
 
   @override
-  String get listingDetailTitle => 'Listing details';
+  String get listingDetailTitle => 'Listing Details';
 
   @override
   String get foundThisButton => 'I found this';
@@ -406,13 +432,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get foundPrivacyNotice =>
-      'For safety, an approximate area (250 m circle) is shown for found items.';
+      'For safety, found item location is shown as an approximate 250 m circle.';
 
   @override
   String get similarListingsTitle => 'Similar listings';
 
   @override
-  String get viewDetailsButton => 'Details';
+  String get viewDetailsButton => 'View Details';
 
   @override
   String postedByLabel(String name) {
@@ -440,7 +466,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get osmAttribution => '© OpenStreetMap contributors';
+  String get osmAttribution => '© OpenStreetMap';
 
   @override
   String get messageInputLabel => 'Your message';
@@ -449,8 +475,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sendMessageTooltip => 'Send';
 
   @override
-  String get chatOwnListingError =>
-      'You can\'t start a chat on your own listing.';
+  String get chatOwnListingError => 'You cannot message your own listing.';
 
   @override
   String get moreActionsTooltip => 'More actions';
@@ -468,7 +493,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get blockedUsersEmptyTitle => 'No blocked users';
 
   @override
-  String get blockedUsersEmptyMessage => 'People you block will appear here.';
+  String get blockedUsersEmptyMessage => 'Users you block will be listed here.';
 
   @override
   String get reportSheetTitle => 'Report';
@@ -505,33 +530,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteAccountReauthPasswordHelper =>
-      'Enter your password again to confirm.';
+      'Re-enter your password for security.';
 
   @override
   String get deleteAccountItemsTitle => 'Data to be deleted:';
 
   @override
-  String get deleteAccountItemListings =>
-      '• All lost and found listings you posted';
+  String get deleteAccountItemListings => '• All your lost and found listings';
 
   @override
-  String get deleteAccountItemPhotos => '• All listing photos you uploaded';
+  String get deleteAccountItemPhotos => '• All uploaded listing photos';
 
   @override
-  String get deleteAccountItemMessages => '• All messages you sent';
+  String get deleteAccountItemMessages => '• All messages sent by you';
 
   @override
-  String get deleteAccountItemProfile =>
-      '• Your profile and blocked users list';
+  String get deleteAccountItemProfile => '• Your profile info and block list';
 
   @override
   String get deleteAccountSuccess => 'Your account and data have been deleted.';
-
-  @override
-  String get locationAllAreas => 'All Areas';
-
-  @override
-  String get expandRadiusButton => 'Expand search radius';
 
   @override
   String get cardActionMessage => 'Message';
@@ -540,39 +557,51 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cardActionMine => 'This is Mine!';
 
   @override
-  String get favoriteTooltip => 'Add to favorites';
+  String get safetyTipBanner =>
+      'Important: Meet in busy, public places when handing over an item.';
 
   @override
-  String get verifiedBadgeLabel => 'Verified';
+  String get chatSecurityNotice =>
+      'Never share personal or financial details in chat.';
 
   @override
-  String get trustScoreTitle => 'Trust & Community Profile';
+  String get activeListingsCount => 'Active Listings';
 
   @override
-  String get trustScoreBadge => '98/100 ★ Super Trust';
+  String get deliveredListingsCount => 'Delivered';
 
   @override
-  String get trustScoreSubtitle => 'Verified community member · Safe handover';
+  String get badgeResolved => '✓ DELIVERED';
 
   @override
-  String get badgeFastHelper => 'Fast Helper';
+  String get locationPermissionSetting => 'Location permission';
 
   @override
-  String get badgeItemDetective => 'Item Detective';
+  String get supportEmail => 'Support';
 
   @override
-  String get badgeVerifiedVolunteer => 'Verified Neighborhood Volunteer';
+  String get feedTitleNearby => 'Listings Near You';
 
   @override
-  String get safetyBannerTitle => 'Safe Handover Reminder';
+  String get feedTitleRecent => 'Recent Listings';
 
   @override
-  String get safetyBannerMessage =>
-      'Always meet in public places for handovers and verify distinguishing item details.';
+  String get sortNewest => 'Newest';
 
   @override
-  String get mapSearchHint => 'Search listings or area on map...';
+  String get sortNearest => 'Nearest';
 
   @override
-  String get nearbyListingsTitle => 'Nearby Listings';
+  String radiusInKm(String radius) {
+    return 'Within $radius km';
+  }
+
+  @override
+  String get searchHint => 'Search item name, keyword, brand...';
+
+  @override
+  String get searchMessagesHint => 'Search in messages and listings...';
+
+  @override
+  String get filtersActiveTooltip => 'Filters active';
 }

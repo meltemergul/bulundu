@@ -58,6 +58,10 @@ class ChatController extends AsyncNotifier<void> {
             listingTitle: listing.title,
             ownerId: listing.ownerId,
             requesterUid: user.uid,
+            listingType: listing.type.name,
+            listingImageUrl: listing.imageUrls.isNotEmpty
+                ? listing.imageUrls.first
+                : null,
           );
     });
     return state.hasError ? null : chatId;

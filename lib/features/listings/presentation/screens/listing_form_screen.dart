@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:bulundu/app/router/routes.dart';
 import 'package:bulundu/app/theme/app_spacing.dart';
@@ -12,6 +11,7 @@ import 'package:bulundu/features/listings/presentation/widgets/category_chip_bar
 import 'package:bulundu/features/listings/presentation/widgets/image_picker_field.dart';
 import 'package:bulundu/features/listings/providers/listing_form_controller.dart';
 import 'package:bulundu/features/listings/providers/listing_providers.dart';
+import 'package:bulundu/features/map/providers/location_providers.dart';
 import 'package:bulundu/shared/extensions/context_x.dart';
 import 'package:bulundu/shared/utils/breakpoints.dart';
 import 'package:bulundu/shared/utils/date_format.dart';
@@ -40,11 +40,24 @@ class _ListingFormScreenState extends ConsumerState<ListingFormScreen> {
   DateTime _eventDate = DateTime.now();
   LatLng? _selectedPoint;
   final List<String> _existingImageUrls = [];
-  final List<XFile> _newImages = [];
+  final List<PickedImageItem> _newImages = [];
   bool _didPrefill = false;
   String? _locationError;
 
   bool get _isEditing => widget.listingId != null;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_selectedPoint == null && mounted) {
+        final loc = ref.read(userLocationProvider).value;
+        setState(() {
+          _selectedPoint = loc ?? const LatLng(41.0082, 28.9784);
+        });
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -72,12 +85,16 @@ class _ListingFormScreenState extends ConsumerState<ListingFormScreen> {
   Future<void> _pickLocation() async {
     final result = await context.push<LatLng>(
       AppRoutes.listingPickLocation,
-      extra: _selectedPoint,
+      extra: _selectedPoint ?? const LatLng(41.0082, 28.9784),
     );
     if (!mounted || result == null) return;
     setState(() {
       _selectedPoint = result;
       _locationError = null;
+      if (_locationNameController.text.trim().isEmpty) {
+        _locationNameController.text =
+            '${result.latitude.toStringAsFixed(4)}, ${result.longitude.toStringAsFixed(4)}';
+      }
     });
   }
 
@@ -95,7 +112,10 @@ class _ListingFormScreenState extends ConsumerState<ListingFormScreen> {
 
   Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate() ?? false;
-    if (_selectedPoint == null || _locationNameController.text.trim().isEmpty) {
+    _selectedPoint ??=
+        ref.read(userLocationProvider).value ?? const LatLng(41.0082, 28.9784);
+
+    if (_locationNameController.text.trim().isEmpty) {
       setState(() {
         _locationError = context.l10n.validationLocationRequired;
       });
@@ -114,7 +134,8 @@ class _ListingFormScreenState extends ConsumerState<ListingFormScreen> {
       locationName: _locationNameController.text,
       eventDate: _eventDate,
       existingImageUrls: List.unmodifiable(_existingImageUrls),
-      newImages: List.unmodifiable(_newImages),
+      newImages: List.unmodifiable(_newImages.map((e) => e.file)),
+      newImageBytes: List.unmodifiable(_newImages.map((e) => e.bytes)),
     );
 
     final controller = ref.read(listingFormControllerProvider.notifier);
@@ -127,8 +148,12 @@ class _ListingFormScreenState extends ConsumerState<ListingFormScreen> {
       if (ok) {
         context.pop();
       } else {
+        final err = ref.read(listingFormControllerProvider).error;
+        final errorMsg = err != null
+            ? err.toString()
+            : context.l10n.errorGeneric;
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(context.l10n.errorGeneric)));
+            .showSnackBar(SnackBar(content: Text(errorMsg)));
       }
     } else {
       final createdId = await controller.createListing(draft);
@@ -137,10 +162,19 @@ class _ListingFormScreenState extends ConsumerState<ListingFormScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(context.l10n.listingLiveMessage)),
         );
-        context.go(AppRoutes.listingDetail(createdId));
+        if (context.canPop()) {
+          context.pop();
+        } else {
+          context.go(AppRoutes.explore);
+        }
+        context.push(AppRoutes.listingDetail(createdId));
       } else {
+        final err = ref.read(listingFormControllerProvider).error;
+        final errorMsg = err != null
+            ? err.toString()
+            : context.l10n.errorGeneric;
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(context.l10n.errorGeneric)));
+            .showSnackBar(SnackBar(content: Text(errorMsg)));
       }
     }
   }
@@ -167,6 +201,17 @@ class _ListingFormScreenState extends ConsumerState<ListingFormScreen> {
       appBar: AppBar(
         title: Text(
           _isEditing ? l10n.listingFormEditTitle : l10n.listingFormNewTitle,
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go(AppRoutes.explore);
+            }
+          },
         ),
       ),
       body: SafeArea(

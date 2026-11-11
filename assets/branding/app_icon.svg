@@ -1,0 +1,11 @@
+<!-- TODO(app_icon): Temporary app icon per DESIGN.md §11 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <rect width="1024" height="1024" fill="#2563EB"/>
+  <!-- White magnifying glass -->
+  <circle cx="460" cy="450" r="195" fill="none" stroke="#FFFFFF" stroke-width="64"/>
+  <line x1="602" y1="592" x2="760" y2="750" stroke="#FFFFFF" stroke-width="68" stroke-linecap="round"/>
+  <!-- Amber location pin (#FEA619) inside magnifying glass -->
+  <path d="M460 320 C402 320 368 354 368 412 C368 470 460 566 460 566 C460 566 552 470 552 412 C552 354 518 320 460 320 Z" fill="#FEA619"/>
+  <circle cx="460" cy="412" r="34" fill="#FFFFFF"/>
+</svg>
+

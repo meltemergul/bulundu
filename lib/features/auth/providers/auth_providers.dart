@@ -59,18 +59,10 @@ class AuthController extends AsyncNotifier<void> {
     return !state.hasError;
   }
 
-  Future<bool> signInWithGoogle() async {
+  Future<bool> sendPasswordReset(String email) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      await ref.read(authRepositoryProvider).signInWithGoogle();
-    });
-    return !state.hasError;
-  }
-
-  Future<bool> signInWithApple() async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
-      await ref.read(authRepositoryProvider).signInWithApple();
+      await ref.read(authRepositoryProvider).sendPasswordReset(email);
     });
     return !state.hasError;
   }

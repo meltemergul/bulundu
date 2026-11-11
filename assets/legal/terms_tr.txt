@@ -12,5 +12,5 @@ Bulundu, kullanıcıların kayıp veya buldukları eşyaları paylaşarak birbir
 Bulundu yalnızca kullanıcıları bir araya getirir; eşyaların doğruluğu, teslimi veya kullanıcılar arası anlaşmazlıklardan sorumlu tutulamaz. Buluşmaların güvenli ve halka açık yerlerde yapılması önerilir.
 
 4. İletişim
-Sorularınız ve bildirimleriniz için: [DESTEK_E_POSTASI]
+Sorularınız ve bildirimleriniz için:  @destek.bulundu@gmail.com
 

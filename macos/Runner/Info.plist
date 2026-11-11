@@ -32,6 +32,10 @@
 	<string>Yakınındaki kayıp ve bulunan eşya ilanlarını haritada göstermek ve ilan konumunu seçebilmen için konum izni gerekiyor.</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Yakınındaki kayıp ve bulunan eşya ilanlarını haritada göstermek ve ilan konumunu seçebilmen için konum izni gerekiyor.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Kayıp veya bulduğun eşyanın fotoğrafını çekip ilana ekleyebilmen için kamera izni gerekiyor.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>İlanına galeriden eşya fotoğrafı ekleyebilmen için fotoğraf arşivi izni gerekiyor.</string>
 	<key>GIDClientID</key>
 	<string>890836000621-h5m6agtmonlluqpsgk6tnt1oh42ce99i.apps.googleusercontent.com</string>
 	<key>CFBundleURLTypes</key>

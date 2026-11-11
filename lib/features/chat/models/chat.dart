@@ -8,6 +8,8 @@ class Chat {
     required this.participants,
     required this.lastMessage,
     required this.updatedAt,
+    this.listingType = 'lost',
+    this.listingImageUrl,
   });
 
   final String id;
@@ -16,6 +18,8 @@ class Chat {
   final List<String> participants;
   final String lastMessage;
   final DateTime updatedAt;
+  final String listingType;
+  final String? listingImageUrl;
 
   String otherParticipantUid(String currentUid) {
     if (participants.isEmpty) return '';
@@ -36,6 +40,8 @@ class Chat {
       participants: List<String>.from(d['participants'] as List? ?? const []),
       lastMessage: (d['lastMessage'] as String?) ?? '',
       updatedAt: (d['updatedAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      listingType: (d['listingType'] as String?) ?? 'lost',
+      listingImageUrl: d['listingImageUrl'] as String?,
     );
   }
 
@@ -45,5 +51,7 @@ class Chat {
     'participants': participants,
     'lastMessage': lastMessage,
     'updatedAt': FieldValue.serverTimestamp(),
+    'listingType': listingType,
+    if (listingImageUrl != null) 'listingImageUrl': listingImageUrl,
   };
 }

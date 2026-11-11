@@ -99,9 +99,9 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                   point: item.displayPoint,
                   radius: Listing.foundPrivacyRadiusMeters,
                   useRadiusInMeter: true,
-                  color: colors.tertiary.withValues(alpha: 0.18),
-                  borderColor: colors.tertiary,
-                  borderStrokeWidth: 2,
+                  color: colors.primary.withValues(alpha: 0.15),
+                  borderColor: colors.primary,
+                  borderStrokeWidth: 1.5,
                 );
               }).toList(),
             ),
@@ -174,9 +174,15 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                 ),
                 child: TextField(
                   controller: _searchController,
+                  style: TextStyle(
+                    color: colors.onSurface,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  cursorColor: colors.primary,
                   onChanged: (val) => setState(() => _searchQuery = val),
                   decoration: InputDecoration(
-                    hintText: l10n.mapSearchHint,
+                    hintText: l10n.searchHint,
                     filled: false,
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
@@ -206,11 +212,12 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                     FilterChip(
                       selected: filter.type == null,
                       showCheckmark: false,
+                      selectedColor: colors.primaryContainer,
                       label: Text(
                         l10n.filterAll,
                         style: context.textStyles.labelLarge?.copyWith(
                           color: filter.type == null
-                              ? colors.onPrimary
+                              ? colors.onPrimaryContainer
                               : colors.onSurface,
                         ),
                       ),
@@ -222,12 +229,12 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                     FilterChip(
                       selected: filter.type == ListingType.lost,
                       showCheckmark: false,
-                      selectedColor: colors.secondary,
+                      selectedColor: colors.secondaryContainer,
                       label: Text(
                         l10n.listingTypeLost,
                         style: context.textStyles.labelLarge?.copyWith(
                           color: filter.type == ListingType.lost
-                              ? colors.onSecondary
+                              ? colors.onSecondaryContainer
                               : colors.onSurface,
                         ),
                       ),
@@ -239,12 +246,12 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                     FilterChip(
                       selected: filter.type == ListingType.found,
                       showCheckmark: false,
-                      selectedColor: colors.tertiary,
+                      selectedColor: colors.primaryContainer,
                       label: Text(
                         l10n.listingTypeFound,
                         style: context.textStyles.labelLarge?.copyWith(
                           color: filter.type == ListingType.found
-                              ? colors.onTertiary
+                              ? colors.onPrimaryContainer
                               : colors.onSurface,
                         ),
                       ),

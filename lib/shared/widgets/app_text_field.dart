@@ -40,6 +40,7 @@ class AppTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
@@ -52,6 +53,12 @@ class AppTextField extends StatelessWidget {
       onFieldSubmitted: onSubmitted,
       validator: validator,
       enabled: enabled,
+      cursorColor: colors.primary,
+      style: TextStyle(
+        color: colors.onSurface,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
       decoration: InputDecoration(
         labelText: label,
         helperText: helperText,

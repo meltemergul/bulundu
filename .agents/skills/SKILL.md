@@ -1,8 +1,3 @@
----
-name: bulundu-flutter-firebase
-description: Bulundu (kayıp eşya) Flutter + Firebase projesinde kod yazarken, dosya eklerken veya değiştirirken kullan. Android, iOS, macOS ve web'de çalışan, mağazaya hazır uygulama için feature-first yapı, Riverpod, Firestore/Storage, çoklu platform, UGC güvenceleri, l10n, tema ve erişilebilirlik kurallarını içerir.
----
-
 # SKILL.md — Bulundu için AI asistan kodlama kuralları
 
 Bu dosya, projede kod yazan AI asistanın (ve senin) uyacağı kurallardır.
@@ -17,23 +12,23 @@ Bu dosya, projede kod yazan AI asistanın (ve senin) uyacağı kurallardır.
 
 ## 2. Ne nereye gider
 
-| Ekleyeceğin şey | Konum |
-|---|---|
-| Ekran | `features/<f>/presentation/screens/<ad>_screen.dart` |
-| Feature'a özel widget | `features/<f>/presentation/widgets/<ad>.dart` |
-| Birden çok feature'ın kullandığı genel widget | `shared/widgets/` |
-| Firestore / Storage / Auth erişimi | `features/<f>/data/<ad>_repository.dart` |
-| Riverpod provider | `features/<f>/providers/<ad>_providers.dart` |
-| Veri sınıfı, enum, saf Dart mantığı | `features/<f>/models/` |
-| Renk, tipografi, boşluk, tema | `app/theme/` |
-| Rota tanımı | `app/router/` |
-| Uyarlanabilir kabuk (alt çubuk / rail) | `app/shell/adaptive_shell.dart` |
-| Platform farkı (`kIsWeb`, `defaultTargetPlatform`) | İlgili `data/` dosyasında veya `shared/utils/platform_info.dart`; **widget içinde dağınık yok** |
-| Şikayet / engelleme | `features/moderation/` |
-| Gizlilik / Şartlar ekranları | `features/legal/presentation/screens/` |
-| Herkese açık yasal sayfalar (HTML) | `web/legal/` |
-| Metin | `lib/l10n/app_tr.arb` **ve** `app_en.arb` |
-| Test | `test/` altında `lib/` yolunu yansıtarak |
+| Ekleyeceğin şey                                                                                         | Konum                                                                                           |
+| ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Ekran                                                                                                   | `features/<f>/presentation/screens/<ad>_screen.dart`                                            |
+| Feature'a özel widget                                                                                   | `features/<f>/presentation/widgets/<ad>.dart`                                                   |
+| Birden çok feature'ın kullandığı genel widget (duyarlı düzen yardımcısı `responsive_layout.dart` dahil) | `shared/widgets/`                                                                               |
+| Firestore / Storage / Auth erişimi                                                                      | `features/<f>/data/<ad>_repository.dart`                                                        |
+| Riverpod provider                                                                                       | `features/<f>/providers/<ad>_providers.dart`                                                    |
+| Veri sınıfı, enum, saf Dart mantığı                                                                     | `features/<f>/models/`                                                                          |
+| Renk, tipografi, boşluk, tema                                                                           | `app/theme/`                                                                                    |
+| Rota tanımı                                                                                             | `app/router/`                                                                                   |
+| Uyarlanabilir kabuk (alt çubuk / rail)                                                                  | `app/shell/adaptive_shell.dart`                                                                 |
+| Platform farkı (`kIsWeb`, `defaultTargetPlatform`)                                                      | İlgili `data/` dosyasında veya `shared/utils/platform_info.dart`; **widget içinde dağınık yok** |
+| Şikayet / engelleme                                                                                     | `features/moderation/`                                                                          |
+| Gizlilik / Şartlar ekranları                                                                            | `features/legal/presentation/screens/`                                                          |
+| Herkese açık yasal sayfalar (HTML)                                                                      | `web/legal/`                                                                                    |
+| Metin                                                                                                   | `lib/l10n/app_tr.arb` **ve** `app_en.arb`                                                       |
+| Test                                                                                                    | `test/` altında `lib/` yolunu yansıtarak                                                        |
 
 ## 3. Katman ve import kuralları
 
@@ -46,14 +41,14 @@ Bu dosya, projede kod yazan AI asistanın (ve senin) uyacağı kurallardır.
 
 ## 4. Adlandırma
 
-| Tür | Kural | Örnek |
-|---|---|---|
-| Dosya | `snake_case.dart` | `listing_card.dart` |
-| Sınıf / enum | `UpperCamelCase` | `ListingRepository` |
-| Provider | `camelCaseProvider` | `latestListingsProvider` |
-| Ekran | `...Screen` | `ExploreScreen` |
-| Repository | `...Repository` | `ChatRepository` |
-| Private | `_` önekli | `_buildHeader` |
+| Tür          | Kural               | Örnek                    |
+| ------------ | ------------------- | ------------------------ |
+| Dosya        | `snake_case.dart`   | `listing_card.dart`      |
+| Sınıf / enum | `UpperCamelCase`    | `ListingRepository`      |
+| Provider     | `camelCaseProvider` | `latestListingsProvider` |
+| Ekran        | `...Screen`         | `ExploreScreen`          |
+| Repository   | `...Repository`     | `ChatRepository`         |
+| Private      | `_` önekli          | `_buildHeader`           |
 
 Kod, değişken ve yorum adları **İngilizce**; kullanıcıya görünen metinler **ARB'de**.
 
@@ -82,21 +77,27 @@ Kod, değişken ve yorum adları **İngilizce**; kullanıcıya görünen metinle
 
 ## 7. Arayüz, l10n ve erişilebilirlik kuralları
 
-- Renk, yazı tipi, boşluk **sadece** `Theme.of(context)` ve `AppSpacing` üzerinden. Koda `Color(0x...)`, `fontSize: 17` gibi sabit değer yazılmaz.
+- Renk, yazı tipi, boşluk, gölge **sadece** `Theme.of(context)`, `AppSpacing`, `AppShadows` (ve fotoğraf üstü hap için `AppColors.mediaOverlay*`) üzerinden. Koda `Color(0x...)`, `fontSize: 17` gibi sabit değer yazılmaz.
 - Metin yalnızca `context.l10n.xxx`. Kodda sabit Türkçe/İngilizce metin yok. Yeni metin → iki ARB dosyasına birden.
 - Dokunma hedefi en az **48×48 dp**. İkon-only butonlarda `tooltip` / `Semantics(label: ...)` zorunlu.
 - Bilgi yalnızca renkle verilmez: tip rozeti **ikon + metin + renk** taşır (bkz. DESIGN.md).
 - Metin ölçeği %200'de taşma/kırpılma olmamalı; sabit yükseklikli metin kutusu yok.
-- Form alanlarında görünür etiket ve hata metni; `autofillHints` ve doğru `keyboardType`.
+- Form alanlarında görünür etiket ve hata metni; `autofillHints` ve doğru `keyboardType`. Şifre en az **8 karakter** (`shared/utils/validators.dart`); giriş hatası hesabın var olup olmadığını sızdırmaz ("E-posta veya şifre hatalı").
 - Ayrıntılar ve kontrol listesi: **DESIGN.md §9**.
 
 ## 7A. Çoklu platform kuralları (Android · iOS · macOS · Web)
 
 - **`dart:io` ve `dart:html` import edilmez.** Platform sorusu için `kIsWeb` ve `defaultTargetPlatform` kullanılır. Dosya yolu yok; yalnız `XFile` + bayt (`Uint8List`).
-- Platforma özgü davranış (giriş akışları, kamera desteği, konum izni) **tek yerde** soyutlanır (`auth_repository`, `location_service`, `platform_info`). Widget'lar `if (Platform...)` içermez.
+- Platforma özgü davranış (kamera desteği, konum izni, fotoğraf yükleme) **tek yerde** soyutlanır (`location_service`, `listing_image_storage`, `platform_info`). Giriş (e-posta/şifre) 4 platformda aynı koddur. Widget'lar `if (Platform...)` içermez.
 - Kamera seçeneği `ImagePicker().supportsImageSource(ImageSource.camera)` ile koşullu gösterilir.
 - Yerel izin açıklamaları (Info.plist, entitlements, manifest) PROJECT.md §10'a göre eklenir; **yeni bir izin/özellik eklersen** ilgili platform dosyalarını da güncelle.
-- **Duyarlı düzen:** sabit genişlik yok. Geniş ekranda içerik `MaxWidthBody` ile ortalanır; ≥ 840 dp'de `NavigationRail`. Eşikler `shared/utils/breakpoints.dart` içindedir (DESIGN.md §10).
+- **Duyarlı düzen zorunludur** (DESIGN.md §10): 320 dp'den 1920 dp'ye, dikey/yatay, %200 yazı ölçeğinde taşma yok.
+  - Eşikler `shared/utils/breakpoints.dart` içindedir: 768 / 1024 / içerik ≤ 1280. Gezinme kararı `context.useRail` (genişlik ≥ 768 **ve** yükseklik ≥ 480): telefon yatayında alt çubuk kalır. Sütun sayısı ise genişliğe göre belirlenir.
+  - Genişlik `MediaQuery.sizeOf`/`LayoutBuilder` ile okunur (pencere boyutu değişince düzen güncellenir). Düzen kararı tek yerde (`context.isWide`, `context.useRail`, `ResponsiveLayout`) verilir; ekranlarda dağınık `if (width > …)` yazma.
+  - Sabit genişlik/yükseklik yazma; `Wrap`, `Expanded`, `Flexible`, `SliverGridDelegateWithMaxCrossAxisExtent`, `ConstrainedBox(maxWidth)`, `MaxWidthBody` kullan. Her `Text` için `maxLines`/`overflow` düşün.
+  - Form/detay ekranları klavye açılınca kaydırılabilir kalır (`viewInsets`); görseller `AspectRatio` 16:10 + `BoxFit.cover`.
+  - Pencere boyutu değişince seçili sekme, kaydırma konumu ve form içeriği kaybolmaz.
+  - Mesajlarda ≥ 1024 dp'de liste + sohbet yan yana; rota (`/chats/:chatId`) değişmez.
 - **Fare ve klavye:** her tıklanabilir öğe odaklanabilir ve hover durumu gösterir; formlar Enter ile gönderilir; dialog/sheet Esc ile kapanır; uzun metinler `SelectionArea` ile seçilebilir.
 - Web: `usePathUrlStrategy()`, doğrudan `/listings/:id` açılabilmeli; Storage görselleri için CORS (PROJECT.md §7); HTTPS dışında konum çalışmaz, hatayı arayüzde işle.
 - Paket platform desteğinden emin değilsen güncel belgesine bak; destek yoksa **kullanıcıya sor** (sessizce platformu kapatma).
@@ -104,9 +105,9 @@ Kod, değişken ve yorum adları **İngilizce**; kullanıcıya görünen metinle
 ## 7B. Mağaza ve kullanıcı içeriği (UGC) kuralları
 
 - Kullanıcı içeriği gösteren **her ekranda** (ilan detayı, ilan kartı menüsü, sohbet, profil) **Şikayet et** ve **Engelle** erişilebilir olmalı (`report_menu_button`).
-- Kayıt ve ilk sosyal girişte şart onayı alınmadan `users` belgesi yazılmaz; şart sürümü artarsa `/accept-terms` yeniden gösterilir.
+- Kayıtta şart onayı alınmadan `users` belgesi yazılmaz; şart sürümü artarsa `/accept-terms` yeniden gösterilir.
 - Hesabı silme her zaman Ayarlar'dan ≤ 3 dokunuşla bulunur ve **gerçekten** veriyi siler.
-- Giriş ekranında Google ile Apple düğmesi **eşit görünürlükte** (DESIGN.md §5).
+- **Giriş yalnız e-posta/şifredir.** Google/Apple girişi yok: `google_sign_in`, `sign_in_with_apple`, `crypto` paketi ve Apple capability ekleme; giriş ekranında sosyal düğme çizme.
 - İzin istemeden önce neden gerektiğini açıkla; reddedilirse uygulama kullanılabilir kalır.
 - Release kodunda `print`/debug log, test hesabı, gizli anahtar, `debugShowCheckedModeBanner: true` olmaz.
 - Yasal metin ve mağaza formu alanlarında **yer tutucu** (`[DESTEK_E_POSTASI]` gibi) bırakılırsa bunu açıkça kullanıcıya bildir.
@@ -122,7 +123,7 @@ Kod, değişken ve yorum adları **İngilizce**; kullanıcıya görünen metinle
 - [ ] Yeni mantık için test yazıldı (model dönüşümü, saf fonksiyon veya widget)
 - [ ] Açık ve koyu temada, TR ve EN dilinde göz ile kontrol edildi
 - [ ] Dört platformda açıldı: Android, iOS (veya simülatör), macOS, Chrome (`flutter run -d chrome`)
-- [ ] Dar (telefon) ve geniş (tablet/masaüstü/tarayıcı) genişlikte düzen bozulmuyor
+- [ ] DESIGN.md §10.4 test matrisindeki boyutlarda (320×568, 390×844, 844×390, 768×1024, 1024×768, 1440×900, 1920×1080) düzen bozulmuyor; yazı ölçeği 2.0'da taşma yok
 - [ ] `dart:io`/`dart:html` kullanılmadı; platform farkı soyutlandı
 - [ ] Yeni UGC alanı varsa şikayet/engelle ve hesap silme akışı güncellendi
 
@@ -141,6 +142,7 @@ Kod, değişken ve yorum adları **İngilizce**; kullanıcıya görünen metinle
 ## 10. Kod kalıpları (şablon olarak kullan)
 
 ### Model (`features/listings/models/listing.dart`)
+
 ```dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -227,6 +229,7 @@ class Listing {
 ```
 
 ### Repository (`features/listings/data/listing_repository.dart`)
+
 ```dart
 class ListingRepository {
   ListingRepository(this._db);
@@ -248,6 +251,7 @@ class ListingRepository {
 ```
 
 ### Provider'lar
+
 ```dart
 // shared/providers/firebase_providers.dart
 final firestoreProvider = Provider<FirebaseFirestore>((_) => FirebaseFirestore.instance);
@@ -264,6 +268,7 @@ final latestListingsProvider =
 ```
 
 ### Ekran iskeleti (üç durum zorunlu)
+
 ```dart
 class ExploreScreen extends ConsumerWidget {
   const ExploreScreen({super.key});
@@ -296,6 +301,7 @@ class ExploreScreen extends ConsumerWidget {
 ```
 
 ### Tek seferlik işlem (`AsyncNotifier`)
+
 ```dart
 class ListingFormController extends AutoDisposeAsyncNotifier<void> {
   @override
@@ -309,9 +315,11 @@ class ListingFormController extends AutoDisposeAsyncNotifier<void> {
   }
 }
 ```
+
 > Not: Riverpod'un güncel ana sürümünde `AutoDisposeAsyncNotifier` yerine `AsyncNotifier` kullanılabilir. `flutter pub add` ile kurulan sürümün belgesine bak; sürüm farkında **kullanıcıya sor**.
 
 ### Fotoğraf yükleme (tüm platformlar, bayt ile)
+
 ```dart
 // features/listings/data/listing_image_storage.dart
 class ListingImageStorage {
@@ -332,32 +340,39 @@ class ListingImageStorage {
 }
 ```
 
-### Platform farkını soyutlama (`auth_repository.dart` özeti)
+### Kimlik doğrulama (`auth_repository.dart` özeti)
+
 ```dart
-Future<void> signInWithGoogle() async {
-  if (kIsWeb) {
-    await _auth.signInWithPopup(GoogleAuthProvider());
-    return;
-  }
-  // Mobil ve macOS: güncel `google_sign_in` belgesindeki akışla kimlik bilgisi al,
-  // sonra _auth.signInWithCredential(...) çağır.
+Future<void> signIn(String email, String password) =>
+    _auth.signInWithEmailAndPassword(email: email, password: password);
+
+Future<void> register(String email, String password, String name) async {
+  final cred = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+  await cred.user!.updateDisplayName(name);
+  // users/{uid} belgesi şart onayıyla (acceptedTermsAt, termsVersion) birlikte yazılır.
 }
-// Apple için de aynı desen: web'de popup/provider, iOS/macOS/Android'de güncel
-// sign_in_with_apple ve FlutterFire belgesindeki akış (nonce için crypto paketi).
+
+Future<void> sendPasswordReset(String email) => _auth.sendPasswordResetEmail(email: email);
+// Sosyal giriş (Google/Apple) YOKTUR; kimlik doğrulama 4 platformda aynı koddur.
 ```
-Platform akışları paket sürümüne göre değişir; ayrıntıda belge ile bu şablon çelişirse **belgeyi izle ve kullanıcıya bildir**.
+
+Paket akışları sürüme göre değişebilir; ayrıntıda belge ile bu şablon çelişirse **belgeyi izle ve kullanıcıya bildir**.
 
 ### Duyarlı yardımcılar
+
 ```dart
 // shared/utils/breakpoints.dart
 abstract final class Breakpoints {
-  static const double compact = 600;   // telefon
-  static const double medium = 840;    // NavigationRail başlangıcı
-  static const double maxContent = 720; // tek sütun içerik üst sınırı
+  static const double medium = 768;      // tablet: NavigationRail başlangıcı
+  static const double expanded = 1024;   // masaüstü: kenar boşluğu 32
+  static const double maxContent = 1280; // içerik üst sınırı (metin sütunu ayrıca ≤ 720)
+  static const double minRailHeight = 480; // bunun altında (telefon yatay) alt çubuk kalır
 }
 // shared/extensions/context_x.dart
 extension ContextX on BuildContext {
   bool get isWide => MediaQuery.sizeOf(this).width >= Breakpoints.medium;
+  bool get isExpanded => MediaQuery.sizeOf(this).width >= Breakpoints.expanded;
+  bool get useRail => isWide && MediaQuery.sizeOf(this).height >= Breakpoints.minRailHeight;
 }
 ```
 

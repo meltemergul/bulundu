@@ -98,17 +98,41 @@ abstract class AppLocalizations {
     Locale('tr'),
   ];
 
+  /// No description provided for @appName.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bulundu'**
+  String get appName;
+
   /// No description provided for @appTitle.
   ///
   /// In tr, this message translates to:
-  /// **'Bulduk'**
+  /// **'Bulundu'**
   String get appTitle;
 
   /// No description provided for @appTagline.
   ///
   /// In tr, this message translates to:
-  /// **'Kaybolanı topluluk gücüyle bulalım.'**
+  /// **'Kayıplar bulunur, komşuluk güçlenir. Şehrindeki kayıp ve bulunan eşyaları anında keşfet.'**
   String get appTagline;
+
+  /// No description provided for @slogan.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kayıplar bulunur, komşuluk güçlenir. Şehrindeki kayıp ve bulunan eşyaları anında keşfet.'**
+  String get slogan;
+
+  /// No description provided for @sloganShort.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kayıplar bulunur, komşuluk güçlenir.'**
+  String get sloganShort;
+
+  /// No description provided for @communitySearchBadge.
+  ///
+  /// In tr, this message translates to:
+  /// **'✓ Topluluk destekli arama'**
+  String get communitySearchBadge;
 
   /// No description provided for @navExplore.
   ///
@@ -137,7 +161,7 @@ abstract class AppLocalizations {
   /// No description provided for @fabPostListing.
   ///
   /// In tr, this message translates to:
-  /// **'İlan ver'**
+  /// **'Hemen İlan Ver'**
   String get fabPostListing;
 
   /// No description provided for @exploreTitle.
@@ -149,13 +173,13 @@ abstract class AppLocalizations {
   /// No description provided for @exploreEmptyTitle.
   ///
   /// In tr, this message translates to:
-  /// **'Yakınınızda henüz kayıp ilanı yok'**
+  /// **'Henüz ilan yok'**
   String get exploreEmptyTitle;
 
   /// No description provided for @exploreEmptyMessage.
   ///
   /// In tr, this message translates to:
-  /// **'Çevre yarıçapını genişletebilir veya ilk ilanı sen verebilirsin.'**
+  /// **'İlk ilanı sen ver.'**
   String get exploreEmptyMessage;
 
   /// No description provided for @mapTitle.
@@ -389,7 +413,7 @@ abstract class AppLocalizations {
   /// No description provided for @listingStatusResolved.
   ///
   /// In tr, this message translates to:
-  /// **'Çözüldü'**
+  /// **'Teslim Edildi'**
   String get listingStatusResolved;
 
   /// No description provided for @deletedUser.
@@ -401,13 +425,13 @@ abstract class AppLocalizations {
   /// No description provided for @loginTitle.
   ///
   /// In tr, this message translates to:
-  /// **'Giriş yap'**
+  /// **'Giriş Yap'**
   String get loginTitle;
 
   /// No description provided for @registerTitle.
   ///
   /// In tr, this message translates to:
-  /// **'Hesap oluştur'**
+  /// **'Kayıt Ol'**
   String get registerTitle;
 
   /// No description provided for @acceptTermsTitle.
@@ -419,13 +443,13 @@ abstract class AppLocalizations {
   /// No description provided for @acceptTermsDescription.
   ///
   /// In tr, this message translates to:
-  /// **'Bulduk\'u kullanmaya devam etmek için görünen adını kontrol et ve Kullanım Şartları ile Gizlilik Politikası\'nı onayla.'**
+  /// **'Bulundu\'yu kullanmaya devam etmek için görünen adını kontrol et ve Kullanım Şartları ile Gizlilik Politikası\'nı onayla.'**
   String get acceptTermsDescription;
 
   /// No description provided for @emailLabel.
   ///
   /// In tr, this message translates to:
-  /// **'E-posta adresi'**
+  /// **'E-posta'**
   String get emailLabel;
 
   /// No description provided for @passwordLabel.
@@ -434,10 +458,16 @@ abstract class AppLocalizations {
   /// **'Şifre'**
   String get passwordLabel;
 
+  /// No description provided for @passwordHelper.
+  ///
+  /// In tr, this message translates to:
+  /// **'En az 8 karakter'**
+  String get passwordHelper;
+
   /// No description provided for @displayNameLabel.
   ///
   /// In tr, this message translates to:
-  /// **'Görünen ad'**
+  /// **'Ad Soyad'**
   String get displayNameLabel;
 
   /// No description provided for @displayNameHelper.
@@ -461,44 +491,62 @@ abstract class AppLocalizations {
   /// No description provided for @loginButton.
   ///
   /// In tr, this message translates to:
-  /// **'Giriş yap'**
+  /// **'Giriş Yap →'**
   String get loginButton;
 
   /// No description provided for @registerButton.
   ///
   /// In tr, this message translates to:
-  /// **'Kayıt ol'**
+  /// **'Hesap Oluştur'**
   String get registerButton;
 
-  /// No description provided for @orDivider.
+  /// No description provided for @forgotPassword.
   ///
   /// In tr, this message translates to:
-  /// **'veya'**
-  String get orDivider;
+  /// **'Şifremi unuttum?'**
+  String get forgotPassword;
 
-  /// No description provided for @continueWithGoogle.
+  /// No description provided for @forgotPasswordTitle.
   ///
   /// In tr, this message translates to:
-  /// **'Google ile devam et'**
-  String get continueWithGoogle;
+  /// **'Şifremi Sıfırla'**
+  String get forgotPasswordTitle;
 
-  /// No description provided for @continueWithApple.
+  /// No description provided for @forgotPasswordDescription.
   ///
   /// In tr, this message translates to:
-  /// **'Apple ile devam et'**
-  String get continueWithApple;
+  /// **'E-posta adresini gir, şifre sıfırlama bağlantısını e-postana gönderelim.'**
+  String get forgotPasswordDescription;
+
+  /// No description provided for @sendResetLink.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bağlantı gönder'**
+  String get sendResetLink;
+
+  /// No description provided for @passwordResetSent.
+  ///
+  /// In tr, this message translates to:
+  /// **'Şifre sıfırlama bağlantısını e-postana gönderdik.'**
+  String get passwordResetSent;
 
   /// No description provided for @noAccountPrompt.
   ///
   /// In tr, this message translates to:
-  /// **'Hesabın yok mu? Kayıt ol'**
+  /// **'Henüz hesabın yok mu? Kayıt Ol'**
   String get noAccountPrompt;
 
   /// No description provided for @haveAccountPrompt.
   ///
   /// In tr, this message translates to:
-  /// **'Zaten hesabın var mı? Giriş yap'**
+  /// **'Zaten hesabın var mı? Giriş Yap'**
   String get haveAccountPrompt;
+
+  /// No description provided for @termsNotice.
+  ///
+  /// In tr, this message translates to:
+  /// **'Devam ederek Kullanım Şartları ve Gizlilik Politikası\'nı kabul etmiş olursun.'**
+  String get termsNotice;
 
   /// No description provided for @validationEmailInvalid.
   ///
@@ -509,13 +557,13 @@ abstract class AppLocalizations {
   /// No description provided for @validationPasswordShort.
   ///
   /// In tr, this message translates to:
-  /// **'Şifre en az 6 karakter olmalı.'**
+  /// **'Şifre en az 8 karakter olmalı.'**
   String get validationPasswordShort;
 
   /// No description provided for @validationDisplayNameInvalid.
   ///
   /// In tr, this message translates to:
-  /// **'Görünen ad 1 ile 40 karakter arasında olmalı.'**
+  /// **'Ad Soyad 1 ile 40 karakter arasında olmalı.'**
   String get validationDisplayNameInvalid;
 
   /// No description provided for @validationTermsRequired.
@@ -527,19 +575,19 @@ abstract class AppLocalizations {
   /// No description provided for @authErrorInvalidCredentials.
   ///
   /// In tr, this message translates to:
-  /// **'E-posta veya şifre hatalı. Kontrol edip tekrar dener misin?'**
+  /// **'E-posta veya şifre hatalı.'**
   String get authErrorInvalidCredentials;
 
   /// No description provided for @authErrorEmailInUse.
   ///
   /// In tr, this message translates to:
-  /// **'Bu e-posta adresiyle zaten bir hesap var. Giriş yapmayı dene.'**
+  /// **'Bu e-posta ile zaten bir hesap var. Giriş yapmayı dene.'**
   String get authErrorEmailInUse;
 
   /// No description provided for @authErrorWeakPassword.
   ///
   /// In tr, this message translates to:
-  /// **'Daha güçlü bir şifre seçmelisin (en az 6 karakter).'**
+  /// **'Şifre en az 8 karakter olmalı.'**
   String get authErrorWeakPassword;
 
   /// No description provided for @authErrorNetwork.
@@ -551,13 +599,13 @@ abstract class AppLocalizations {
   /// No description provided for @authErrorCancelled.
   ///
   /// In tr, this message translates to:
-  /// **'Giriş işlemi iptal edildi.'**
+  /// **'İşlem iptal edildi.'**
   String get authErrorCancelled;
 
   /// No description provided for @categoryWallet.
   ///
   /// In tr, this message translates to:
-  /// **'Cüzdan'**
+  /// **'Cüzdan & Kimlik'**
   String get categoryWallet;
 
   /// No description provided for @categoryPhone.
@@ -569,7 +617,7 @@ abstract class AppLocalizations {
   /// No description provided for @categoryKeys.
   ///
   /// In tr, this message translates to:
-  /// **'Anahtar'**
+  /// **'Anahtarlık'**
   String get categoryKeys;
 
   /// No description provided for @categoryBag.
@@ -581,7 +629,7 @@ abstract class AppLocalizations {
   /// No description provided for @categoryDocuments.
   ///
   /// In tr, this message translates to:
-  /// **'Kimlik / Belge'**
+  /// **'Kimlik & Belge'**
   String get categoryDocuments;
 
   /// No description provided for @categoryElectronics.
@@ -623,7 +671,7 @@ abstract class AppLocalizations {
   /// No description provided for @filterClearButton.
   ///
   /// In tr, this message translates to:
-  /// **'Filtreyi temizle'**
+  /// **'Temizle'**
   String get filterClearButton;
 
   /// No description provided for @filterApplyButton.
@@ -659,13 +707,13 @@ abstract class AppLocalizations {
   /// No description provided for @listingFormNewTitle.
   ///
   /// In tr, this message translates to:
-  /// **'İlan ver'**
+  /// **'Hemen İlan Ver'**
   String get listingFormNewTitle;
 
   /// No description provided for @listingFormEditTitle.
   ///
   /// In tr, this message translates to:
-  /// **'İlanı düzenle'**
+  /// **'İlanı Düzenle'**
   String get listingFormEditTitle;
 
   /// No description provided for @listingTypeLabel.
@@ -743,7 +791,7 @@ abstract class AppLocalizations {
   /// No description provided for @listingLocationNameHelper.
   ///
   /// In tr, this message translates to:
-  /// **'Örn: Kadıköy İskele'**
+  /// **'Örn: Kadıköy Moda Parkı'**
   String get listingLocationNameHelper;
 
   /// No description provided for @pickLocationButton.
@@ -827,7 +875,7 @@ abstract class AppLocalizations {
   /// No description provided for @markResolvedButton.
   ///
   /// In tr, this message translates to:
-  /// **'Çözüldü olarak işaretle'**
+  /// **'Teslim edildi olarak işaretle'**
   String get markResolvedButton;
 
   /// No description provided for @deleteListingButton.
@@ -851,7 +899,7 @@ abstract class AppLocalizations {
   /// No description provided for @viewDetailsButton.
   ///
   /// In tr, this message translates to:
-  /// **'Detay'**
+  /// **'Detayı Gör'**
   String get viewDetailsButton;
 
   /// No description provided for @postedByLabel.
@@ -886,7 +934,7 @@ abstract class AppLocalizations {
   /// No description provided for @osmAttribution.
   ///
   /// In tr, this message translates to:
-  /// **'© OpenStreetMap katkıda bulunanlar'**
+  /// **'© OpenStreetMap'**
   String get osmAttribution;
 
   /// No description provided for @messageInputLabel.
@@ -1051,18 +1099,6 @@ abstract class AppLocalizations {
   /// **'Hesabın ve verilerin silindi.'**
   String get deleteAccountSuccess;
 
-  /// No description provided for @locationAllAreas.
-  ///
-  /// In tr, this message translates to:
-  /// **'Tüm Bölgeler'**
-  String get locationAllAreas;
-
-  /// No description provided for @expandRadiusButton.
-  ///
-  /// In tr, this message translates to:
-  /// **'Çevre yarıçapını genişlet'**
-  String get expandRadiusButton;
-
   /// No description provided for @cardActionMessage.
   ///
   /// In tr, this message translates to:
@@ -1075,77 +1111,95 @@ abstract class AppLocalizations {
   /// **'Bu Benim!'**
   String get cardActionMine;
 
-  /// No description provided for @favoriteTooltip.
+  /// No description provided for @safetyTipBanner.
   ///
   /// In tr, this message translates to:
-  /// **'Favorilere ekle'**
-  String get favoriteTooltip;
+  /// **'Önemli: Eşya tesliminde kalabalık, kamusal alanları tercih edin.'**
+  String get safetyTipBanner;
 
-  /// No description provided for @verifiedBadgeLabel.
+  /// No description provided for @chatSecurityNotice.
   ///
   /// In tr, this message translates to:
-  /// **'Doğrulanmış'**
-  String get verifiedBadgeLabel;
+  /// **'Kişisel ve finansal bilgilerini sohbette paylaşma.'**
+  String get chatSecurityNotice;
 
-  /// No description provided for @trustScoreTitle.
+  /// No description provided for @activeListingsCount.
   ///
   /// In tr, this message translates to:
-  /// **'Güven ve Dayanışma Profili'**
-  String get trustScoreTitle;
+  /// **'Aktif İlan'**
+  String get activeListingsCount;
 
-  /// No description provided for @trustScoreBadge.
+  /// No description provided for @deliveredListingsCount.
   ///
   /// In tr, this message translates to:
-  /// **'98/100 ★ Süper Güven'**
-  String get trustScoreBadge;
+  /// **'Teslim Edilen'**
+  String get deliveredListingsCount;
 
-  /// No description provided for @trustScoreSubtitle.
+  /// No description provided for @badgeResolved.
   ///
   /// In tr, this message translates to:
-  /// **'Doğrulanmış topluluk üyesi · Güvenli teslimat'**
-  String get trustScoreSubtitle;
+  /// **'✓ TESLİM EDİLDİ'**
+  String get badgeResolved;
 
-  /// No description provided for @badgeFastHelper.
+  /// No description provided for @locationPermissionSetting.
   ///
   /// In tr, this message translates to:
-  /// **'Hızlı Yardımsever'**
-  String get badgeFastHelper;
+  /// **'Konum izni'**
+  String get locationPermissionSetting;
 
-  /// No description provided for @badgeItemDetective.
+  /// No description provided for @supportEmail.
   ///
   /// In tr, this message translates to:
-  /// **'Eşya Dedektifi'**
-  String get badgeItemDetective;
+  /// **'Destek'**
+  String get supportEmail;
 
-  /// No description provided for @badgeVerifiedVolunteer.
+  /// No description provided for @feedTitleNearby.
   ///
   /// In tr, this message translates to:
-  /// **'Doğrulanmış Mahalle Gönüllüsü'**
-  String get badgeVerifiedVolunteer;
+  /// **'Yakınındaki İlanlar'**
+  String get feedTitleNearby;
 
-  /// No description provided for @safetyBannerTitle.
+  /// No description provided for @feedTitleRecent.
   ///
   /// In tr, this message translates to:
-  /// **'Güvenli Teslimat Hatırlatması'**
-  String get safetyBannerTitle;
+  /// **'Son İlanlar'**
+  String get feedTitleRecent;
 
-  /// No description provided for @safetyBannerMessage.
+  /// No description provided for @sortNewest.
   ///
   /// In tr, this message translates to:
-  /// **'Teslimatları her zaman halka açık noktalarda gerçekleştirin ve eşyanın ayırt edici detaylarını doğrulayın.'**
-  String get safetyBannerMessage;
+  /// **'En Yeniler'**
+  String get sortNewest;
 
-  /// No description provided for @mapSearchHint.
+  /// No description provided for @sortNearest.
   ///
   /// In tr, this message translates to:
-  /// **'Haritada ilan veya semt ara...'**
-  String get mapSearchHint;
+  /// **'En Yakınlar'**
+  String get sortNearest;
 
-  /// No description provided for @nearbyListingsTitle.
+  /// No description provided for @radiusInKm.
   ///
   /// In tr, this message translates to:
-  /// **'Yakındaki İlanlar'**
-  String get nearbyListingsTitle;
+  /// **'{radius} km içi'**
+  String radiusInKm(String radius);
+
+  /// No description provided for @searchHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Eşya adı, anahtar kelime, marka ara...'**
+  String get searchHint;
+
+  /// No description provided for @searchMessagesHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Mesajlarda ve ilanlarda ara...'**
+  String get searchMessagesHint;
+
+  /// No description provided for @filtersActiveTooltip.
+  ///
+  /// In tr, this message translates to:
+  /// **'Filtreler etkin'**
+  String get filtersActiveTooltip;
 }
 
 class _AppLocalizationsDelegate
