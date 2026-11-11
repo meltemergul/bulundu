@@ -1,0 +1,231 @@
+{
+  "@@locale": "en",
+  "appTitle": "Bulduk",
+  "appTagline": "Reuniting lost items through community power.",
+  "navExplore": "Explore",
+  "navMap": "Map",
+  "navChats": "Messages",
+  "navProfile": "Profile",
+  "fabPostListing": "Post listing",
+  "exploreTitle": "Explore",
+  "exploreEmptyTitle": "No lost listings nearby yet",
+  "exploreEmptyMessage": "Try expanding the search radius or be the first to post.",
+  "mapTitle": "Map",
+  "chatsTitle": "Messages",
+  "chatsEmptyTitle": "No messages yet",
+  "chatsEmptyMessage": "When you start a conversation about a listing, it will appear here.",
+  "profileTitle": "Profile",
+  "settingsTitle": "Settings",
+  "myListingsTitle": "My listings",
+  "blockedUsersTitle": "Blocked users",
+  "deleteAccountTitle": "Delete account",
+  "languageLabel": "Language",
+  "languageSystem": "System default",
+  "languageTurkish": "Türkçe",
+  "languageEnglish": "English",
+  "themeLabel": "Theme",
+  "themeSystem": "System default",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "termsTitle": "Terms of Use",
+  "privacyTitle": "Privacy Policy",
+  "versionLabel": "Version",
+  "signOutButton": "Sign out",
+  "retryButton": "Try again",
+  "cancelButton": "Cancel",
+  "saveButton": "Save",
+  "continueButton": "Continue",
+  "errorGeneric": "Something went wrong. Please try again.",
+  "loadingLabel": "Loading...",
+  "listingLiveMessage": "Your listing is live. You'll get a message if someone responds.",
+  "locationPermissionDenied": "We can't use your location. You can pick a spot on the map.",
+  "deleteListingConfirm": "This listing and its photos will be deleted. Are you sure?",
+  "reportReceivedMessage": "Thanks, we received your report. We'll review it.",
+  "blockUserConfirm": "If you block this person, you won't see their listings or messages.",
+  "deleteAccountWarning": "Your account, listings, photos and messages will be permanently deleted. This can't be undone.",
+  "acceptTermsCheckbox": "I have read and accept the Terms of Use and Privacy Policy.",
+  "filterAll": "All",
+  "listingTypeLost": "Lost",
+  "listingTypeFound": "Found",
+  "listingTypeFoundVerb": "I found",
+  "listingStatusResolved": "Resolved",
+  "deletedUser": "Deleted user",
+  "loginTitle": "Sign in",
+  "registerTitle": "Create account",
+  "acceptTermsTitle": "Terms & Privacy",
+  "acceptTermsDescription": "Check your display name and accept the Terms of Use and Privacy Policy to continue using Bulduk.",
+  "emailLabel": "Email address",
+  "passwordLabel": "Password",
+  "displayNameLabel": "Display name",
+  "displayNameHelper": "Name shown on your listings and messages (1–40 characters).",
+  "showPasswordTooltip": "Show password",
+  "hidePasswordTooltip": "Hide password",
+  "loginButton": "Sign in",
+  "registerButton": "Create account",
+  "orDivider": "or",
+  "continueWithGoogle": "Continue with Google",
+  "continueWithApple": "Continue with Apple",
+  "noAccountPrompt": "Don't have an account? Create one",
+  "haveAccountPrompt": "Already have an account? Sign in",
+  "validationEmailInvalid": "Please enter a valid email address.",
+  "validationPasswordShort": "Password must be at least 6 characters.",
+  "validationDisplayNameInvalid": "Display name must be between 1 and 40 characters.",
+  "validationTermsRequired": "You must accept the terms and privacy policy to continue.",
+  "authErrorInvalidCredentials": "Incorrect email or password. Please check and try again.",
+  "authErrorEmailInUse": "An account already exists with this email. Try signing in.",
+  "authErrorWeakPassword": "Please choose a stronger password (at least 6 characters).",
+  "authErrorNetwork": "Please check your internet connection and try again.",
+  "authErrorCancelled": "Sign-in was cancelled.",
+  "categoryWallet": "Wallet",
+  "categoryPhone": "Phone",
+  "categoryKeys": "Keys",
+  "categoryBag": "Bag",
+  "categoryDocuments": "ID / Documents",
+  "categoryElectronics": "Electronics",
+  "categoryAccessories": "Accessories",
+  "categoryClothing": "Clothing",
+  "categoryPet": "Pet",
+  "categoryOther": "Other",
+  "filterTitle": "Filter",
+  "filterClearButton": "Clear filters",
+  "filterApplyButton": "Apply",
+  "filterDistanceLabel": "Maximum distance",
+  "filterDistanceAny": "Any distance",
+  "filterDistanceKm": "Within {km} km",
+  "@filterDistanceKm": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "distanceAwayKm": "{km} km",
+  "@distanceAwayKm": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "listingFormNewTitle": "Post listing",
+  "listingFormEditTitle": "Edit listing",
+  "listingTypeLabel": "Listing type",
+  "listingTitleLabel": "Title",
+  "listingTitleHelper": "e.g. Black leather wallet (1–80 characters)",
+  "listingCategoryLabel": "Category",
+  "listingDescriptionLabel": "Description",
+  "listingDescriptionHelper": "Distinguishing details or notes (up to 500 characters)",
+  "listingPhotosLabel": "Photos (up to 3)",
+  "addPhotoGallery": "Choose from gallery",
+  "addPhotoCamera": "Take photo",
+  "removePhotoTooltip": "Remove photo",
+  "listingLocationLabel": "Location",
+  "listingLocationNameLabel": "Location name / area",
+  "listingLocationNameHelper": "e.g. Kadikoy Pier",
+  "pickLocationButton": "Pick location on map",
+  "pickLocationTitle": "Pick location",
+  "pickLocationHint": "Tap on the map to set the spot and confirm.",
+  "confirmLocationButton": "Select this spot",
+  "myLocationTooltip": "Go to my location",
+  "listingEventDateLabel": "Event date",
+  "selectDateButton": "Select date",
+  "validationTitleInvalid": "Title must be between 1 and 80 characters.",
+  "validationLocationRequired": "Please pick a spot on the map and enter a location name.",
+  "listingDetailTitle": "Listing details",
+  "foundThisButton": "I found this",
+  "thisIsMineButton": "This is mine",
+  "editListingButton": "Edit",
+  "markResolvedButton": "Mark as resolved",
+  "deleteListingButton": "Delete listing",
+  "foundPrivacyNotice": "For safety, an approximate area (250 m circle) is shown for found items.",
+  "similarListingsTitle": "Similar listings",
+  "viewDetailsButton": "Details",
+  "postedByLabel": "Posted by: {name}",
+  "@postedByLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "eventDateDisplay": "Date: {date}",
+  "@eventDateDisplay": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "photoSemantics": "{title} photo {index}",
+  "@photoSemantics": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "listingCardSemantics": "{type}: {title}, {location}, {date}",
+  "@listingCardSemantics": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      },
+      "location": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "osmAttribution": "© OpenStreetMap contributors",
+  "messageInputLabel": "Your message",
+  "sendMessageTooltip": "Send",
+  "chatOwnListingError": "You can't start a chat on your own listing.",
+  "moreActionsTooltip": "More actions",
+  "reportAction": "Report",
+  "blockUserAction": "Block user",
+  "unblockUserButton": "Unblock",
+  "blockedUsersEmptyTitle": "No blocked users",
+  "blockedUsersEmptyMessage": "People you block will appear here.",
+  "reportSheetTitle": "Report",
+  "reportReasonSpam": "Spam",
+  "reportReasonInappropriate": "Inappropriate content",
+  "reportReasonScam": "Scam",
+  "reportReasonHarassment": "Harassment",
+  "reportReasonOther": "Other",
+  "reportNoteLabel": "Additional note (optional)",
+  "reportSubmitButton": "Submit",
+  "blockConfirmTitle": "Block user",
+  "blockConfirmButton": "Block",
+  "deleteAccountConfirmButton": "Permanently delete my account",
+  "deleteAccountReauthPasswordHelper": "Enter your password again to confirm.",
+  "deleteAccountItemsTitle": "Data to be deleted:",
+  "deleteAccountItemListings": "• All lost and found listings you posted",
+  "deleteAccountItemPhotos": "• All listing photos you uploaded",
+  "deleteAccountItemMessages": "• All messages you sent",
+  "deleteAccountItemProfile": "• Your profile and blocked users list",
+  "deleteAccountSuccess": "Your account and data have been deleted.",
+  "locationAllAreas": "All Areas",
+  "expandRadiusButton": "Expand search radius",
+  "cardActionMessage": "Message",
+  "cardActionMine": "This is Mine!",
+  "favoriteTooltip": "Add to favorites",
+  "verifiedBadgeLabel": "Verified",
+  "trustScoreTitle": "Trust & Community Profile",
+  "trustScoreBadge": "98/100 ★ Super Trust",
+  "trustScoreSubtitle": "Verified community member · Safe handover",
+  "badgeFastHelper": "Fast Helper",
+  "badgeItemDetective": "Item Detective",
+  "badgeVerifiedVolunteer": "Verified Neighborhood Volunteer",
+  "safetyBannerTitle": "Safe Handover Reminder",
+  "safetyBannerMessage": "Always meet in public places for handovers and verify distinguishing item details.",
+  "mapSearchHint": "Search listings or area on map...",
+  "nearbyListingsTitle": "Nearby Listings"
+}

@@ -1,0 +1,5 @@
+"CFBundleDisplayName" = "Bulundu";
+"NSLocationWhenInUseUsageDescription" = "We need location access so you can see nearby lost and found listings on the map and pick a location for your listing.";
+"NSCameraUsageDescription" = "We need camera access so you can take a photo of the lost or found item for your listing.";
+"NSPhotoLibraryUsageDescription" = "We need photo library access so you can attach item photos to your listing.";
+

@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+
+abstract final class AppColors {
+  static const Color scaffoldLight = Color(0xFFF8FAFC);
+  static const Color scaffoldDark = Color(0xFF0F172A);
+
+  static const ColorScheme lightScheme = ColorScheme(
+    brightness: Brightness.light,
+    primary: Color(0xFF2563EB),
+    onPrimary: Color(0xFFFFFFFF),
+    primaryContainer: Color(0xFFEFF6FF),
+    onPrimaryContainer: Color(0xFF2563EB),
+    secondary: Color(0xFFD97706),
+    onSecondary: Color(0xFFFFFFFF),
+    secondaryContainer: Color(0xFFFEF3C7),
+    onSecondaryContainer: Color(0xFFD97706),
+    tertiary: Color(0xFF059669),
+    onTertiary: Color(0xFFFFFFFF),
+    tertiaryContainer: Color(0xFFDCFCE7),
+    onTertiaryContainer: Color(0xFF059669),
+    error: Color(0xFFDC2626),
+    onError: Color(0xFFFFFFFF),
+    errorContainer: Color(0xFFFEE2E2),
+    onErrorContainer: Color(0xFF991B1B),
+    surface: Color(0xFFFFFFFF),
+    onSurface: Color(0xFF0F172A),
+    surfaceContainerLowest: Color(0xFFFFFFFF),
+    surfaceContainerLow: Color(0xFFF1F5F9),
+    surfaceContainerHighest: Color(0xFFE0E7FF),
+    onSurfaceVariant: Color(0xFF64748B),
+    outline: Color(0xFF94A3B8),
+    outlineVariant: Color(0xFFE2E8F0),
+    inverseSurface: Color(0xFF1E293B),
+    onInverseSurface: Color(0xFFF8FAFC),
+    shadow: Color(0x140F172A),
+  );
+
+  static const ColorScheme darkScheme = ColorScheme(
+    brightness: Brightness.dark,
+    primary: Color(0xFF3B82F6),
+    onPrimary: Color(0xFFFFFFFF),
+    primaryContainer: Color(0xFF1E3A8A),
+    onPrimaryContainer: Color(0xFFDBEAFE),
+    secondary: Color(0xFFF59E0B),
+    onSecondary: Color(0xFF0F172A),
+    secondaryContainer: Color(0xFF451A03),
+    onSecondaryContainer: Color(0xFFFEF3C7),
+    tertiary: Color(0xFF10B981),
+    onTertiary: Color(0xFF0F172A),
+    tertiaryContainer: Color(0xFF064E3B),
+    onTertiaryContainer: Color(0xFFDCFCE7),
+    error: Color(0xFFF87171),
+    onError: Color(0xFF450A0A),
+    errorContainer: Color(0xFF7F1D1D),
+    onErrorContainer: Color(0xFFFEE2E2),
+    surface: Color(0xFF1E293B),
+    onSurface: Color(0xFFF8FAFC),
+    surfaceContainerLowest: Color(0xFF0F172A),
+    surfaceContainerLow: Color(0xFF0F172A),
+    surfaceContainerHighest: Color(0xFF312E81),
+    onSurfaceVariant: Color(0xFF94A3B8),
+    outline: Color(0xFF64748B),
+    outlineVariant: Color(0xFF334155),
+    inverseSurface: Color(0xFFF8FAFC),
+    onInverseSurface: Color(0xFF0F172A),
+    shadow: Color(0x3D000000),
+  );
+}

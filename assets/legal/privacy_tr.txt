@@ -1,0 +1,16 @@
+BULUNDU GİZLİLİK POLİTİKASI (Sürüm 1)
+
+1. Toplanan Veriler
+- Kimlik bilgileri: Ad/görünen ad, e-posta adresi (yalnızca kimlik doğrulama için), profil fotoğrafı (varsa).
+- İlan verileri: Başlık, açıklama, kategori, fotoğraflar ve ilan konumu (enlem/boylam).
+- Mesajlaşma: İlanlarla ilgili kullanıcılar arası birebir mesajlar.
+
+2. Konum Gizliliği
+"Buldum" ilanları haritada kesin nokta yerine sapmalı 250 m yarıçaplı daire olarak gösterilir; ancak koordinatlar veritabanında kesin olarak saklanır (demo sınırlaması).
+
+3. Veri Saklama ve Silme
+Kullanıcılar uygulama içinden (Profil -> Ayarlar -> Hesabı sil) hesaplarını istedikleri zaman silebilir. Hesap silindiğinde kullanıcının ilanları, fotoğrafları, gönderdiği mesajlar ve profili kalıcı olarak silinir. Gönderilmiş şikayet kayıtları meşru çıkar ve güvenlik gereği saklanır.
+
+4. KVKK ve Haklarınız
+Verilerinize erişme, düzeltme ve silme haklarınız için uygulama içi araçları kullanabilir veya [DESTEK_E_POSTASI] adresinden bize ulaşabilirsiniz.
+

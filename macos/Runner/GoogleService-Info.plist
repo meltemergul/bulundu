@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>890836000621-h5m6agtmonlluqpsgk6tnt1oh42ce99i.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.890836000621-h5m6agtmonlluqpsgk6tnt1oh42ce99i</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBUduFe9rFLw3m4lbv5C8tE0lkUm_5PsUk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>890836000621</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.bulundu.app</string>
+	<key>PROJECT_ID</key>
+	<string>bulundu-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bulundu-app.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:890836000621:ios:10933ba220f662d6524464</string>
+</dict>
+</plist>

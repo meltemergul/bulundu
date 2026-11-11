@@ -1,0 +1,16 @@
+BULUNDU KULLANIM ŞARTLARI (Sürüm 1)
+
+1. Amaç ve Kapsam
+Bulundu, kullanıcıların kayıp veya buldukları eşyaları paylaşarak birbirleriyle iletişime geçmesini sağlayan bir topluluk platformudur.
+
+2. Kullanıcı Yükümlülükleri ve İçerik Kuralları
+- Yanıltıcı, dolandırıcılık amaçlı, yasa dışı, hakaret veya taciz içeren ilan ve mesaj paylaşımı kesinlikle yasaktır.
+- Uygunsuz içerik veya davranış tespit edildiğinde ya da şikayet edildiğinde içerik kaldırılır ve ilgili hesap askıya alınabilir veya silinebilir.
+- Bildirilen şikayetler en geç 24 saat içinde incelenir.
+
+3. Sorumluluk Sınırı
+Bulundu yalnızca kullanıcıları bir araya getirir; eşyaların doğruluğu, teslimi veya kullanıcılar arası anlaşmazlıklardan sorumlu tutulamaz. Buluşmaların güvenli ve halka açık yerlerde yapılması önerilir.
+
+4. İletişim
+Sorularınız ve bildirimleriniz için: [DESTEK_E_POSTASI]
+

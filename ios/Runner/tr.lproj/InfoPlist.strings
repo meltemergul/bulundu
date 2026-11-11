@@ -1,0 +1,5 @@
+"CFBundleDisplayName" = "Bulundu";
+"NSLocationWhenInUseUsageDescription" = "Yakınındaki kayıp ve bulunan eşya ilanlarını haritada göstermek ve ilan konumunu seçebilmen için konum izni gerekiyor.";
+"NSCameraUsageDescription" = "Kayıp veya bulduğun eşyanın fotoğrafını çekip ilana ekleyebilmen için kamera izni gerekiyor.";
+"NSPhotoLibraryUsageDescription" = "İlanına galeriden eşya fotoğrafı ekleyebilmen için fotoğraf arşivi izni gerekiyor.";
+

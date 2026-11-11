@@ -1,0 +1,16 @@
+BULUNDU PRIVACY POLICY (Version 1)
+
+1. Data We Collect
+- Identity data: Display name, email address (for authentication only), profile photo (if provided).
+- Listing data: Title, description, category, photos, and listing coordinates (latitude/longitude).
+- Messaging: Direct messages between users regarding listings.
+
+2. Location Privacy
+"Found" listings are displayed on the map as an offset 250 m circle rather than an exact pin; however, exact coordinates are stored in the database (demo limitation).
+
+3. Data Retention and Deletion
+Users can delete their account at any time inside the app (Profile -> Settings -> Delete account). Deleting an account permanently removes the user's listings, photos, sent messages, and profile. Submitted moderation reports are retained for legitimate security interests.
+
+4. Your Rights and Contact
+You can exercise your rights to access, rectify, or delete your data via in-app tools or by contacting [DESTEK_E_POSTASI].
+

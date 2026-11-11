@@ -1,0 +1,231 @@
+{
+  "@@locale": "tr",
+  "appTitle": "Bulduk",
+  "appTagline": "Kaybolanı topluluk gücüyle bulalım.",
+  "navExplore": "Keşfet",
+  "navMap": "Harita",
+  "navChats": "Mesajlar",
+  "navProfile": "Profil",
+  "fabPostListing": "İlan ver",
+  "exploreTitle": "Keşfet",
+  "exploreEmptyTitle": "Yakınınızda henüz kayıp ilanı yok",
+  "exploreEmptyMessage": "Çevre yarıçapını genişletebilir veya ilk ilanı sen verebilirsin.",
+  "mapTitle": "Harita",
+  "chatsTitle": "Mesajlar",
+  "chatsEmptyTitle": "Henüz mesaj yok",
+  "chatsEmptyMessage": "Bir ilanla ilgili sohbet başlattığında burada görünür.",
+  "profileTitle": "Profil",
+  "settingsTitle": "Ayarlar",
+  "myListingsTitle": "İlanlarım",
+  "blockedUsersTitle": "Engellenenler",
+  "deleteAccountTitle": "Hesabı sil",
+  "languageLabel": "Dil",
+  "languageSystem": "Sistem varsayılanı",
+  "languageTurkish": "Türkçe",
+  "languageEnglish": "English",
+  "themeLabel": "Tema",
+  "themeSystem": "Sistem varsayılanı",
+  "themeLight": "Açık",
+  "themeDark": "Koyu",
+  "termsTitle": "Kullanım Şartları",
+  "privacyTitle": "Gizlilik Politikası",
+  "versionLabel": "Sürüm",
+  "signOutButton": "Çıkış yap",
+  "retryButton": "Tekrar dene",
+  "cancelButton": "İptal",
+  "saveButton": "Kaydet",
+  "continueButton": "Devam et",
+  "errorGeneric": "Bir şeyler ters gitti. Tekrar dener misin?",
+  "loadingLabel": "Yükleniyor...",
+  "listingLiveMessage": "İlanın yayında. Eşleşme olursa mesaj alırsın.",
+  "locationPermissionDenied": "Konumunu kullanamıyoruz. Haritadan elle seçebilirsin.",
+  "deleteListingConfirm": "Bu ilan ve fotoğrafları silinecek. Emin misin?",
+  "reportReceivedMessage": "Şikayetin alındı. İnceleyeceğiz.",
+  "blockUserConfirm": "Bu kişiyi engellersen ilanlarını ve mesajlarını görmezsin.",
+  "deleteAccountWarning": "Hesabın, ilanların, fotoğrafların ve mesajların kalıcı olarak silinecek. Bu işlem geri alınamaz.",
+  "acceptTermsCheckbox": "Kullanım Şartları'nı ve Gizlilik Politikası'nı okudum, kabul ediyorum.",
+  "filterAll": "Tümü",
+  "listingTypeLost": "Kayıp",
+  "listingTypeFound": "Bulundu",
+  "listingTypeFoundVerb": "Buldum",
+  "listingStatusResolved": "Çözüldü",
+  "deletedUser": "Silinmiş kullanıcı",
+  "loginTitle": "Giriş yap",
+  "registerTitle": "Hesap oluştur",
+  "acceptTermsTitle": "Şartlar ve Gizlilik",
+  "acceptTermsDescription": "Bulduk'u kullanmaya devam etmek için görünen adını kontrol et ve Kullanım Şartları ile Gizlilik Politikası'nı onayla.",
+  "emailLabel": "E-posta adresi",
+  "passwordLabel": "Şifre",
+  "displayNameLabel": "Görünen ad",
+  "displayNameHelper": "İlanlarında ve mesajlarında görünecek ad (1–40 karakter).",
+  "showPasswordTooltip": "Şifreyi göster",
+  "hidePasswordTooltip": "Şifreyi gizle",
+  "loginButton": "Giriş yap",
+  "registerButton": "Kayıt ol",
+  "orDivider": "veya",
+  "continueWithGoogle": "Google ile devam et",
+  "continueWithApple": "Apple ile devam et",
+  "noAccountPrompt": "Hesabın yok mu? Kayıt ol",
+  "haveAccountPrompt": "Zaten hesabın var mı? Giriş yap",
+  "validationEmailInvalid": "Geçerli bir e-posta adresi gir.",
+  "validationPasswordShort": "Şifre en az 6 karakter olmalı.",
+  "validationDisplayNameInvalid": "Görünen ad 1 ile 40 karakter arasında olmalı.",
+  "validationTermsRequired": "Devam etmek için şartları ve gizlilik politikasını onaylamalısın.",
+  "authErrorInvalidCredentials": "E-posta veya şifre hatalı. Kontrol edip tekrar dener misin?",
+  "authErrorEmailInUse": "Bu e-posta adresiyle zaten bir hesap var. Giriş yapmayı dene.",
+  "authErrorWeakPassword": "Daha güçlü bir şifre seçmelisin (en az 6 karakter).",
+  "authErrorNetwork": "İnternet bağlantını kontrol edip tekrar dener misin?",
+  "authErrorCancelled": "Giriş işlemi iptal edildi.",
+  "categoryWallet": "Cüzdan",
+  "categoryPhone": "Telefon",
+  "categoryKeys": "Anahtar",
+  "categoryBag": "Çanta",
+  "categoryDocuments": "Kimlik / Belge",
+  "categoryElectronics": "Elektronik",
+  "categoryAccessories": "Aksesuar",
+  "categoryClothing": "Giyim",
+  "categoryPet": "Evcil Hayvan",
+  "categoryOther": "Diğer",
+  "filterTitle": "Filtrele",
+  "filterClearButton": "Filtreyi temizle",
+  "filterApplyButton": "Uygula",
+  "filterDistanceLabel": "Maksimum mesafe",
+  "filterDistanceAny": "Mesafe sınırı yok",
+  "filterDistanceKm": "{km} km içinde",
+  "@filterDistanceKm": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "distanceAwayKm": "{km} km",
+  "@distanceAwayKm": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "listingFormNewTitle": "İlan ver",
+  "listingFormEditTitle": "İlanı düzenle",
+  "listingTypeLabel": "İlan türü",
+  "listingTitleLabel": "Başlık",
+  "listingTitleHelper": "Örn: Siyah deri cüzdan (1–80 karakter)",
+  "listingCategoryLabel": "Kategori",
+  "listingDescriptionLabel": "Açıklama",
+  "listingDescriptionHelper": "Ayırt edici özellikler veya ek bilgi (en çok 500 karakter)",
+  "listingPhotosLabel": "Fotoğraflar (en çok 3)",
+  "addPhotoGallery": "Galeriden seç",
+  "addPhotoCamera": "Kamera ile çek",
+  "removePhotoTooltip": "Fotoğrafı kaldır",
+  "listingLocationLabel": "Konum",
+  "listingLocationNameLabel": "Konum açıklaması / semt",
+  "listingLocationNameHelper": "Örn: Kadıköy İskele",
+  "pickLocationButton": "Haritadan konum seç",
+  "pickLocationTitle": "Konum seç",
+  "pickLocationHint": "Haritaya dokunarak konumu belirle ve onayla.",
+  "confirmLocationButton": "Bu konumu seç",
+  "myLocationTooltip": "Konumuma git",
+  "listingEventDateLabel": "Olay tarihi",
+  "selectDateButton": "Tarih seç",
+  "validationTitleInvalid": "Başlık 1 ile 80 karakter arasında olmalı.",
+  "validationLocationRequired": "Lütfen haritadan bir konum seç ve konum adını gir.",
+  "listingDetailTitle": "İlan detayı",
+  "foundThisButton": "Bunu buldum",
+  "thisIsMineButton": "Bu benim",
+  "editListingButton": "Düzenle",
+  "markResolvedButton": "Çözüldü olarak işaretle",
+  "deleteListingButton": "İlanı sil",
+  "foundPrivacyNotice": "Güvenlik için bulunan eşyanın yaklaşık alanı (250 m daire) gösterilir.",
+  "similarListingsTitle": "Benzer ilanlar",
+  "viewDetailsButton": "Detay",
+  "postedByLabel": "İlan sahibi: {name}",
+  "@postedByLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "eventDateDisplay": "Tarih: {date}",
+  "@eventDateDisplay": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "photoSemantics": "{title} fotoğrafı {index}",
+  "@photoSemantics": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "listingCardSemantics": "{type}: {title}, {location}, {date}",
+  "@listingCardSemantics": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      },
+      "location": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "osmAttribution": "© OpenStreetMap katkıda bulunanlar",
+  "messageInputLabel": "Mesajın",
+  "sendMessageTooltip": "Gönder",
+  "chatOwnListingError": "Kendi ilanına mesaj gönderemezsin.",
+  "moreActionsTooltip": "Diğer işlemler",
+  "reportAction": "Şikayet et",
+  "blockUserAction": "Kullanıcıyı engelle",
+  "unblockUserButton": "Engeli kaldır",
+  "blockedUsersEmptyTitle": "Engellenen kullanıcı yok",
+  "blockedUsersEmptyMessage": "Engellediğin kişiler burada listelenir.",
+  "reportSheetTitle": "Şikayet et",
+  "reportReasonSpam": "Spam",
+  "reportReasonInappropriate": "Uygunsuz içerik",
+  "reportReasonScam": "Dolandırıcılık",
+  "reportReasonHarassment": "Taciz",
+  "reportReasonOther": "Diğer",
+  "reportNoteLabel": "Ek not (isteğe bağlı)",
+  "reportSubmitButton": "Gönder",
+  "blockConfirmTitle": "Kullanıcıyı engelle",
+  "blockConfirmButton": "Engelle",
+  "deleteAccountConfirmButton": "Hesabımı kalıcı olarak sil",
+  "deleteAccountReauthPasswordHelper": "Güvenliğin için şifreni tekrar gir.",
+  "deleteAccountItemsTitle": "Silinecek veriler:",
+  "deleteAccountItemListings": "• Yayınladığın tüm kayıp ve bulundu ilanları",
+  "deleteAccountItemPhotos": "• Yüklediğin tüm ilan fotoğrafları",
+  "deleteAccountItemMessages": "• Gönderdiğin tüm mesajlar",
+  "deleteAccountItemProfile": "• Profil bilgilerin ve engelleme listen",
+  "deleteAccountSuccess": "Hesabın ve verilerin silindi.",
+  "locationAllAreas": "Tüm Bölgeler",
+  "expandRadiusButton": "Çevre yarıçapını genişlet",
+  "cardActionMessage": "Mesaj At",
+  "cardActionMine": "Bu Benim!",
+  "favoriteTooltip": "Favorilere ekle",
+  "verifiedBadgeLabel": "Doğrulanmış",
+  "trustScoreTitle": "Güven ve Dayanışma Profili",
+  "trustScoreBadge": "98/100 ★ Süper Güven",
+  "trustScoreSubtitle": "Doğrulanmış topluluk üyesi · Güvenli teslimat",
+  "badgeFastHelper": "Hızlı Yardımsever",
+  "badgeItemDetective": "Eşya Dedektifi",
+  "badgeVerifiedVolunteer": "Doğrulanmış Mahalle Gönüllüsü",
+  "safetyBannerTitle": "Güvenli Teslimat Hatırlatması",
+  "safetyBannerMessage": "Teslimatları her zaman halka açık noktalarda gerçekleştirin ve eşyanın ayırt edici detaylarını doğrulayın.",
+  "mapSearchHint": "Haritada ilan veya semt ara...",
+  "nearbyListingsTitle": "Yakındaki İlanlar"
+}

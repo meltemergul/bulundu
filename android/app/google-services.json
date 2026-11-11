@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "890836000621",
+    "project_id": "bulundu-app",
+    "storage_bucket": "bulundu-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890836000621:android:28ef2c5997a10f9f524464",
+        "android_client_info": {
+          "package_name": "com.bulundu.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890836000621-8t7mm9idcg7amckid24k7koij2psobmo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bulundu.app",
+            "certificate_hash": "ef4eb9ab64e2532b4e038303a916a99d961da37a"
+          }
+        },
+        {
+          "client_id": "890836000621-prfrjgeoc9tlj6a4j6r03tadjvqkpiuh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfLL69kCotPVlhddQwwJNtHcn3eJJcQMw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890836000621-prfrjgeoc9tlj6a4j6r03tadjvqkpiuh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "890836000621-h5m6agtmonlluqpsgk6tnt1oh42ce99i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bulundu.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
