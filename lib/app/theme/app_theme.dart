@@ -13,9 +13,12 @@ abstract final class AppTheme {
       displayColor: s.onSurface,
     );
     final buttonShape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+      borderRadius: BorderRadius.circular(AppSpacing.radiusMd), // 0.5rem (8dp)
     );
-    const minSize = Size(AppSpacing.minTouchTarget, AppSpacing.minTouchTarget);
+    const minSize = Size(
+      AppSpacing.minTouchTarget,
+      AppSpacing.minTouchTarget,
+    ); // 48dp
 
     OutlineInputBorder border(Color c, [double w = 1]) => OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
@@ -40,7 +43,7 @@ abstract final class AppTheme {
         ),
         iconTheme: IconThemeData(color: s.onSurface),
       ),
-      // Ana buton: primaryContainer + beyaz metin, basılı/hover: primary.
+      // Primary CTA: Solid primary indigo fill (#2563EB), white text, 8dp radius
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
           minimumSize: const WidgetStatePropertyAll(minSize),
@@ -55,8 +58,16 @@ abstract final class AppTheme {
                 states.contains(WidgetState.hovered)) {
               return s.primary;
             }
-            return s.primary;
+            return s.primaryContainer;
           }),
+          elevation: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.pressed)) return 1;
+            if (states.contains(WidgetState.hovered)) return 4;
+            return 2;
+          }),
+          shadowColor: WidgetStatePropertyAll(
+            s.primaryContainer.withValues(alpha: 0.35),
+          ),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -64,21 +75,22 @@ abstract final class AppTheme {
           minimumSize: minSize,
           shape: buttonShape,
           textStyle: text.labelLarge,
-          foregroundColor: s.primary,
-          side: BorderSide(color: s.outline),
+          foregroundColor: s.primaryContainer,
+          side: BorderSide(color: s.outlineVariant),
+          backgroundColor: s.surfaceContainerLowest,
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           minimumSize: minSize,
           textStyle: text.labelLarge,
-          foregroundColor: s.primary,
+          foregroundColor: s.primaryContainer,
         ),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: s.primary,
+        backgroundColor: s.primaryContainer,
         foregroundColor: s.onPrimary,
-        elevation: 0,
+        elevation: 4,
         extendedTextStyle: text.labelLarge,
         shape: const StadiumBorder(),
       ),
@@ -89,9 +101,7 @@ abstract final class AppTheme {
               borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
             ),
           ),
-          side: WidgetStatePropertyAll(
-            BorderSide(color: s.outlineVariant),
-          ),
+          side: WidgetStatePropertyAll(BorderSide(color: s.outlineVariant)),
           backgroundColor: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.selected)) {
               return s.primaryContainer;
@@ -100,7 +110,7 @@ abstract final class AppTheme {
           }),
           foregroundColor: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.selected)) {
-              return s.onPrimaryContainer;
+              return s.onPrimary;
             }
             return s.onSurface;
           }),
@@ -112,7 +122,7 @@ abstract final class AppTheme {
         fillColor: s.surfaceContainerLowest,
         labelStyle: text.bodyMedium?.copyWith(color: s.onSurfaceVariant),
         floatingLabelStyle: text.bodyMedium?.copyWith(
-          color: s.primary,
+          color: s.primaryContainer,
           fontWeight: FontWeight.w600,
         ),
         hintStyle: text.bodyMedium?.copyWith(
@@ -120,7 +130,7 @@ abstract final class AppTheme {
         ),
         border: border(s.outlineVariant),
         enabledBorder: border(s.outlineVariant),
-        focusedBorder: border(s.primary, 2),
+        focusedBorder: border(s.primaryContainer, 2),
         errorBorder: border(s.error, 2),
         focusedErrorBorder: border(s.error, 2),
       ),
@@ -136,11 +146,12 @@ abstract final class AppTheme {
         shape: const StadiumBorder(),
         side: BorderSide(color: s.outlineVariant, width: 1),
         backgroundColor: s.surfaceContainerLowest,
-        selectedColor: s.primaryContainer,
+        selectedColor: s.primaryFixed,
         labelStyle: text.labelMedium?.copyWith(color: s.onSurface),
-        secondaryLabelStyle:
-            text.labelMedium?.copyWith(color: s.onPrimaryContainer),
-        checkmarkColor: s.onPrimaryContainer,
+        secondaryLabelStyle: text.labelMedium?.copyWith(
+          color: s.onPrimaryFixedVariant,
+        ),
+        checkmarkColor: s.onPrimaryFixedVariant,
       ),
       checkboxTheme: CheckboxThemeData(
         shape: RoundedRectangleBorder(
@@ -148,14 +159,16 @@ abstract final class AppTheme {
         ),
         side: BorderSide(color: s.outline, width: 2),
         fillColor: WidgetStateProperty.resolveWith(
-          (states) => states.contains(WidgetState.selected) ? s.primary : null,
+          (states) =>
+              states.contains(WidgetState.selected) ? s.primaryContainer : null,
         ),
         checkColor: WidgetStatePropertyAll(s.onPrimary),
       ),
       radioTheme: RadioThemeData(
         fillColor: WidgetStateProperty.resolveWith(
-          (states) =>
-              states.contains(WidgetState.selected) ? s.primary : s.outline,
+          (states) => states.contains(WidgetState.selected)
+              ? s.primaryContainer
+              : s.outline,
         ),
       ),
       navigationRailTheme: NavigationRailThemeData(
@@ -164,7 +177,9 @@ abstract final class AppTheme {
         labelType: NavigationRailLabelType.all,
         selectedIconTheme: IconThemeData(color: s.onPrimaryFixed),
         unselectedIconTheme: IconThemeData(color: s.onSurfaceVariant),
-        selectedLabelTextStyle: text.labelSmall?.copyWith(color: s.primary),
+        selectedLabelTextStyle: text.labelSmall?.copyWith(
+          color: s.primaryContainer,
+        ),
         unselectedLabelTextStyle: text.labelSmall?.copyWith(
           color: s.onSurfaceVariant,
         ),

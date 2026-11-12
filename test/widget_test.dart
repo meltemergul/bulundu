@@ -124,6 +124,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Switch theme to Dark
+      await tester.ensureVisible(find.text('Koyu'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Koyu'));
       await tester.pumpAndSettle();
       expect(prefs.getString('settings.themeMode'), 'dark');

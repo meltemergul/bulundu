@@ -44,7 +44,10 @@ class ChatController extends AsyncNotifier<void> {
   @override
   Future<void> build() async {}
 
-  Future<String?> startOrOpenChat(Listing listing) async {
+  Future<String?> startOrOpenChat(
+    Listing listing, [
+    String? initialMessage,
+  ]) async {
     final user = ref.read(authRepositoryProvider).currentUser;
     if (user == null) return null;
 
@@ -63,6 +66,16 @@ class ChatController extends AsyncNotifier<void> {
                 ? listing.imageUrls.first
                 : null,
           );
+
+      if (initialMessage != null && initialMessage.trim().isNotEmpty) {
+        await ref
+            .read(chatRepositoryProvider)
+            .sendMessage(
+              chatId: chatId!,
+              senderId: user.uid,
+              text: initialMessage.trim(),
+            );
+      }
     });
     return state.hasError ? null : chatId;
   }

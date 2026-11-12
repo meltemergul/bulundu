@@ -53,6 +53,41 @@ class ProfileRepository {
     }
   }
 
+  Future<void> updateProfile({
+    required String uid,
+    String? displayName,
+    String? photoUrl,
+    bool removePhoto = false,
+  }) async {
+    final docRef = _db.collection('users').doc(uid);
+    final existing = await docRef.get();
+    final data = existing.data() ?? <String, dynamic>{};
+
+    final termsAt = data['acceptedTermsAt'] ?? FieldValue.serverTimestamp();
+    final termsVer = data['termsVersion'] ?? UserProfile.currentTermsVersion;
+
+    final updates = <String, dynamic>{
+      'acceptedTermsAt': termsAt,
+      'termsVersion': termsVer,
+      'updatedAt': FieldValue.serverTimestamp(),
+    };
+
+    if (displayName != null) {
+      final trimmed = displayName.trim();
+      if (trimmed.isNotEmpty) {
+        updates['displayName'] = trimmed;
+      }
+    }
+
+    if (removePhoto) {
+      updates['photoUrl'] = FieldValue.delete();
+    } else if (photoUrl != null) {
+      updates['photoUrl'] = photoUrl;
+    }
+
+    await docRef.set(updates, SetOptions(merge: true));
+  }
+
   Future<void> deleteUserProfileAndBlocks(String uid) async {
     final blocksSnap = await _db
         .collection('users')

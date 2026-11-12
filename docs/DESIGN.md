@@ -157,67 +157,65 @@ Renkler Material 3 ColorScheme rollerine bağlıdır. Uygulama kimliği Teal + C
 
 2.1 Marka renkleri
 Renk	Hex	Kullanım
-Deep Teal	#245C59	Ana marka rengi; birincil butonlar, aktif sekmeler, bağlantılar, harita ve odak vurgusu
-Sage Green	#6FA69A	İkincil vurgu; olumlu durumlar, tamamlanma ve destekleyici ikonlar
-Warm Cream	#F4EBDD	Açık tema sayfa zemini ve geniş yüzeyler
-Soft Coral	#E99A7B	Kayıp ilanı rozeti, kayıp pinleri ve dikkat gerektiren ama hata olmayan vurgu
-Soft Mustard	#E8BD68	İkincil bilgilendirme ve küçük dekoratif vurgu; kritik metin rengi olarak kullanılmaz
-Charcoal	#343D3B	Ana metin ve başlıklar
-Surface	#FFFCF7	Kartlar, arama alanları ve form yüzeyleri
+Trust Electric Indigo	#2563EB / #004AC6	Ana marka rengi; birincil butonlar (CTA), aktif sekmeler, bağlantılar, harita ve odak vurgusu
+Energetic Warm Amber	#FEA619 / #855300	Kayıp ilanı rozeti, kayıp pinleri ve dikkat/acil arama vurgusu
+Safety Emerald Teal	#007D55 / #006242	Bulundu ve Teslim Edildi durumları, olumlu sonuçlar ve başarı etiketleri
+Clean Canvas	#F8F9FF	Açık tema sayfa zemini ve geniş yüzeyler
+Deep Navy Charcoal	#0B1C30	Ana metin ve başlıklar
+Surface White	#FFFFFF	Kartlar, arama alanları ve form yüzeyleri
+
 2.2 Açık tema — Material 3 rolleri
 Rol	Hex	Kullanım
-primary	#245C59	Ana marka rengi, bağlantı, aktif sekme, ana buton zemini
+primary	#004AC6	Ana marka rengi, bağlantı, aktif sekme
 onPrimary	#FFFFFF	Birincil buton metni ve ikonu
-primaryContainer	#DCEBE6	Teal tonlu açık dolgu, seçili öğe ve ikon karosu
-onPrimaryContainer	#173F3C	Açık teal dolgu üzerindeki metin/ikon
-primaryFixed / primaryFixedDim	#DCEBE6 / #B8D3CA	Avatar halkası ve sabit açık teal yüzeyler
-onPrimaryFixed / onPrimaryFixedVariant	#102F2D / #245C59	Sabit teal yüzeylerde metin/ikon
-secondary	#A94F35	Coral vurgunun koyu metin/ikon tonu; Kayıp durumu
-onSecondary	#FFFFFF	Coral koyu eylem zemini üzerindeki metin
-secondaryContainer	#F7D8CB	Kayıp rozeti, Kayıp pin dolgusu ve aktif Kayıp filtresi
-onSecondaryContainer	#58372D	Kayıp rozeti ve coral dolgu üzerindeki metin/ikon
-secondaryFixed / secondaryFixedDim	#F7D8CB / #EFBBA7	Kayıp rozeti için sabit yüzeyler
-onSecondaryFixed / onSecondaryFixedVariant	#58372D / #754633	Kayıp rozeti metni/ikonu
-tertiary	#356F62	Sage tabanlı olumlu durum metni/ikonu; Teslim Edildi
+primaryContainer	#2563EB	Birincil eylem (CTA) butonu, odak ve marka vurgusu
+onPrimaryContainer	#EEEFFF	Açık indigo dolgu üzerindeki metin/ikon
+primaryFixed / primaryFixedDim	#DBE1FF / #B4C5FF	Bulundu rozeti ve sabit açık indigo yüzeyler
+onPrimaryFixed / onPrimaryFixedVariant	#00174B / #003EA8	Sabit indigo yüzeylerde metin/ikon
+secondary	#855300	Kayıp durumu koyu metin/ikon tonu (Energetic Warm Amber)
+onSecondary	#FFFFFF	Secondary eylem üzerindeki metin
+secondaryContainer	#FEA619	Kayıp rozeti dot, Kayıp pin dolgusu ve aktif Kayıp filtresi
+onSecondaryContainer	#684000	Kayıp rozeti ve amber dolgu üzerindeki metin/ikon
+secondaryFixed / secondaryFixedDim	#FFDDB8 / #FFB95F	Kayıp rozeti için açık amber yüzey
+onSecondaryFixed / onSecondaryFixedVariant	#2A1700 / #653E00	Kayıp rozeti metni/ikonu
+tertiary	#006242	Teslim Edildi ve Bulundu olumlu durum metni/ikonu (Safety Emerald Teal)
 onTertiary	#FFFFFF	Olumlu eylem metni
-tertiaryContainer	#D7E9E2	Teslim Edildi rozeti ve olumlu eylem dolgusu
-onTertiaryContainer	#214B42	Sage dolgu üzerindeki metin/ikon
-tertiaryFixed / tertiaryFixedDim	#D7E9E2 / #B8D5C9	Teslim Edildi rozeti için sabit yüzeyler
-onTertiaryFixed / onTertiaryFixedVariant	#173B34 / #356F62	Teslim Edildi rozeti metni/ikonu
+tertiaryContainer	#007D55	Teslim Edildi rozeti ve olumlu eylem dolgusu
+onTertiaryContainer	#BDFFDB	Zümrüt dolgu üzerindeki metin/ikon
+tertiaryFixed / tertiaryFixedDim	#6FFBBE / #4EDEA3	Teslim Edildi rozeti için nane yüzey
+onTertiaryFixed / onTertiaryFixedVariant	#002113 / #005236	Teslim Edildi rozeti metni/ikonu
 error / onError	#BA1A1A / #FFFFFF	Hata, silme ve başarısız işlem
 errorContainer / onErrorContainer	#FFDAD6 / #93000A	Hata bandı ve hata açıklaması
-surface	#F4EBDD	Sayfa zemini
-surfaceContainerLowest	#FFFCF7	Kart, arama alanı ve form yüzeyi
-surfaceContainerLow	#F8F2E9	Form alanı ve segment zemini
-surfaceContainer	#F0E7DA	Pasif hap, tonal buton ve görsel yer tutucu
-surfaceContainerHigh	#E9DFD1	Seçili olmayan kart vurgusu ve nötr rozet yüzeyi
-surfaceContainerHighest / surfaceVariant	#E1D7C9	Gelen mesaj balonu ve yükseltilmiş nötr yüzey
-surfaceDim / surfaceBright	#E8DECF / #FFFCF7	Dim ve parlak yüzeyler
-onSurface	#343D3B	Ana metin ve başlıklar
-onSurfaceVariant	#59635F	İkincil metin ve placeholder
-outline	#737D77	Form alanı kenarlığı ve odak dışı sınırlar
-outlineVariant	#D0C8BC	Yalnız dekoratif ayırıcılar
-inverseSurface / onInverseSurface	#263A36 / #F8F2E9	Snackbar ve ters yüzey
-inversePrimary	#A9CEC2	Ters yüzey üzerindeki marka vurgusu
-surfaceTint	#245C59	Material 3 yüzey tonu
-Fotoğraf üstü zaman hapı tema bağımsızdır: zemin #263A36 %80, metin #FFFFFF → AppColors.mediaOverlay / mediaOverlayText.
+surface	#F8F9FF	Sayfa zemini
+surfaceContainerLowest	#FFFFFF	Kart, arama alanı ve form yüzeyi
+surfaceContainerLow	#EFF4FF	Secondary CTA ve hafif yüzey dolgusu
+surfaceContainer	#E5EEFF	Pasif hap, tonal buton ve görsel yer tutucu
+surfaceContainerHigh	#DCE9FF	Seçili olmayan kart vurgusu ve nötr rozet yüzeyi
+surfaceContainerHighest / surfaceVariant	#D3E4FE	Gelen mesaj balonu ve yükseltilmiş nötr yüzey
+surfaceDim / surfaceBright	#CBDBF5 / #F8F9FF	Dim ve parlak yüzeyler
+onSurface	#0B1C30	Ana metin ve başlıklar (Deep Navy)
+onSurfaceVariant	#434655	İkincil metin ve placeholder
+outline	#737686	Form alanı kenarlığı ve odak dışı sınırlar
+outlineVariant	#C3C6D7	Yalnız dekoratif ayırıcılar
+inverseSurface / onInverseSurface	#213145 / #EAF1FF	Snackbar ve ters yüzey
+inversePrimary	#B4C5FF	Ters yüzey üzerindeki marka vurgusu
+surfaceTint	#0053DB	Material 3 yüzey tonu
+Fotoğraf üstü zaman hapı: zemin #0B1C30 %80, metin #FFFFFF → AppColors.mediaOverlay / mediaOverlayText.
 
 2.3 Koyu tema
-Koyu tema, teal + cream + coral marka kimliğini korur. Zemin koyu yeşil-gri; kartlar zeminden bir ton daha açık olur. Coral, koyu temada da yalnız Kayıp durumu ve dikkat vurgusu için kullanılır.
-
 Rol	Hex
-primary / onPrimary	#A9CEC2 / #173F3C
-primaryContainer / onPrimaryContainer	#245C59 / #FFFFFF
-secondary / onSecondary	#F2B49D / #58372D
-secondaryContainer / onSecondaryContainer	#754633 / #FFE8DF
-tertiary / onTertiary	#A8D0C1 / #173B34
-tertiaryContainer / onTertiaryContainer	#356F62 / #FFFFFF
+primary / onPrimary	#B4C5FF / #002A78
+primaryContainer / onPrimaryContainer	#004AC6 / #DBE1FF
+secondary / onSecondary	#FFB95F / #472A00
+secondaryContainer / onSecondaryContainer	#653E00 / #FFDDB8
+tertiary / onTertiary	#4EDEA3 / #003824
+tertiaryContainer / onTertiaryContainer	#005236 / #6FFBBE
 error / onError	#FFB4AB / #690005
 errorContainer / onErrorContainer	#93000A / #FFDAD6
-surface	#17211F
-surfaceContainerLowest	#202D2A
-surfaceContainerLow	#24332F
-surfaceContainer	#293A35
+surface	#0F141C
+surfaceContainerLowest	#141A23
+surfaceContainerLow	#1A212C
+surfaceContainer	#202733
 surfaceContainerHigh	#30433D
 surfaceContainerHighest	#394C46
 surfaceDim / surfaceBright	#121A18 / #394C46

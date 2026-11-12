@@ -1200,6 +1200,108 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Filtreler etkin'**
   String get filtersActiveTooltip;
+
+  /// No description provided for @editProfileTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Profili Düzenle'**
+  String get editProfileTitle;
+
+  /// No description provided for @editProfileSubtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'İsim ve profil fotoğrafını güncelle'**
+  String get editProfileSubtitle;
+
+  /// No description provided for @changePhoto.
+  ///
+  /// In tr, this message translates to:
+  /// **'Fotoğrafı Değiştir'**
+  String get changePhoto;
+
+  /// No description provided for @takePhoto.
+  ///
+  /// In tr, this message translates to:
+  /// **'Fotoğraf Çek'**
+  String get takePhoto;
+
+  /// No description provided for @chooseFromGallery.
+  ///
+  /// In tr, this message translates to:
+  /// **'Galeriden Seç'**
+  String get chooseFromGallery;
+
+  /// No description provided for @removePhoto.
+  ///
+  /// In tr, this message translates to:
+  /// **'Fotoğrafı Kaldır'**
+  String get removePhoto;
+
+  /// No description provided for @profileUpdatedSuccess.
+  ///
+  /// In tr, this message translates to:
+  /// **'Profilin başarıyla güncellendi.'**
+  String get profileUpdatedSuccess;
+
+  /// No description provided for @accountAndProfileSection.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hesap & Profil'**
+  String get accountAndProfileSection;
+
+  /// No description provided for @sendMessageToOwner.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlan Sahibine Mesaj Gönder'**
+  String get sendMessageToOwner;
+
+  /// No description provided for @contactSectionTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Mesaj & İletişim'**
+  String get contactSectionTitle;
+
+  /// No description provided for @contactSectionSubtitleLost.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu eşyayı bulduysanız veya bilgi vermek istiyorsanız ilan sahibine mesaj atın.'**
+  String get contactSectionSubtitleLost;
+
+  /// No description provided for @contactSectionSubtitleFound.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu eşya size aitse ilan sahibine mesaj atarak teslim alabilirsiniz.'**
+  String get contactSectionSubtitleFound;
+
+  /// No description provided for @quickMessagePlaceholder.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlan sahibine bir mesaj yazın...'**
+  String get quickMessagePlaceholder;
+
+  /// No description provided for @sendDirectMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Mesajı Gönder'**
+  String get sendDirectMessage;
+
+  /// No description provided for @ownListingNotice.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu sizin ilanınız. Kendi ilanınıza mesaj gönderemezsiniz.'**
+  String get ownListingNotice;
+
+  /// No description provided for @viewListingMessages.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlana Gelen Mesajları Gör'**
+  String get viewListingMessages;
+
+  /// No description provided for @cannotMessageOwnListing.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kendi ilanınıza mesaj gönderemezsiniz.'**
+  String get cannotMessageOwnListing;
 }
 
 class _AppLocalizationsDelegate

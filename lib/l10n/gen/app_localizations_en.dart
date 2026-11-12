@@ -604,4 +604,59 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get filtersActiveTooltip => 'Filters active';
+
+  @override
+  String get editProfileTitle => 'Edit Profile';
+
+  @override
+  String get editProfileSubtitle => 'Update your name and profile photo';
+
+  @override
+  String get changePhoto => 'Change Photo';
+
+  @override
+  String get takePhoto => 'Take Photo';
+
+  @override
+  String get chooseFromGallery => 'Choose from Gallery';
+
+  @override
+  String get removePhoto => 'Remove Photo';
+
+  @override
+  String get profileUpdatedSuccess => 'Profile updated successfully.';
+
+  @override
+  String get accountAndProfileSection => 'Account & Profile';
+
+  @override
+  String get sendMessageToOwner => 'Send Message to Owner';
+
+  @override
+  String get contactSectionTitle => 'Message & Contact';
+
+  @override
+  String get contactSectionSubtitleLost =>
+      'If you found this item or have information, send a message to the owner.';
+
+  @override
+  String get contactSectionSubtitleFound =>
+      'If this item belongs to you, send a message to the finder to claim it.';
+
+  @override
+  String get quickMessagePlaceholder => 'Write a message to the owner...';
+
+  @override
+  String get sendDirectMessage => 'Send Message';
+
+  @override
+  String get ownListingNotice =>
+      'This is your listing. You cannot message yourself.';
+
+  @override
+  String get viewListingMessages => 'View Messages for this Listing';
+
+  @override
+  String get cannotMessageOwnListing =>
+      'You cannot send a message to your own listing.';
 }

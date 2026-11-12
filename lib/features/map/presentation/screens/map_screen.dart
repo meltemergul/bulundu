@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bulundu/app/router/routes.dart';
 import 'package:bulundu/app/theme/app_spacing.dart';
+import 'package:bulundu/features/auth/providers/auth_providers.dart';
+import 'package:bulundu/features/chat/providers/chat_providers.dart';
 import 'package:bulundu/features/listings/models/listing.dart';
 import 'package:bulundu/features/listings/presentation/widgets/listing_filter_sheet.dart';
 import 'package:bulundu/features/listings/providers/listing_filter_provider.dart';
@@ -67,6 +69,10 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           }).toList();
     final foundListings = listings.where((l) => l.isFound).toList();
 
+    final currentUid = ref.watch(authStateChangesProvider).value?.uid;
+    final isOwner =
+        currentUid != null && currentUid == selectedListing?.ownerId;
+
     final previewPanel = selectedListing != null
         ? ListingPreviewSheet(
             listing: selectedListing,
@@ -74,6 +80,21 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                 ref.read(selectedMapListingProvider.notifier).select(null),
             onViewDetails: () =>
                 context.push(AppRoutes.listingDetail(selectedListing.id)),
+            onMessage: isOwner
+                ? null
+                : () async {
+                    final chatId = await ref
+                        .read(chatControllerProvider.notifier)
+                        .startOrOpenChat(selectedListing);
+                    if (!context.mounted) return;
+                    if (chatId != null) {
+                      context.push(AppRoutes.chatDetail(chatId));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(context.l10n.errorGeneric)),
+                      );
+                    }
+                  },
           )
         : null;
 

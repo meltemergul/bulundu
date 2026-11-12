@@ -243,5 +243,22 @@
   },
   "searchHint": "Search item name, keyword, brand...",
   "searchMessagesHint": "Search in messages and listings...",
-  "filtersActiveTooltip": "Filters active"
+  "filtersActiveTooltip": "Filters active",
+  "editProfileTitle": "Edit Profile",
+  "editProfileSubtitle": "Update your name and profile photo",
+  "changePhoto": "Change Photo",
+  "takePhoto": "Take Photo",
+  "chooseFromGallery": "Choose from Gallery",
+  "removePhoto": "Remove Photo",
+  "profileUpdatedSuccess": "Profile updated successfully.",
+  "accountAndProfileSection": "Account & Profile",
+  "sendMessageToOwner": "Send Message to Owner",
+  "contactSectionTitle": "Message & Contact",
+  "contactSectionSubtitleLost": "If you found this item or have information, send a message to the owner.",
+  "contactSectionSubtitleFound": "If this item belongs to you, send a message to the finder to claim it.",
+  "quickMessagePlaceholder": "Write a message to the owner...",
+  "sendDirectMessage": "Send Message",
+  "ownListingNotice": "This is your listing. You cannot message yourself.",
+  "viewListingMessages": "View Messages for this Listing",
+  "cannotMessageOwnListing": "You cannot send a message to your own listing."
 }

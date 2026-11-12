@@ -7,6 +7,7 @@ import 'package:bulundu/app/theme/app_shadows.dart';
 import 'package:bulundu/app/theme/app_spacing.dart';
 import 'package:bulundu/features/profile/providers/profile_providers.dart';
 import 'package:bulundu/shared/extensions/context_x.dart';
+import 'package:bulundu/shared/widgets/app_image.dart';
 import 'package:bulundu/shared/widgets/app_logo.dart';
 
 class AppHeader extends ConsumerWidget implements PreferredSizeWidget {
@@ -82,10 +83,10 @@ class AppHeader extends ConsumerWidget implements PreferredSizeWidget {
                             child:
                                 user?.photoUrl != null &&
                                     user!.photoUrl!.isNotEmpty
-                                ? Image.network(
-                                    user.photoUrl!,
+                                ? AppImage(
+                                    imageUrl: user.photoUrl!,
                                     fit: BoxFit.cover,
-                                    errorBuilder: (_, _, _) =>
+                                    errorWidget: (_, _, _) =>
                                         _FallbackAvatar(name: user.displayName),
                                   )
                                 : _FallbackAvatar(name: user?.displayName),

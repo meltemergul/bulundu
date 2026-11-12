@@ -8,6 +8,7 @@ import 'package:bulundu/app/router/routes.dart';
 import 'package:bulundu/app/theme/app_shadows.dart';
 import 'package:bulundu/app/theme/app_spacing.dart';
 import 'package:bulundu/features/auth/providers/auth_providers.dart';
+import 'package:bulundu/features/profile/presentation/widgets/edit_profile_dialog.dart';
 import 'package:bulundu/features/profile/providers/settings_providers.dart';
 import 'package:bulundu/shared/extensions/context_x.dart';
 import 'package:bulundu/shared/utils/breakpoints.dart';
@@ -60,6 +61,32 @@ class SettingsView extends ConsumerWidget {
       physics: physics,
       padding: const EdgeInsets.all(AppSpacing.md),
       children: [
+        // Account & Profile
+        Text(
+          l10n.accountAndProfileSection,
+          style: (textStyles.titleMedium ?? const TextStyle(fontSize: 16))
+              .copyWith(fontWeight: FontWeight.w700),
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        Container(
+          decoration: BoxDecoration(
+            color: colors.surfaceContainerLowest,
+            borderRadius: BorderRadius.circular(AppSpacing.radiusXl),
+            boxShadow: AppShadows.card(brightness),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Material(
+            color: Colors.transparent,
+            child: _SettingsTile(
+              icon: Icons.person_outline,
+              title: l10n.editProfileTitle,
+              subtitle: l10n.editProfileSubtitle,
+              onTap: () => showEditProfileModal(context),
+            ),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
+
         // Theme selection
         Text(
           l10n.themeLabel,
@@ -224,6 +251,7 @@ class _SettingsTile extends StatelessWidget {
   const _SettingsTile({
     required this.icon,
     required this.title,
+    this.subtitle,
     required this.onTap,
     this.iconColor,
     this.textColor,
@@ -231,6 +259,7 @@ class _SettingsTile extends StatelessWidget {
 
   final IconData icon;
   final String title;
+  final String? subtitle;
   final VoidCallback onTap;
   final Color? iconColor;
   final Color? textColor;
@@ -263,6 +292,12 @@ class _SettingsTile extends StatelessWidget {
           fontSize: 14,
         ),
       ),
+      subtitle: subtitle != null
+          ? Text(
+              subtitle!,
+              style: TextStyle(color: colors.onSurfaceVariant, fontSize: 12),
+            )
+          : null,
       trailing: const Icon(Icons.chevron_right, size: 20),
       onTap: onTap,
     );

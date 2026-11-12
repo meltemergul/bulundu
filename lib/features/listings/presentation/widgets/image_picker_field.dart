@@ -55,9 +55,8 @@ class _ImagePickerFieldState extends State<ImagePickerField> {
       if (rawBytes.isEmpty) {
         if (mounted) {
           setState(() => _isProcessing = false);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(l10n.errorGeneric)),
-          );
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(l10n.errorGeneric)));
         }
         return;
       }
@@ -65,15 +64,12 @@ class _ImagePickerFieldState extends State<ImagePickerField> {
       final processedBytes = await _optimizeImageBytes(rawBytes);
 
       if (mounted) {
-        widget.onAddImage(
-          PickedImageItem(file: picked, bytes: processedBytes),
-        );
+        widget.onAddImage(PickedImageItem(file: picked, bytes: processedBytes));
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Fotoğraf eklenemedi: $e')),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Fotoğraf eklenemedi: $e')));
       }
     } finally {
       if (mounted) {
@@ -83,7 +79,8 @@ class _ImagePickerFieldState extends State<ImagePickerField> {
   }
 
   static Future<Uint8List> _optimizeImageBytes(Uint8List bytes) async {
-    const maxAllowedBytes = 80 * 1024; // 80 KB limit for fast Firestore inline storage
+    const maxAllowedBytes =
+        80 * 1024; // 80 KB limit for fast Firestore inline storage
     if (bytes.lengthInBytes <= maxAllowedBytes) {
       return bytes;
     }
@@ -182,15 +179,17 @@ class _ImagePickerFieldState extends State<ImagePickerField> {
             runSpacing: AppSpacing.sm,
             children: [
               OutlinedButton.icon(
-                onPressed:
-                    _isProcessing ? null : () => _pick(ImageSource.gallery),
+                onPressed: _isProcessing
+                    ? null
+                    : () => _pick(ImageSource.gallery),
                 icon: const Icon(Icons.photo_library_outlined),
                 label: Text(l10n.addPhotoGallery),
               ),
               if (supportsCamera)
                 OutlinedButton.icon(
-                  onPressed:
-                      _isProcessing ? null : () => _pick(ImageSource.camera),
+                  onPressed: _isProcessing
+                      ? null
+                      : () => _pick(ImageSource.camera),
                   icon: const Icon(Icons.photo_camera_outlined),
                   label: Text(l10n.addPhotoCamera),
                 ),

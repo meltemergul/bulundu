@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:bulundu/app/router/routes.dart';
 import 'package:bulundu/app/theme/app_shadows.dart';
 import 'package:bulundu/app/theme/app_spacing.dart';
+import 'package:bulundu/features/auth/providers/auth_providers.dart';
+import 'package:bulundu/features/chat/providers/chat_providers.dart';
+import 'package:bulundu/features/listings/models/listing.dart';
 import 'package:bulundu/features/listings/presentation/widgets/category_chip_bar.dart';
 import 'package:bulundu/features/listings/presentation/widgets/listing_card.dart';
 import 'package:bulundu/features/listings/presentation/widgets/listing_filter_sheet.dart';
@@ -32,6 +35,25 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  Future<void> _onCardAction(Listing listing) async {
+    final currentUid = ref.read(authStateChangesProvider).value?.uid;
+    if (currentUid == listing.ownerId) {
+      context.push(AppRoutes.listingDetail(listing.id));
+      return;
+    }
+
+    final chatId = await ref
+        .read(chatControllerProvider.notifier)
+        .startOrOpenChat(listing);
+    if (!mounted) return;
+    if (chatId != null) {
+      context.push(AppRoutes.chatDetail(chatId));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(context.l10n.errorGeneric)));
+    }
   }
 
   @override
@@ -271,6 +293,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                                   onTap: () => context.push(
                                     AppRoutes.listingDetail(item.id),
                                   ),
+                                  onActionTap: () => _onCardAction(item),
                                 );
                               },
                             );
@@ -295,6 +318,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                                 onTap: () => context.push(
                                   AppRoutes.listingDetail(item.id),
                                 ),
+                                onActionTap: () => _onCardAction(item),
                               );
                             },
                           );

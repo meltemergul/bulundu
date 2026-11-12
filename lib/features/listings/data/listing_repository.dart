@@ -66,8 +66,9 @@ class ListingRepository {
       i++
     ) {
       final index = uploadedUrls.length;
-      final imageBytes =
-          i < draft.newImageBytes.length ? draft.newImageBytes[i] : null;
+      final imageBytes = i < draft.newImageBytes.length
+          ? draft.newImageBytes[i]
+          : null;
       try {
         final url = await imageStorage.upload(
           uid: ownerId,
@@ -116,8 +117,9 @@ class ListingRepository {
       i++
     ) {
       final index = uploadedUrls.length;
-      final imageBytes =
-          i < draft.newImageBytes.length ? draft.newImageBytes[i] : null;
+      final imageBytes = i < draft.newImageBytes.length
+          ? draft.newImageBytes[i]
+          : null;
       try {
         final url = await imageStorage.upload(
           uid: ownerId,

@@ -26,24 +26,24 @@ class ListingTypeBadge extends StatelessWidget {
       bool isResolved,
     ) = status == ListingStatus.resolved
         ? (
-            colors.tertiaryContainer,
-            colors.onTertiaryContainer,
+            colors.tertiaryFixed,
+            colors.tertiary,
             colors.tertiary,
             'TESLİM EDİLDİ',
             true,
           )
         : switch (type) {
             ListingType.lost => (
-              colors.secondaryContainer,
-              colors.onSecondaryContainer,
+              colors.secondaryFixed,
               colors.secondary,
+              colors.secondaryContainer,
               'KAYIP',
               false,
             ),
             ListingType.found => (
-              colors.primaryContainer,
-              colors.onPrimaryContainer,
+              colors.primaryFixed,
               colors.primary,
+              colors.primaryContainer,
               'BULUNDU',
               false,
             ),
@@ -52,7 +52,7 @@ class ListingTypeBadge extends StatelessWidget {
     return Container(
       constraints: const BoxConstraints(minHeight: 24),
       padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.sm,
+        horizontal: AppSpacing.sm + 2,
         vertical: 3,
       ),
       decoration: BoxDecoration(
@@ -63,7 +63,7 @@ class ListingTypeBadge extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (isResolved)
-            Icon(Icons.check_circle, size: 14, color: fg)
+            Icon(Icons.check_circle_rounded, size: 14, color: fg)
           else
             Container(
               width: 6,

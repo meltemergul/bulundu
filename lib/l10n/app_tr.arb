@@ -243,5 +243,22 @@
   },
   "searchHint": "Eşya adı, anahtar kelime, marka ara...",
   "searchMessagesHint": "Mesajlarda ve ilanlarda ara...",
-  "filtersActiveTooltip": "Filtreler etkin"
+  "filtersActiveTooltip": "Filtreler etkin",
+  "editProfileTitle": "Profili Düzenle",
+  "editProfileSubtitle": "İsim ve profil fotoğrafını güncelle",
+  "changePhoto": "Fotoğrafı Değiştir",
+  "takePhoto": "Fotoğraf Çek",
+  "chooseFromGallery": "Galeriden Seç",
+  "removePhoto": "Fotoğrafı Kaldır",
+  "profileUpdatedSuccess": "Profilin başarıyla güncellendi.",
+  "accountAndProfileSection": "Hesap & Profil",
+  "sendMessageToOwner": "İlan Sahibine Mesaj Gönder",
+  "contactSectionTitle": "Mesaj & İletişim",
+  "contactSectionSubtitleLost": "Bu eşyayı bulduysanız veya bilgi vermek istiyorsanız ilan sahibine mesaj atın.",
+  "contactSectionSubtitleFound": "Bu eşya size aitse ilan sahibine mesaj atarak teslim alabilirsiniz.",
+  "quickMessagePlaceholder": "İlan sahibine bir mesaj yazın...",
+  "sendDirectMessage": "Mesajı Gönder",
+  "ownListingNotice": "Bu sizin ilanınız. Kendi ilanınıza mesaj gönderemezsiniz.",
+  "viewListingMessages": "İlana Gelen Mesajları Gör",
+  "cannotMessageOwnListing": "Kendi ilanınıza mesaj gönderemezsiniz."
 }

@@ -12,5 +12,5 @@ BULUNDU PRIVACY POLICY (Version 1)
 Users can delete their account at any time inside the app (Profile -> Settings -> Delete account). Deleting an account permanently removes the user's listings, photos, sent messages, and profile. Submitted moderation reports are retained for legitimate security interests.
 
 4. Your Rights and Contact
-You can exercise your rights to access, rectify, or delete your data via in-app tools or by contacting  @destek.bulundu@gmail.com
+You can exercise your rights to access, rectify, or delete your data via in-app tools or by contacting  destek.bulundu@gmail.com
 

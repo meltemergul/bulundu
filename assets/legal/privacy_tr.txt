@@ -12,5 +12,5 @@ BULUNDU GİZLİLİK POLİTİKASI (Sürüm 1)
 Kullanıcılar uygulama içinden (Profil -> Ayarlar -> Hesabı sil) hesaplarını istedikleri zaman silebilir. Hesap silindiğinde kullanıcının ilanları, fotoğrafları, gönderdiği mesajlar ve profili kalıcı olarak silinir. Gönderilmiş şikayet kayıtları meşru çıkar ve güvenlik gereği saklanır.
 
 4. KVKK ve Haklarınız
-Verilerinize erişme, düzeltme ve silme haklarınız için uygulama içi araçları kullanabilir veya  @destek.bulundu@gmail.com adresinden bize ulaşabilirsiniz.
+Verilerinize erişme, düzeltme ve silme haklarınız için uygulama içi araçları kullanabilir veya  destek.bulundu@gmail.com adresinden bize ulaşabilirsiniz.
 

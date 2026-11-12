@@ -26,8 +26,7 @@ class ListingMapMarker extends StatelessWidget {
     final bgColor = isLost
         ? colors.secondaryContainer
         : colors.primaryContainer;
-    final fgColor =
-        isLost ? colors.onSecondaryContainer : colors.onPrimaryContainer;
+    const fgColor = Colors.white;
     final icon = listing.category.iconData;
 
     final bodySize = isSelected ? 44.0 : 36.0;

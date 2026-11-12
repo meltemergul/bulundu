@@ -22,13 +22,14 @@ class AppImage extends StatelessWidget {
   final double? height;
   final Widget Function(BuildContext context, String url)? placeholder;
   final Widget Function(BuildContext context, String url, dynamic error)?
-      errorWidget;
+  errorWidget;
 
   static Uint8List? decodeDataUri(String uri) {
     try {
       final commaIndex = uri.indexOf(',');
-      final base64String =
-          commaIndex != -1 ? uri.substring(commaIndex + 1) : uri;
+      final base64String = commaIndex != -1
+          ? uri.substring(commaIndex + 1)
+          : uri;
       return base64Decode(base64String.replaceAll(RegExp(r'\s+'), ''));
     } catch (_) {
       return null;
@@ -74,4 +75,3 @@ class AppImage extends StatelessWidget {
     );
   }
 }
-

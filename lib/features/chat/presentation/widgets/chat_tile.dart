@@ -38,12 +38,10 @@ class ChatTile extends ConsumerWidget {
     final locale = Localizations.localeOf(context).toString();
     final timeStr = AppDateFormat.formatTime(chat.updatedAt, locale);
 
-    // Listing badge style in chat tile (DESIGN.md §2.5)
+    // Listing badge style in chat tile (Civic Beacon status pill)
     final isFound = chat.listingType == 'found';
-    final badgeBg =
-        isFound ? colors.primaryContainer : colors.secondaryContainer;
-    final badgeFg =
-        isFound ? colors.onPrimaryContainer : colors.onSecondaryContainer;
+    final badgeBg = isFound ? colors.primaryFixed : colors.secondaryFixed;
+    final badgeFg = isFound ? colors.primary : colors.secondary;
     final badgeIcon = isFound ? Icons.inventory_2_outlined : Icons.crisis_alert;
     final badgePrefix = isFound ? l10n.listingTypeFound : l10n.listingTypeLost;
 

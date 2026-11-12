@@ -9,6 +9,7 @@ import 'package:bulundu/features/chat/providers/chat_providers.dart';
 import 'package:bulundu/features/listings/models/listing.dart';
 import 'package:bulundu/features/listings/presentation/widgets/category_chip_bar.dart';
 import 'package:bulundu/features/listings/presentation/widgets/listing_card.dart';
+import 'package:bulundu/features/listings/presentation/widgets/listing_contact_section.dart';
 import 'package:bulundu/features/listings/presentation/widgets/listing_type_badge.dart';
 import 'package:bulundu/features/listings/providers/listing_form_controller.dart';
 import 'package:bulundu/features/listings/providers/listing_providers.dart';
@@ -77,6 +78,14 @@ class ListingDetailScreen extends ConsumerWidget {
     WidgetRef ref,
     Listing listing,
   ) async {
+    final currentUid = ref.read(authStateChangesProvider).value?.uid;
+    if (currentUid == listing.ownerId) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.l10n.cannotMessageOwnListing)),
+      );
+      return;
+    }
+
     final chatId = await ref
         .read(chatControllerProvider.notifier)
         .startOrOpenChat(listing);
@@ -344,6 +353,10 @@ class ListingDetailScreen extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.md),
+
+                    // Dedicated Message & Contact Section
+                    ListingContactSection(listing: listing, isOwner: isOwner),
+                    const SizedBox(height: AppSpacing.md),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
                       child: SizedBox(
@@ -458,31 +471,14 @@ class ListingDetailScreen extends ConsumerWidget {
                         ],
                       ),
                     ] else if (!listing.isResolved) ...[
-                      listing.isLost
-                          ? FilledButton.icon(
-                              style: FilledButton.styleFrom(
-                                minimumSize: const Size.fromHeight(48),
-                                backgroundColor: colors.primaryContainer,
-                                foregroundColor: colors.onPrimary,
-                              ),
-                              icon: const Icon(Icons.chat_bubble_outline),
-                              label: Text(l10n.foundThisButton),
-                              onPressed: chatState.isLoading
-                                  ? null
-                                  : () => _startChat(context, ref, listing),
-                            )
-                          : FilledButton.icon(
-                              style: FilledButton.styleFrom(
-                                minimumSize: const Size.fromHeight(48),
-                                backgroundColor: colors.tertiaryContainer,
-                                foregroundColor: colors.onTertiary,
-                              ),
-                              icon: const Icon(Icons.handshake_outlined),
-                              label: Text(l10n.thisIsMineButton),
-                              onPressed: chatState.isLoading
-                                  ? null
-                                  : () => _startChat(context, ref, listing),
-                            ),
+                      AppButton(
+                        label: listing.isLost
+                            ? '${l10n.foundThisButton} · ${l10n.sendMessageToOwner}'
+                            : '${l10n.thisIsMineButton} · ${l10n.sendMessageToOwner}',
+                        icon: Icons.chat_bubble_outline,
+                        isLoading: chatState.isLoading,
+                        onPressed: () => _startChat(context, ref, listing),
+                      ),
                     ],
                     if (similar.isNotEmpty) ...[
                       const SizedBox(height: AppSpacing.xl),

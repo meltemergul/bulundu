@@ -604,4 +604,59 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get filtersActiveTooltip => 'Filtreler etkin';
+
+  @override
+  String get editProfileTitle => 'Profili Düzenle';
+
+  @override
+  String get editProfileSubtitle => 'İsim ve profil fotoğrafını güncelle';
+
+  @override
+  String get changePhoto => 'Fotoğrafı Değiştir';
+
+  @override
+  String get takePhoto => 'Fotoğraf Çek';
+
+  @override
+  String get chooseFromGallery => 'Galeriden Seç';
+
+  @override
+  String get removePhoto => 'Fotoğrafı Kaldır';
+
+  @override
+  String get profileUpdatedSuccess => 'Profilin başarıyla güncellendi.';
+
+  @override
+  String get accountAndProfileSection => 'Hesap & Profil';
+
+  @override
+  String get sendMessageToOwner => 'İlan Sahibine Mesaj Gönder';
+
+  @override
+  String get contactSectionTitle => 'Mesaj & İletişim';
+
+  @override
+  String get contactSectionSubtitleLost =>
+      'Bu eşyayı bulduysanız veya bilgi vermek istiyorsanız ilan sahibine mesaj atın.';
+
+  @override
+  String get contactSectionSubtitleFound =>
+      'Bu eşya size aitse ilan sahibine mesaj atarak teslim alabilirsiniz.';
+
+  @override
+  String get quickMessagePlaceholder => 'İlan sahibine bir mesaj yazın...';
+
+  @override
+  String get sendDirectMessage => 'Mesajı Gönder';
+
+  @override
+  String get ownListingNotice =>
+      'Bu sizin ilanınız. Kendi ilanınıza mesaj gönderemezsiniz.';
+
+  @override
+  String get viewListingMessages => 'İlana Gelen Mesajları Gör';
+
+  @override
+  String get cannotMessageOwnListing =>
+      'Kendi ilanınıza mesaj gönderemezsiniz.';
 }

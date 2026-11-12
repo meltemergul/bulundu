@@ -10,11 +10,13 @@ class ListingPreviewSheet extends StatelessWidget {
     super.key,
     required this.listing,
     required this.onViewDetails,
+    this.onMessage,
     required this.onClose,
   });
 
   final Listing listing;
   final VoidCallback onViewDetails;
+  final VoidCallback? onMessage;
   final VoidCallback onClose;
 
   @override
@@ -79,7 +81,29 @@ class ListingPreviewSheet extends StatelessWidget {
               ),
             ],
             const SizedBox(height: AppSpacing.md),
-            AppButton(label: l10n.viewDetailsButton, onPressed: onViewDetails),
+            Row(
+              children: [
+                Expanded(
+                  child: AppButton(
+                    label: l10n.viewDetailsButton,
+                    variant: onMessage != null
+                        ? AppButtonVariant.secondary
+                        : AppButtonVariant.primary,
+                    onPressed: onViewDetails,
+                  ),
+                ),
+                if (onMessage != null) ...[
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: AppButton(
+                      label: l10n.cardActionMessage,
+                      icon: Icons.chat_bubble_outline,
+                      onPressed: onMessage,
+                    ),
+                  ),
+                ],
+              ],
+            ),
           ],
         ),
       ),

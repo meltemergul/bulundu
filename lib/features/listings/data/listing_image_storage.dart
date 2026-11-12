@@ -19,7 +19,8 @@ class ListingImageStorage {
     Uint8List? bytes,
   }) async {
     final uploadBytes = bytes ?? await file.readAsBytes();
-    final isPng = uploadBytes.length >= 8 &&
+    final isPng =
+        uploadBytes.length >= 8 &&
         uploadBytes[0] == 0x89 &&
         uploadBytes[1] == 0x50 &&
         uploadBytes[2] == 0x4E &&
